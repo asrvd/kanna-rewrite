@@ -8,7 +8,7 @@ import pyrebase
 import datetime
 
 gi=[843823778755641344]
-firebaseconfig={"apiKey": "AIzaSyByIdus4FfFLS9Mkz3GlfdNVkiQqUq1tWg", "authDomain": "kanna-chan-58753.firebaseapp.com", "databaseURL": "https://kanna-chan-58753-default-rtdb.firebaseio.com/","projectId": "kanna-chan-58753","storageBucket": "kanna-chan-58753.appspot.com","messagingSenderId": "929783624964","appId": "1:929783624964:web:67597cccee195c76128c51","measurementId": "G-MC9TY7G2E2"}
+firebaseconfig=...
 firebase = pyrebase.initialize_app(firebaseconfig)
 db = firebase.database()
 
