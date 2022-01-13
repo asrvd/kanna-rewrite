@@ -16,8 +16,7 @@ class Avatar(commands.Cog):
 
     @slash_command(
         name="av",
-        description="Get a user's Default Avatar or Shared Avatar of 2 users.",
-        guild_ids=gi
+        description="Get a user's Default Avatar or Shared Avatar of 2 users."
     )
     async def av(self, ctx, user1:discord.User=None, user2:discord.User=None):
         if user1 is None and user2 is None:

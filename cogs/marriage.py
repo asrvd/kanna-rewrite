@@ -225,8 +225,7 @@ class Button(commands.Cog):
 
     @slash_command(
         name="marry", 
-        description="Virtually marry a person uwu", 
-        guild_ids=gi
+        description="Virtually marry a person uwu"
     )
     async def s(self, ctx, u:discord.User):
         if u == ctx.author:
@@ -247,8 +246,7 @@ class Button(commands.Cog):
     
     @slash_command(
         name="marriage",
-        description="See anyone's marriage status.",
-        guild_ids=gi
+        description="See anyone's marriage status."
     )
     async def marriage(self, ctx, user:discord.User=None):
         user = ctx.author if user is None else user
@@ -276,8 +274,7 @@ class Button(commands.Cog):
 
     @slash_command(
         name="date",
-        description="Date your partner to get hearts!",
-        guild_ids=gi
+        description="Date your partner to get hearts!"
     )
     async def date(self, ctx, partner: discord.User):
         if check_partner(ctx.author.id, partner.id):
@@ -303,8 +300,7 @@ class Button(commands.Cog):
 
     @slash_command(
         name = "divorce",
-        description = "Divorce with your partner cus why not.",
-        guild_ids = gi
+        description = "Divorce with your partner cus why not."
     )
     async def divorce(self, ctx, partner:discord.User):
         if check_partner(ctx.author.id, partner.id):

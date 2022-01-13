@@ -38,8 +38,7 @@ class Image(commands.Cog):
 
     @slash_command(
         name="meow", 
-        description="Get random catto image nya~", 
-        guild_ids=gi
+        description="Get random catto image nya~"
     )
     async def meow(self, ctx):
         res = requests.get("https://api.thecatapi.com/v1/images/search")
@@ -48,8 +47,7 @@ class Image(commands.Cog):
 
     @slash_command(
         name="woof",
-        description="Get random doggo image nya~", 
-        guild_ids=gi
+        description="Get random doggo image nya~"
     )
     async def woof(self, ctx):
         res = requests.get("https://api.thedogapi.com/v1/images/search")

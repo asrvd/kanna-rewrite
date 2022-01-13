@@ -51,8 +51,7 @@ class Response(commands.Cog):
 
     @slash_command(
         name="simp",
-        description="Simp on any user by sending a Pick Up Line 😳",
-        guild_ids=gi
+        description="Simp on any user by sending a Pick Up Line 😳"
     )
     async def simp(self, ctx, user:discord.User):
         await ctx.defer()
@@ -65,8 +64,7 @@ class Response(commands.Cog):
 
     @slash_command(
         name="dadjoke",
-        description="Get a random DadJoke!",
-        guild_ids=gi
+        description="Get a random DadJoke!"
     )
     async def dadjoke(self, ctx):
         headers= {"Authorization" : f"Bearer {token}"}
@@ -78,8 +76,7 @@ class Response(commands.Cog):
 
     @slash_command(
         name="roast",
-        description="Roast any user!",
-        guild_ids=gi
+        description="Roast any user!"
     )
     async def roast(self, ctx, user:discord.User=None):
         user = ctx.author if user is None else user
@@ -92,8 +89,7 @@ class Response(commands.Cog):
 
     @slash_command(
         name="uwuify",
-        description="Turn your text to uwu one :3",
-        guild_ids=gi
+        description="Turn your text to uwu one :3"
     )
     async def uwuify(self, ctx, text:str):
         await ctx.respond(uwuify.uwu(text))

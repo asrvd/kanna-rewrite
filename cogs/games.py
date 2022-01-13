@@ -251,8 +251,7 @@ class Games(commands.Cog):
 
     @slash_command(
         name="rps",
-        description="Classic RPS game using Buttons.",
-        guild_ids=gi
+        description="Classic RPS game using Buttons."
     )
     async def rps(self, ctx):
         choice_bot = random.choice(["r", "s", "p"])
@@ -262,8 +261,7 @@ class Games(commands.Cog):
 
     @slash_command(
         name="ship",
-        description="Ship yourself with other users and get cancelled UwU",
-        guild_ids=gi
+        description="Ship yourself with other users and get cancelled UwU"
     )
     async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):
         if user1 is None and user2 is None:
@@ -295,8 +293,7 @@ class Games(commands.Cog):
 
     @slash_command(
         name="f",
-        description="Pay respect to a User or Anything!",
-        guild_ids=gi
+        description="Pay respect to a User or Anything!"
     )
     async def f(
         self, ctx,
@@ -314,8 +311,7 @@ class Games(commands.Cog):
         
     @slash_command(
         name="gte",
-        description="Play a game of Guess the Emote with a friend.",
-        guild_ids=gi
+        description="Play a game of Guess the Emote with a friend."
     )
     async def gte(self, ctx, user:discord.User):
         if user == ctx.author:

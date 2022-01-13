@@ -13,8 +13,7 @@ class Card(commands.Cog):
     
     @slash_command(
         name="simpcard",
-        description="Make a SimpCard (verified) for any person or thing UwU",
-        guild_ids=gi
+        description="Make a SimpCard (verified) for any person or thing UwU"
     )
     async def simpcard(self, ctx, user:Option(discord.User, "Choose this for User.", required=False), other:Option(str, "Choose this for any other thing to simp on.", required=False)):
         if user is not None and other is not None:
@@ -45,8 +44,7 @@ class Card(commands.Cog):
 
     @slash_command(
         name="uwucard",
-        description="Create an UwUCard to show your love for a person UwU",
-        guild_ids=gi
+        description="Create an UwUCard to show your love for a person UwU"
     )
     async def uwucard(self, ctx, user:discord.User=None):
         user = ctx.author if user is None else user
@@ -69,8 +67,7 @@ class Card(commands.Cog):
 
     @slash_command(
         name="gaycard",
-        description="Create a Verfied Gay Card for you :flushed:",
-        guild_ids=gi
+        description="Create a Verfied Gay Card for you :flushed:"
     )
     async def gaycard(self, ctx):
         await ctx.defer()

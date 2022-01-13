@@ -59,8 +59,7 @@ class Util(commands.Cog):
 
     @slash_command(
         name="define",
-        description="Define any word using Urban Dictionary.",
-        guild_ids=gi
+        description="Define any word using Urban Dictionary."
     )
     async def define(self, ctx, query: str):
         if query == None:
@@ -92,8 +91,7 @@ class Util(commands.Cog):
     
     @slash_command(
         name="lyrics",
-        description="Get the lyrics of any Song!",
-        guild_ids=gi
+        description="Get the lyrics of any Song!"
     )
     async def lyrics(self, ctx, song:str):
         await ctx.defer()
@@ -113,8 +111,7 @@ class Util(commands.Cog):
 
     @slash_command(
         name="anime",
-        description="Get info about any anime.",
-        guild_ids=gi
+        description="Get info about any anime."
     )
     async def anime(self, ctx, *, name:str):
         emb = await get_anime_info(arg=name, user=ctx.author)

@@ -53,8 +53,7 @@ class Meme(commands.Cog):
     
     @slash_command(
         name = "headpat",
-        description = "Generates a HeadPat GIF using avatar",
-        guild_ids=gi,
+        description = "Generates a HeadPat GIF using avatar"
     )
     async def headpat(self, ctx, user: discord.User = None):
         if user is None:
@@ -70,8 +69,7 @@ class Meme(commands.Cog):
 
     @slash_command(
         name="meme",
-        description="Get a random meme.",
-        guild_ids=gi
+        description="Get a random meme."
     )
     async def meme(self, ctx):
         embed=discord.Embed(title="Meme")
@@ -84,8 +82,7 @@ class Meme(commands.Cog):
 
     @slash_command(
         name="triggered",
-        description="Make a Triggered GIF using any user's avatar",
-        guild_ids=gi
+        description="Make a Triggered GIF using any user's avatar"
     )
     async def triggered(self, ctx, user:discord.User=None):
         user = ctx.author if user is None else user
@@ -98,8 +95,7 @@ class Meme(commands.Cog):
 
     @slash_command(
         name="gay",
-        description="Turn anyone's avatar to GAY",
-        guild_ids=gi
+        description="Turn anyone's avatar to GAY"
     )
     async def gay(self, ctx, user:discord.User=None):
         user = ctx.author if user is None else user
@@ -110,7 +106,7 @@ class Meme(commands.Cog):
         file = discord.File(dest, filename="gay.png")
         await ctx.respond(file=file)
 
-    meme = SlashCommandGroup("meme", "meme commands", [927146284542992414, 876798564704084008, 843823778755641344])
+    meme = SlashCommandGroup("meme", "meme commands")
 
     @meme.command()
     async def eject(self, ctx, user:discord.User=None):

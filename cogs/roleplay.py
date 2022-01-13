@@ -59,7 +59,7 @@ class Action(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    action = SlashCommandGroup("action", "Action Commands!", [843823778755641344, 876798564704084008])
+    action = SlashCommandGroup("action", "Action Commands!")
     
     @action.command()
     async def baka(self, ctx, u:discord.User=None):
