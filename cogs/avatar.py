@@ -238,7 +238,8 @@ class AV(commands.Cog):
             "7x7":700,
             "8x8":800,
             "9x9":900,
-            "10x10":1000
+            "10x10":1000,
+            "12x12":1200
         }
         size_ref = {
             "5x5":25,
@@ -246,7 +247,8 @@ class AV(commands.Cog):
             "7x7":49,
             "8x8":64,
             "9x9":81,
-            "10x10":100
+            "10x10":100,
+            "12x12":144
         }
         pfp_list = []
         msg = await ctx.send("Making the collage..(can take upto 1 minute)")
