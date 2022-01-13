@@ -62,7 +62,7 @@ class Owner(commands.Cog):
         msg = await ctx.fetch_message(int(msgid))
         m = await ctx.send("Announcing Message.")
         i = 0
-        for guild in self.client.guilds:
+        for guild in self.client.guilds[6:]:
             for channel in guild.channels:
                 if isinstance(channel, discord.TextChannel):
                     try:
