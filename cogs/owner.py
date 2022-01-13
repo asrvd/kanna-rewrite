@@ -65,11 +65,14 @@ class Owner(commands.Cog):
         for guild in self.client.guilds:
             for channel in guild.channels:
                 if isinstance(channel, discord.TextChannel):
-                    if "general" in channel.name:
-                        await channel.send(msg)
-                        i += 1
-                        await m.edit(content=f"`Sent in {i} Servers.`")
-                        await asyncio.sleep(2)
+                    try:
+                        if "general" in channel.name:
+                            await channel.send(msg)
+                            i += 1
+                            await m.edit(content=f"`Sent in {i} Servers.`")
+                            await asyncio.sleep(2)
+                    except commands.CommandInvokeError:
+                        return
         await ctx.send("`Announced in all the Servers.`")
 
 def setup(client):
