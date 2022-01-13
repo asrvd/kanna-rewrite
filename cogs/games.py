@@ -80,16 +80,16 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
-            if self.choice1 is self.choice2:
+            if self.choice1 == self.choice2:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {button.emoji}!", view=self)
+                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
                 self.choice1=None
                 self.choice2=None
             else:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {button.emoji}!", view=self)
+                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
                 self.choice1=None
                 self.choice2=None
 
@@ -103,16 +103,16 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
-            if self.choice1 is self.choice2:
+            if self.choice1 == self.choice2:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {button.emoji}!", view=self)
+                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
                 self.choice1=None
                 self.choice2=None
             else:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {button.emoji}!", view=self)
+                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
                 self.choice1=None
                 self.choice2=None
 
@@ -126,16 +126,16 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
-            if self.choice1 is self.choice2:
+            if self.choice1 == self.choice2:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {button.emoji}!", view=self)
+                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
                 self.choice1=None
                 self.choice2=None
             else:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {button.emoji}!", view=self)
+                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
                 self.choice1=None
                 self.choice2=None
 
