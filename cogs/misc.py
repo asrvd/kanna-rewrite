@@ -63,7 +63,7 @@ class Misc(commands.Cog):
         user = ctx.author if user is None else user
         if user.guild_avatar is None:
             print("trueee")
-        desc = f"**-꒰ Instructions ꒱-**\n{cont2} ❀ Username: `{user}`\n{cont2} ❀ Nickname: `{user.display_name}`\n{cont2} ❀ ID: `{user.id}`\n{cont2} ❀ Joined Discord: {get_unix(user.created_at)}\n{cont2} ❀ Joined Server: {get_unix(user.joined_at)}\n{cont2} ❀ Is Bot: `{'Yes' if user.bot else 'No'}`\n{cont2} ❀ Top Role: {user.top_role.mention}\n{cont} ❀ Guild Avatar: {f'[`Click Here`]({user.guild_avatar.url})' if user.guild_avatar is not None else '`None`'}"
+        desc = f"**-꒰ Member Info ꒱-**\n{cont2} ❀ Username: `{user}`\n{cont2} ❀ Nickname: `{user.display_name}`\n{cont2} ❀ ID: `{user.id}`\n{cont2} ❀ Joined Discord: {get_unix(user.created_at)}\n{cont2} ❀ Joined Server: {get_unix(user.joined_at)}\n{cont2} ❀ Is Bot: `{'Yes' if user.bot else 'No'}`\n{cont2} ❀ Top Role: {user.top_role.mention}\n{cont} ❀ Guild Avatar: {f'[`Click Here`]({user.guild_avatar.url})' if user.guild_avatar is not None else '`None`'}"
         emb = discord.Embed(description=desc, color=ec)
         emb.set_author(
             name=f"Showing Info for {user}",
