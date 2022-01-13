@@ -21,7 +21,7 @@ class Card(commands.Cog):
             await ctx.respond("You need to select any one of `User` or `Other`!", ephemeral=True)
             return
         q = user.name if user is not None and other is None else other
-        bg = Image.open("images/assets/simp.png")
+        bg = Image.open("./images/assets/simp.png")
         font = ImageFont.truetype("fonts/roboto.ttf", 24)
         auth = ctx.author
         asset = auth.display_avatar.with_size(256)
@@ -33,8 +33,8 @@ class Card(commands.Cog):
         draw = ImageDraw.Draw(bg)
         draw.text((395, 172), nick, (0, 0, 0), font=font)
         draw.text((51, 349), q, (0, 0, 0), font=font)
-        bg.save(f"images/generated/simp{ctx.author.id}.png")
-        file = discord.File(f"images/generated/simp{ctx.author.id}.png")
+        bg.save(f"./images/generated/simp{ctx.author.id}.png")
+        file = discord.File(f"./images/generated/simp{ctx.author.id}.png")
         embed = discord.Embed(description=f"{ctx.author.mention} Here is your verified Simp Card.", color=0x2e69f2)
         embed.set_image(url=f"attachment://simp{ctx.author.id}.png")
         embed.set_footer(
@@ -57,8 +57,8 @@ class Card(commands.Cog):
         pfp = Image.open(data).convert('RGBA')
         pfp = pfp.resize((181, 201))
         bg.paste(pfp, (35, 121))
-        bg.save(f"images/generated/uwu{ctx.author.id}.png")
-        file = discord.File(f"images/generated/uwu{ctx.author.id}.png")
+        bg.save(f"./images/generated/uwu{ctx.author.id}.png")
+        file = discord.File(f"./images/generated/uwu{ctx.author.id}.png")
         embed = discord.Embed(description=f"{user.mention} you make {ctx.author.mention} happy uwu.", color=0x2e69f2)
         embed.set_image(url=f"attachment://uwu{ctx.author.id}.png")
         embed.set_footer(
@@ -85,8 +85,8 @@ class Card(commands.Cog):
         bg.paste(pfp, (76, 165))
         draw = ImageDraw.Draw(bg)
         draw.text((368, 193), nick, (0, 0, 0), font=font)
-        bg.save(f"images/generated/gay{auth.id}.png")
-        file = discord.File(f"images/generated/gay{auth.id}.png")
+        bg.save(f"./images/generated/gay{auth.id}.png")
+        file = discord.File(f"./images/generated/gay{auth.id}.png")
         embed = discord.Embed(description=f"{ctx.author.mention} Here is your verified Gay Card.", color=0x2e69f2)
         embed.set_image(url=f"attachment://gay{auth.id}.png")
         embed.set_footer(
@@ -112,8 +112,8 @@ class NCards(commands.Cog):
         bg.paste(pfp, (76, 165))
         draw = ImageDraw.Draw(bg)
         draw.text((368, 193), nick, (0, 0, 0), font=font)
-        bg.save(f"images/generated/gay{auth.id}.png")
-        file = discord.File(f"images/generated/gay{auth.id}.png")
+        bg.save(f"./images/generated/gay{auth.id}.png")
+        file = discord.File(f"./images/generated/gay{auth.id}.png")
         embed = discord.Embed(description=f"{ctx.author.mention} Here is your verified Gay Card.", color=0x2e69f2)
         embed.set_image(url=f"attachment://gay{auth.id}.png")
         embed.set_footer(
@@ -131,8 +131,8 @@ class NCards(commands.Cog):
         pfp = Image.open(data).convert('RGBA')
         pfp = pfp.resize((181, 201))
         bg.paste(pfp, (35, 121))
-        bg.save(f"images/generated/uwu{ctx.author.id}.png")
-        file = discord.File(f"images/generated/uwu{ctx.author.id}.png")
+        bg.save(f"./images/generated/uwu{ctx.author.id}.png")
+        file = discord.File(f"./images/generated/uwu{ctx.author.id}.png")
         embed = discord.Embed(description=f"{user.mention} you make {ctx.author.mention} happy uwu.", color=0x2e69f2)
         embed.set_image(url=f"attachment://uwu{ctx.author.id}.png")
         embed.set_footer(
@@ -161,8 +161,8 @@ class NCards(commands.Cog):
         draw = ImageDraw.Draw(bg)
         draw.text((395, 172), str(auth), (0, 0, 0), font=font)
         draw.text((51, 349), simp_text, (0, 0, 0), font=font)
-        bg.save(f"images/generated/simp{ctx.author.id}.png")
-        file = discord.File(f"images/generated/simp{ctx.author.id}.png")
+        bg.save(f"./images/generated/simp{ctx.author.id}.png")
+        file = discord.File(f"./images/generated/simp{ctx.author.id}.png")
         embed = discord.Embed(description=f"{ctx.author.mention} Here is your verified Simp Card.", color=0x2e69f2)
         embed.set_image(url=f"attachment://simp{ctx.author.id}.png")
         embed.set_footer(

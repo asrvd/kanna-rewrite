@@ -23,36 +23,33 @@ class Avatar(commands.Cog):
         if user1 is None and user2 is None:
             u = ctx.author
             asset = u.display_avatar
-            await asset.save(f"images/generated/{u.id}.png")
-            file = discord.File(f"images/generated/{u.id}.png", filename="pfp.png") 
+            await asset.save(f"./images/generated/{u.id}.png")
+            file = discord.File(f"./images/generated/{u.id}.png", filename="pfp.png") 
             await ctx.respond(file=file)
-            os.remove(f"C:/Users/User/Desktop/kr/images/generated/{u.id}.png")
         elif user1 is not None and user2 is None:
             u = user1
             asset = u.display_avatar
-            await asset.save(f"images/generated/{u.id}.png")
-            file = discord.File(f"images/generated/{u.id}.png", filename="pfp.png") 
+            await asset.save(f"./images/generated/{u.id}.png")
+            file = discord.File(f"./images/generated/{u.id}.png", filename="pfp.png") 
             await ctx.respond(file=file)
-            os.remove(f"C:/Users/User/Desktop/kr/images/generated/{u.id}.png")
         elif user1 is None and user2 is not None:
             u = user2
             asset = u.display_avatar
-            await asset.save(f"images/generated/{u.id}.png")
-            file = discord.File(f"images/generated/{u.id}.png", filename="pfp.png") 
+            await asset.save(f"./images/generated/{u.id}.png")
+            file = discord.File(f"./images/generated/{u.id}.png", filename="pfp.png") 
             await ctx.respond(file=file)
-            os.remove(f"C:/Users/User/Desktop/kr/images/generated/{u.id}.png")
         elif user1 is not None and user2 is not None:
             bg = Image.new(mode="RGBA", size=(1000, 500))
             a1 = user1.display_avatar.replace(size=512)
             a2 = user2.display_avatar.replace(size=512)
-            await a1.save(f"images/generated/{user1.id}.png")
-            await a2.save(f"images/generated/{user2.id}.png")
-            pfp1=Image.open(f"images/generated/{user1.id}.png").resize((500, 500))
-            pfp2=Image.open(f"images/generated/{user2.id}.png").resize((500, 500))
+            await a1.save(f"./images/generated/{user1.id}.png")
+            await a2.save(f"./images/generated/{user2.id}.png")
+            pfp1=Image.open(f"./images/generated/{user1.id}.png").resize((500, 500))
+            pfp2=Image.open(f"./images/generated/{user2.id}.png").resize((500, 500))
             bg.paste(pfp1, (0, 0))
             bg.paste(pfp2, (500, 0))
-            bg.save(f"images/generated/shared{user1.id}.png")
-            file = discord.File(f"images/generated/shared{user1.id}.png", filename="shared.png")
+            bg.save(f"./images/generated/shared{user1.id}.png")
+            file = discord.File(f"./images/generated/shared{user1.id}.png", filename="shared.png")
             await ctx.respond(file=file)
             os.system(f"rm -rf images/generated/shared{user1.id}.png")
             os.system(f"rm -rf images/generated/{user1.id}.png")
@@ -146,14 +143,14 @@ class AV(commands.Cog):
 
                 # print(frames_imgs)
                 frames_imgs[0].save(
-                    f"images/generated/{ctx.author.id}.gif",
+                    f"./images/generated/{ctx.author.id}.gif",
                     save_all=True,
                     append_images=frames_imgs[:],
                     loop=0,
                     quality=1,
                 )
                 file = discord.File(
-                    f"images/generated/{ctx.author.id}.gif", filename="pic.gif"
+                    f"./images/generated/{ctx.author.id}.gif", filename="pic.gif"
                 )
                 emb = discord.Embed(title="", description=f"", color=ec)
                 emb.set_image(url="attachment://pic.gif")
@@ -178,9 +175,9 @@ class AV(commands.Cog):
                     except Exception as e:
                         print(e, i)
                         pass
-                bg.save(f"images/generated/{ctx.author.id}.png", quality=10)
+                bg.save(f"./images/generated/{ctx.author.id}.png", quality=10)
                 file = discord.File(
-                    f"images/generated/{ctx.author.id}.png", filename="pic.jpg"
+                    f"./images/generated/{ctx.author.id}.png", filename="pic.jpg"
                 )
                 emb = discord.Embed(title="", description=f"", color=ec)
                 emb.set_author(
@@ -234,8 +231,8 @@ class AV(commands.Cog):
             for k in range(0, ref[size], 100):
                 img = pfp_list.pop(0)
                 bg.paste(img, (k, j))
-        bg.save(f"images/generated/pfpcollage{ctx.author.id}.png")
-        file = discord.File(f"images/generated/pfpcollage{ctx.author.id}.png", "pfpcollage.png")
+        bg.save(f"./images/generated/pfpcollage{ctx.author.id}.png")
+        file = discord.File(f"./images/generated/pfpcollage{ctx.author.id}.png", "pfpcollage.png")
         emb = discord.Embed(title="", description=f"", color=ec)
         emb.set_author(
             name=f"Avatar Collage {size}",
