@@ -6,8 +6,7 @@ from decouple import config
 
 intents = discord.Intents.default()
 intents.members = True
-intents.presences = True
-
+intents.messages = True
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or('.'), case_insensitive=True, intents=intents)
 client.remove_command("help")
