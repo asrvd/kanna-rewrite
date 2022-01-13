@@ -11,3 +11,4 @@ pytz
 pet-pet-gif
 kitsu.py
 uwuify
+jishaku
