@@ -264,7 +264,7 @@ class AV(commands.Cog):
             text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
             icon_url=self.client.user.display_avatar
         )
-        emb.set_image(url=f"attachment://pfpcollage{ctx.author.id}.png")
+        emb.set_image(url=f"attachment://pfpcollage.png")
         await ctx.send(embed=emb, file=file)
         await msg.delete()
         os.system(f"rm -rf images/generated/pfpcollage{ctx.author.id}.png")
