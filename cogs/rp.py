@@ -9,7 +9,7 @@ import pyrebase
 from decouple import config
 
 gif = weeby.Weeby(str(config("WTOKEN")))
-kt = str(config(KTOKEN))
+kt = str(config("KTOKEN"))
 firebaseconfig=json.loads(config("FIREBASE_CONFIG"))
 
 firebase = pyrebase.initialize_app(firebaseconfig)
