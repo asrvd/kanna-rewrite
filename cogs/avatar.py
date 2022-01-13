@@ -240,9 +240,17 @@ class AV(commands.Cog):
             "9x9":900,
             "10x10":1000
         }
+        size_ref = {
+            "5x5":25,
+            "6x6":36,
+            "7x7":49,
+            "8x8":64,
+            "9x9":81,
+            "10x10":100
+        }
         pfp_list = []
         msg = await ctx.send("Making the collage..(can take upto 1 minute)")
-        for i in range(0, int(size[0])*int(size[0])):
+        for i in range(0, size_ref[size]):
             mem = random.choice(ctx.guild.members)
             url = requests.get(mem.display_avatar.url)
             im = Image.open(BytesIO(url.content)).resize((100, 100))
