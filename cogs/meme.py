@@ -1,8 +1,7 @@
 from datetime import time
 import discord
-from discord.commands.commands import SlashCommandGroup
 from discord.ext import commands
-from discord.commands import slash_command
+from discord.commands import slash_command, SlashCommandGroup
 from discord.ui import Button, View
 from petpetgif import petpet
 from io import BytesIO
