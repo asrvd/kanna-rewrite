@@ -23,21 +23,43 @@ class Avatar(commands.Cog):
         if user1 is None and user2 is None:
             u = ctx.author
             asset = u.display_avatar
-            await asset.save(f"./images/generated/{u.id}.png")
-            file = discord.File(f"./images/generated/{u.id}.png", filename="pfp.png") 
-            await ctx.respond(file=file)
+            emb=discord.Embed(color=ec)
+            emb.set_author(
+                name=f"{u.display_name}'s Avatar",
+                icon_url=u.display_avatar
+            )
+            emb.set_image(url=ctx.author.display_avatar)
+            emb.set_footer(
+                text=f"Requested by {ctx.author}",
+                icon_url=self.client.user.display_avatar
+            )
+            await ctx.respond(embed=emb)
         elif user1 is not None and user2 is None:
             u = user1
-            asset = u.display_avatar
-            await asset.save(f"./images/generated/{u.id}.png")
-            file = discord.File(f"./images/generated/{u.id}.png", filename="pfp.png") 
-            await ctx.respond(file=file)
+            emb=discord.Embed(color=ec)
+            emb.set_author(
+                name=f"{u.display_name}'s Avatar",
+                icon_url=u.display_avatar
+            )
+            emb.set_image(url=ctx.author.display_avatar)
+            emb.set_footer(
+                text=f"Requested by {ctx.author}",
+                icon_url=self.client.user.display_avatar
+            )
+            await ctx.respond(embed=emb)
         elif user1 is None and user2 is not None:
             u = user2
-            asset = u.display_avatar
-            await asset.save(f"./images/generated/{u.id}.png")
-            file = discord.File(f"./images/generated/{u.id}.png", filename="pfp.png") 
-            await ctx.respond(file=file)
+            emb=discord.Embed(color=ec)
+            emb.set_author(
+                name=f"{u.display_name}'s Avatar",
+                icon_url=u.display_avatar
+            )
+            emb.set_image(url=ctx.author.display_avatar)
+            emb.set_footer(
+                text=f"Requested by {ctx.author}",
+                icon_url=self.client.user.display_avatar
+            )
+            await ctx.respond(embed=emb)
         elif user1 is not None and user2 is not None:
             bg = Image.new(mode="RGBA", size=(1000, 500))
             a1 = user1.display_avatar.replace(size=512)
