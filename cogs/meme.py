@@ -225,7 +225,6 @@ class Meme(commands.Cog):
     @slash_command(
         name="gayrate",
         description="Why are you gay?",
-        guild_ids=gi
     )
     async def gayrate(self, ctx, user:discord.User=None):
         user = ctx.author if user is None else user
@@ -244,7 +243,6 @@ class Meme(commands.Cog):
     @slash_command(
         name="simprate",
         description="Why are you simp?",
-        guild_ids=gi
     )
     async def simprate(self, ctx, user:discord.User=None):
         user = ctx.author if user is None else user
@@ -262,8 +260,7 @@ class Meme(commands.Cog):
 
     @slash_command(
         name="kawaiirate",
-        description="Why are you gay?",
-        guild_ids=gi
+        description="Why are you gay?"
     )
     async def kawaiirate(self, ctx, user:discord.User=None):
         user = ctx.author if user is None else user
