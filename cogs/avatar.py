@@ -243,7 +243,7 @@ class AV(commands.Cog):
             icon_url=self.client.user.display_avatar
         )
         emb.set_image(url=f"attachment://pfpcollage{ctx.author.id}.png")
-        await ctx.send(file=file, embed=emb)
+        await ctx.send(embed=emb, file=file)
         await msg.delete()
         os.system(f"rm -rf images/generated/pfpcollage{ctx.author.id}.png")
 
