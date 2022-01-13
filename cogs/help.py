@@ -1,7 +1,6 @@
 from datetime import time
 import discord
 from discord import message
-from discord.commands.commands import command
 from discord.ext import commands
 from discord.guild import MISSING
 from discord.ui import View, Button, Select, view
