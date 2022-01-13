@@ -3,7 +3,7 @@ python-decouple
 asyncio
 git+https://github.com/asheeeshh/weeby.py
 git+https://github.com/Pycord-Development/pycord
-io
+imageio
 typing
 requests
 os
