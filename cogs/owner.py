@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import io
+import asyncio
 
 class Owner(commands.Cog):
     def __init__(self, client):
@@ -54,6 +55,21 @@ class Owner(commands.Cog):
         await mess.edit(
             content=f"✅ Uploaded `{cmd_file}`."
         )
+
+    @commands.command()
+    @commands.is_owner()
+    async def announce(self, ctx, msgid):
+        msg = await ctx.fetch_message(int(msgid))
+        m = await ctx.send("Announcing Message.")
+        i = 0
+        for guild in self.client.guilds:
+            for channel in guild.channels:
+                if "general" in channel.name:
+                    await channel.send(msg)
+                    i += 1
+                    await m.edit(content=f"`Sent in {i} Servers.`")
+                    await asyncio.sleep(2)
+        await ctx.send("`Announced in all the Servers.`")
 
 def setup(client):
     client.add_cog(Owner(client))
