@@ -6,8 +6,6 @@ git+https://github.com/Pycord-Development/pycord
 imageio
 typing
 requests
-os
-random
 pyrebase4
 pytz
 pet-pet-gif
