@@ -1,0 +1,15 @@
+pillow
+python-decouple
+asyncio
+git+https://github.com/asheeeshh/weeby.py
+git+https://github.com/Pycord-Development/pycord
+io
+typing
+requests
+os
+random
+pyrebase4
+pytz
+pet-pet-gif
+kitsu.py
+uwuify
