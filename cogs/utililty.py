@@ -14,6 +14,7 @@ from ._anime import get_anime_info
 import asyncio
 import pyrebase
 from decouple import config
+import json
 
 w = Weeby(str(config("WTOKEN")))
 firebaseconfig=json.loads(config("FIREBASE_CONFIG"))

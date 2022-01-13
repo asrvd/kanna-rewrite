@@ -5,6 +5,7 @@ import weeby
 from ._config import gi, ec
 import pyrebase
 from decouple import config
+import json
 
 gif = weeby.Weeby(str(config("WTOKEN")))
 firebaseconfig=json.loads(config("FIREBASE_CONFIG"))
