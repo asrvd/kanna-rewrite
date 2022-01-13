@@ -1,6 +1,5 @@
 import discord
 from discord.commands import slash_command
-from discord.commands.commands import command
 from discord.ui import View, Button
 import requests
 import json
