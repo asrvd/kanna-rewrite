@@ -8,7 +8,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.messages = True
 
-client = commands.Bot(command_prefix=commands.when_mentioned_or('.'), case_insensitive=True, intents=intents)
+client = commands.Bot(command_prefix=commands.when_mentioned_or('kanna ', 'kana ', 'k.', 'K.', 'Kanna ', 'Kana '), case_insensitive=True, intents=intents)
 client.remove_command("help")
 #slash = SlashCommand(client, sync_commands=True)
 
