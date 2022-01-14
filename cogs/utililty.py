@@ -75,7 +75,7 @@ class Util(commands.Cog):
                 async with cs.get(url, params=querystring, headers=headers) as r:
                     res = await r.json()
                     list = res["list"]
-                    print(res)
+                    #print(res)
                     if list == []:
                         await ctx.respond("No results available for this query ;-;", ephemeral=True)
                     else:
