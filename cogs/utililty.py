@@ -129,7 +129,7 @@ class NUtility(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(aliases=['df', 'def'])
     async def define(self, ctx, *, query: str):
         if query == None:
             await ctx.reply("You need to provide a Query to get the defintion!")
@@ -191,32 +191,33 @@ class NUtility(commands.Cog):
 
     @commands.command()
     async def spotify(self, ctx, user:discord.User=None):
-        user = ctx.author if user is None else user
-        if user.activities:
-            for activity in user.activities:
-                if isinstance(activity, Spotify):
-                    embed = discord.Embed(color = activity.color)
-                    embed.set_thumbnail(url=activity.album_cover_url)
-                    desc = ""
-                    for i in range(0, len(activity.artists)):
-                        if i == 0:
-                            desc = activity.artists[i]
-                        else:
-                            desc = desc + ", " + activity.artists[i]
-                    embed.add_field(name="Track", value=f"*{activity.title}*")
-                    embed.add_field(name="Artists", value=f"*{desc}*", inline=False)
-                    embed.add_field(name="Album", value=f"*{activity.album}*")
-                    embed.add_field(name="Duration", value=f"**{activity.duration.seconds//60}:{activity.duration.seconds%60}**")
-                    embed.set_author(
-                        name=f"{user.name.capitalize()}'s Spotify Activity",
-                        icon_url=user.display_avatar
-                    )
-                    view = View()
-                    button = Button(label="Listen on Spotify", style=ButtonStyle.url, url=activity.track_url, emoji=discord.PartialEmoji(name="spotify", id=923937275522473984))
-                    view.add_item(button)
-                    await ctx.send(embed=embed, view=view)
-                else:
-                    await ctx.reply("No Spotify activity found!")
+        await ctx.reply("This command isn't available for now.")
+        #user = ctx.author if user is None else user
+        #if user.activities:
+            #for activity in user.activities:
+                #if isinstance(activity, Spotify):
+                    #embed = discord.Embed(color = activity.color)
+                    #embed.set_thumbnail(url=activity.album_cover_url)
+                    #desc = ""
+                    #for i in range(0, len(activity.artists)):
+                        #if i == 0:
+                            #desc = activity.artists[i]
+                        #else:
+                            #desc = desc + ", " + activity.artists[i]
+                    #embed.add_field(name="Track", value=f"*{activity.title}*")
+                    #embed.add_field(name="Artists", value=f"*{desc}*", inline=False)
+                    #embed.add_field(name="Album", value=f"*{activity.album}*")
+                    #embed.add_field(name="Duration", value=f"**{activity.duration.seconds//60}:{activity.duration.seconds%60}**")
+                    #embed.set_author(
+                        #name=f"{user.name.capitalize()}'s Spotify Activity",
+                        #icon_url=user.display_avatar
+                    #)
+                    #view = View()
+                    #button = Button(label="Listen on Spotify", style=ButtonStyle.url, url=activity.track_url, emoji=discord.PartialEmoji(name="spotify", id=923937275522473984))
+                    #view.add_item(button)
+                    #await ctx.send(embed=embed, view=view)
+                #else:
+                    #await ctx.reply("No Spotify activity found!")
 
     @commands.command()
     async def afk(self, ctx, *, message:str=None):
