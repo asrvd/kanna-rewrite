@@ -441,7 +441,7 @@ class NMarriage(commands.Cog):
         if u == ctx.author:
             await ctx.reply("You want to marry yourself.. I feel bad for you emo boy/girl :pensive: May you get a real partner soon, I'll pray for you. And `NO`, I won't allow self marriage, sorry for that.")
         elif u is None:
-            await ctx.reply("Who do you want to marry? Please use this command correctly, `kana marry @someone_who_likes_discord_marriages`."
+            await ctx.reply("Who do you want to marry? Please use this command correctly, `kana marry @someone_who_likes_discord_marriages`.")
         elif u.bot:
             if u.id == self.client.user.id:
                 await ctx.reply("I'm underage!! ewww don't tell me you're into younger girls, you `PEDO`, I'm calling the FBI.")
