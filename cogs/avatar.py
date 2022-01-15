@@ -283,7 +283,7 @@ class AV(commands.Cog):
     @commands.command(aliases=['bnr'])
     async def banner(self, ctx, u:discord.User=None):
         u = ctx.author if u is None else u
-        if u.banner:
+        try:
             emb=discord.Embed(color=ec)
             emb.set_author(
                 name=f"{u.display_name}'s Banner",
@@ -295,7 +295,7 @@ class AV(commands.Cog):
                 icon_url=self.client.user.display_avatar
             )
             await ctx.send(embed=emb)
-        else:
+        except Exception:
             await ctx.reply('No banner found.')
 
 def setup(client):

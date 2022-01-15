@@ -69,8 +69,10 @@ class Misc(commands.Cog):
             name=f"Showing Info for {user}",
             icon_url=ctx.author.display_avatar
         )
-        if user.banner is not None:
+        try:
             emb.set_image(url=user.banner)
+        except Exception:
+            pass
         emb.set_thumbnail(url=user.display_avatar)
         emb.set_footer(
             text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
