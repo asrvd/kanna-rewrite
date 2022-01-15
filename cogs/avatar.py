@@ -289,7 +289,7 @@ class AV(commands.Cog):
                 name=f"{u.display_name}'s Banner",
                 icon_url=ctx.author.display_avatar
             )
-            emb.set_image(url=u.banner)
+            emb.set_image(url=await self.client.fetch_user(u.id).banner)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
                 icon_url=self.client.user.display_avatar

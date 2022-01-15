@@ -70,7 +70,7 @@ class Misc(commands.Cog):
             icon_url=ctx.author.display_avatar
         )
         try:
-            emb.set_image(url=user.banner)
+            emb.set_image(url=await self.client.fetch_user(user.id).banner)
         except Exception:
             pass
         emb.set_thumbnail(url=user.display_avatar)
