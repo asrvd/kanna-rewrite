@@ -284,12 +284,13 @@ class AV(commands.Cog):
     async def banner(self, ctx, u:discord.User=None):
         u = ctx.author if u is None else u
         try:
+            s = await self.client.fetch_user(u.id)
             emb=discord.Embed(color=ec)
             emb.set_author(
                 name=f"{u.display_name}'s Banner",
                 icon_url=ctx.author.display_avatar
             )
-            emb.set_image(url=await self.client.fetch_user(u.id).banner)
+            emb.set_image(url=s.banner)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
                 icon_url=self.client.user.display_avatar
