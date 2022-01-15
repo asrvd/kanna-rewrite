@@ -296,7 +296,7 @@ class Button(commands.Cog):
             else:
                 await ctx.respond("You already dated once today, You can date gain tomorrow.")
         else:
-            await ctx.respond("Have you forgot who your real partner is.. or are you seriously trying to date someone else, don't even try to do it or I'm calling the `FBI`. I don't allow poly relationships.")
+            await ctx.respond("Either you have forgot who your partner is that you want to divorce or your partner doesn't exist which means you aren't married. Check you marital status using `kana marriage`.")
 
     @slash_command(
         name = "divorce",
@@ -307,7 +307,7 @@ class Button(commands.Cog):
             view = DivView(ctx, partner)
             await ctx.respond(f"{ctx.author.mention}\nAre you sure you want to get divorce with `{partner}`?", view=view)
         else:
-            await ctx.respond("You can only divorce your own partner. Don't go on divorcing people you don't even know.")
+            await ctx.respond("Either you have forgot who your partner is that you want to divorce or your partner doesn't exist which means you aren't married. Check you marital status using `kana marriage`.")
 
     
 class NMarriage(commands.Cog):
@@ -405,7 +405,7 @@ class NMarriage(commands.Cog):
                 await msg.edit(view=view)
             view.on_timeout = timeout
         else:
-            await ctx.send("You can only divorce your own partner. Don't go on divorcing people you don't even know.")
+            await ctx.send("Either you have forgot who your partner is that you want to divorce or your partner doesn't exist which means you aren't married. Check you marital status using `kana marriage`.")
     
     @commands.command()
     async def marriage(self, ctx, user:discord.User=None):
@@ -437,9 +437,11 @@ class NMarriage(commands.Cog):
             await ctx.reply("They/You are not married yet.")
 
     @commands.command()
-    async def marry(self, ctx, u:discord.User):
+    async def marry(self, ctx, u:discord.User=None):
         if u == ctx.author:
             await ctx.reply("You want to marry yourself.. I feel bad for you emo boy/girl :pensive: May you get a real partner soon, I'll pray for you. And `NO`, I won't allow self marriage, sorry for that.")
+        elif u is None:
+            await ctx.reply("Who do you want to marry? Please use this command correctly, `kana marry @someone_who_likes_discord_marriages`."
         elif u.bot:
             if u.id == self.client.user.id:
                 await ctx.reply("I'm underage!! ewww don't tell me you're into younger girls, you `PEDO`, I'm calling the FBI.")
@@ -461,26 +463,29 @@ class NMarriage(commands.Cog):
                 await ctx.reply("Wait.. You're already married, control your emotions!")
     
     @commands.command()
-    async def date(self, ctx, partner: discord.User):
-        if check_partner(ctx.author.id, partner.id):
-            if check_date(ctx.author.id) is False:
-                heart = random.randint(30, 101)
-                add_date_hearts(ctx.author.id, partner.id, heart)
-                emb = discord.Embed(description=f"●˚◞♡  ⃗ ꒰{ctx.author.display_name}꒱ and ꒰{partner.display_name}꒱ go on a date together uwu\n{cont} ✿ **{heart}** hearts collected!", color=ec)
-                emb.set_author(
-                    name="Date",
-                    icon_url=ctx.author.display_avatar
-                )
-                emb.set_image(url="https://i.pinimg.com/originals/c2/49/9c/c2499c5b2e996102e50ec939603999d3.gif")
-                emb.set_footer(
-                    text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
-                    icon_url=self.client.user.display_avatar
-                )
-                await ctx.send(embed=emb)
-            else:
-                await ctx.reply("You already dated once today, You can date gain tomorrow.")
+    async def date(self, ctx, partner: discord.User=None):
+        if partner is None:
+            await ctx.reply("Please use this command like `kana date @partner`.")
         else:
-            await ctx.reply("Have you forgot who your real partner is.. or are you seriously trying to date someone else, don't even try to do it or I'm calling the `FBI`. I don't allow poly relationships.")
+            if check_partner(ctx.author.id, partner.id):
+                if check_date(ctx.author.id) is False:
+                    heart = random.randint(30, 101)
+                    add_date_hearts(ctx.author.id, partner.id, heart)
+                    emb = discord.Embed(description=f"●˚◞♡  ⃗ ꒰{ctx.author.display_name}꒱ and ꒰{partner.display_name}꒱ go on a date together uwu\n{cont} ✿ **{heart}** hearts collected!", color=ec)
+                    emb.set_author(
+                        name="Date",
+                        icon_url=ctx.author.display_avatar
+                    )
+                    emb.set_image(url="https://i.pinimg.com/originals/c2/49/9c/c2499c5b2e996102e50ec939603999d3.gif")
+                    emb.set_footer(
+                        text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
+                        icon_url=self.client.user.display_avatar
+                    )
+                    await ctx.send(embed=emb)
+                else:
+                    await ctx.reply("You already dated once today, You can date gain tomorrow.")
+            else:
+                await ctx.reply("Either you have forgot who your partner is or it seems you are not married yet, poor guy. Check your marital staus by sending `kana marriage`.")
 
 
     @commands.command()
