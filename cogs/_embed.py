@@ -19,7 +19,7 @@ def get_embed(arg:str, ctx, u=None):
         )
         return memb
     elif arg == "a":
-        emb = discord.Embed(description=f"· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n●˚◞♡  ⃗ {ctx.author.mention} and {ctx.author.mention} are a **Married Couple** now!\n\n●˚◞♡  ⃗ You can view your **Marriage Card** by using command `kana marriage` now!\n· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n", color=ec)
+        emb = discord.Embed(description=f"· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n●˚◞♡  ⃗ {ctx.author.mention} and {u.mention} are a **Married Couple** now!\n\n●˚◞♡  ⃗ You can view your **Marriage Card** by using command `kana marriage` now!\n· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n", color=ec)
         emb.set_author(
             name="˚₊· ͟͟͞͞➳❥ Prposal Accepted 💖",
             icon_url=ctx.author.display_avatar
@@ -32,7 +32,7 @@ def get_embed(arg:str, ctx, u=None):
         )
         return emb
     elif arg == "d":
-        emb = discord.Embed(description=f"· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n●˚◞♡  ⃗ {ctx.author.mention} has declined the **Marriage Proposal** by {ctx.author.mention}\n\n●˚◞♡  ⃗ The proposal was **Declined**, you have to find someone else :(\n· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n", color=ec)
+        emb = discord.Embed(description=f"· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n●˚◞♡  ⃗ {u.mention} has declined the **Marriage Proposal** by {ctx.author.mention}\n\n●˚◞♡  ⃗ The proposal was **Declined**, you have to find someone else :(\n· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n", color=ec)
         emb.set_author(
             name="˚₊· ͟͟͞͞➳❥ Proposal Declined 💔",
             icon_url=ctx.author.display_avatar
