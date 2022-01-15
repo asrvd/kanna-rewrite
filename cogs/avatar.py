@@ -295,7 +295,8 @@ class AV(commands.Cog):
                 icon_url=self.client.user.display_avatar
             )
             await ctx.send(embed=emb)
-        except Exception:
+        except Exception as e:
+            print(e)
             await ctx.reply('No banner found.')
 
 def setup(client):

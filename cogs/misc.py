@@ -80,9 +80,6 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=emb)
 
-        
-
-    
 
 def setup(client):
     client.add_cog(Misc(client))
