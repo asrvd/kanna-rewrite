@@ -10,6 +10,7 @@ from discord.commands import slash_command, Option
 from ._embed import get_rps_embed
 from PIL import Image, ImageDraw
 import random
+import os
 from ._config import gi
 
 el1 = ["😀", "😶", "😄", "😑", "🙄", "🤣", "🥰", "😁"]
