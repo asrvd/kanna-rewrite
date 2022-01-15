@@ -276,7 +276,7 @@ class Games(commands.Cog):
         await a2.save(f"images/generated/{user2.id}.png")
         pfp1=Image.open(f"images/generated/{user1.id}.png").resize((400, 400))
         pfp2=Image.open(f"images/generated/{user2.id}.png").resize((400, 400))
-        mask=Image.open(f"images/generated/mask.jpg")
+        mask=Image.open(f"images/assets/mask.jpg")
         bg=Image.new('RGBA', (1200, 500), (255, 0, 0, 0))
         bg.paste(pfp1, (37, 28), mask)
         bg.paste(pfp2, (752, 27), mask)
@@ -289,6 +289,10 @@ class Games(commands.Cog):
         file = discord.File(f'images/generated/final{user1.id}.png')
         view = ShipView([user1, user2], ctx)
         await ctx.respond(des, file=file, view=view)
+        os.system(f"rm -rf images/generated/{user1.id}.png")
+        os.system(f"rm -rf images/generated/{user2.id}.png")
+        os.system(f"rm -rf images/generated/final{user1.id}.png")
+        os.system(f"rm -rf images/generated/back{user1.id}.png")
 
 
     @slash_command(
@@ -350,7 +354,7 @@ class NGames(commands.Cog):
         await a2.save(f"images/generated/{user2.id}.png")
         pfp1=Image.open(f"images/generated/{user1.id}.png").resize((400, 400))
         pfp2=Image.open(f"images/generated/{user2.id}.png").resize((400, 400))
-        mask=Image.open(f"images/generated/mask.jpg")
+        mask=Image.open(f"images/assets/mask.jpg")
         bg=Image.new('RGBA', (1200, 500), (255, 0, 0, 0))
         bg.paste(pfp1, (37, 28), mask)
         bg.paste(pfp2, (752, 27), mask)
@@ -367,7 +371,12 @@ class NGames(commands.Cog):
             for btn in view.children:
                 btn.disabled=True
             await msg.edit(view=view)
+            os.system(f"rm -rf images/generated/{user1.id}.png")
+            os.system(f"rm -rf images/generated/{user2.id}.png")
+            os.system(f"rm -rf images/generated/final{user1.id}.png")
+            os.system(f"rm -rf images/generated/back{user1.id}.png")
         view.on_timeout = timeout
+        
 
 
     @commands.command()
