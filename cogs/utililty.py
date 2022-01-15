@@ -155,7 +155,10 @@ class NUtility(commands.Cog):
                         view = View()
                         btn = Button(label="More Results", url=f"http://{query.lower()}.urbanup.com")
                         view.add_item(btn)
-                        emb.set_footer(text="Kanna Chan")
+                        emb.set_footer(
+                            text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
+                            icon_url=self.client.user.display_avatar
+                        )
                         await ctx.send(embed=emb, view=view)
 
     @commands.command()
