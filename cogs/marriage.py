@@ -313,6 +313,7 @@ class Button(commands.Cog):
 class NMarriage(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.reset_date_status.start()
 
     async def get_lb(self, auth):
         lb_dict = {}
@@ -520,7 +521,7 @@ class NMarriage(commands.Cog):
     async def upr(self, ctx):
         us = db.child("MARRIAGE").get()
         for u in us.each():
-            db.child("MARRIAGE").child(u.key()).update({"DATES":0, "HEARTS":0, "DATE_TODAY":"False"})
+            db.child("MARRIAGE").child(u.key()).update({"DATE_TODAY":"False"})
         await ctx.send("done")
 
     @tasks.loop(minutes=60.0, reconnect=True)
@@ -528,10 +529,9 @@ class NMarriage(commands.Cog):
         now = datetime.datetime.now(timezone('Asia/Kolkata'))
         if now.hour == 0:
             all_users = db.child("MARRIAGE").get()
-            if all_users.each() != None:
-                for users in all_users.each():
-                    db.child("MARRIAGE").child(users.key()).update({"DATE_TODAY":"False"})
-            owner = self.client.get_user(self.client.owner_id)
+            for users in all_users.each():
+                db.child("MARRIAGE").child(users.key()).update({"DATE_TODAY":"False"})
+            owner = self.client.get_user(784363251940458516)
             await owner.send("`>> Marriage Date Status has been RESET.`")
     
 
