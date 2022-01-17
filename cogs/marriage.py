@@ -144,22 +144,24 @@ class MarryView(View):
         self.joke = joke
     @discord.ui.button(
         label="ㅤYesㅤ", 
-        style=2
+        style=discord.ButtonStyle.success,
+        emoji="💖"
     )
     async def yes_callback(self, button, interaction):
         for button in self.children:
             button.disabled = True
-        emb = get_embed("a", self.ctx)
+        emb = get_embed("a", self.ctx, self.joke)
         create(self.ctx.author.id, self.joke.id)
         await interaction.response.edit_message(embed=emb, view=self)
     @discord.ui.button(
         label="ㅤNoㅤ", 
-        style=2
+        style=discord.ButtonStyle.danger,
+        emoji="💔"
     )
     async def no_callback(self, button, interaction):
         for button in self.children:
             button.disabled = True
-        emb = get_embed("d", self.ctx)
+        emb = get_embed("d", self.ctx, self.joke)
         await interaction.response.edit_message(embed=emb, view=self)
 
     async def interaction_check(self, interaction) -> bool:
@@ -167,7 +169,7 @@ class MarryView(View):
             #await interaction.response.send_message("NO", ephemeral=True)
             return True
         else:
-            await interaction.response.send_message("This is not for you!")
+            await interaction.response.send_message("This is not for you!", ephemeral=True)
             return False
 
     async def on_timeout(self):
@@ -183,7 +185,8 @@ class DivView(View):
     
     @discord.ui.button(
         label="ㅤYesㅤ", 
-        style=2
+        style=discord.ButtonStyle.danger,
+        emoji="💔"
     )
     async def yes_callback(self, button, interaction):
         for button in self.children:
@@ -192,7 +195,8 @@ class DivView(View):
         await interaction.response.edit_message(content=f"`{interaction.user}` has divorced with {self.partner} ╯︿╰", view=self)
     @discord.ui.button(
         label="ㅤNoㅤ", 
-        style=2
+        style=discord.ButtonStyle.success,
+        emoji="💝"
     )
     async def no_callback(self, button, interaction):
         for button in self.children:
@@ -216,12 +220,12 @@ class Button(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
-    async def mr(self, ctx, u:discord.User=None):
-        if u is None:
-            u = ctx.author
-        view = MarryView(ctx)
-        await ctx.send("Marriage Proposal", view=view)
+    # @commands.command()
+    # async def mr(self, ctx, u:discord.User=None):
+    #     if u is None:
+    #         u = ctx.author
+    #     view = MarryView(ctx)
+    #     await ctx.send("Marriage Proposal", view=view)
 
     @slash_command(
         name="marry", 
