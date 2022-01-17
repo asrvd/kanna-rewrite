@@ -14,7 +14,7 @@ def get_embed(arg:str, ctx, u=None):
         )
         memb.set_thumbnail(url="https://thumbs.gfycat.com/ClassicSecondaryKinkajou-max-1mb.gif")
         memb.set_footer(
-            text=f"● Made by Kanna Chan\n● Use /help for help\n● Requested by {ctx.author.name.capitalize()}",
+            text=f"✿ Made by Kanna Chan\n✿ Use k.help for help\n✿ Requested by {ctx.author.name.capitalize()}",
             icon_url=ctx.author.display_avatar
         )
         return memb
@@ -27,7 +27,7 @@ def get_embed(arg:str, ctx, u=None):
         emb.set_thumbnail(url="https://thumbs.gfycat.com/ClassicSecondaryKinkajou-max-1mb.gif")
         emb.set_image(url="https://data.whicdn.com/images/343437654/original.gif?t=1588100320")
         emb.set_footer(
-            text=f"● Made by Kanna Chan\n● Use /help for help\n● Requested by {ctx.author.name.capitalize()}",
+            text=f"✿ Made by Kanna Chan\n✿ Use k.help for help\n✿ Requested by {ctx.author.name.capitalize()}",
             icon_url=ctx.author.display_avatar
         )
         return emb
@@ -39,7 +39,7 @@ def get_embed(arg:str, ctx, u=None):
         )
         emb.set_thumbnail(url="https://thumbs.gfycat.com/ClassicSecondaryKinkajou-max-1mb.gif")
         emb.set_footer(
-            text=f"● Made by Kanna Chan\n● Use /help for help\n● Requested by {ctx.author.name.capitalize()}",
+            text=f"✿ Made by Kanna Chan\n✿ Use k.help for help\n✿ Requested by {ctx.author.name.capitalize()}",
             icon_url=ctx.author.display_avatar
         )
         return emb
@@ -58,6 +58,7 @@ def get_rps_embed(arg:str, ctx, choice:str=None, cb:str=None):
         )
         gemb.set_footer(
             text="You have 20 seconds to choose!",
+            icon_url=ctx.author.display_avatar
         )
         return gemb
     elif arg == "w":
@@ -68,6 +69,7 @@ def get_rps_embed(arg:str, ctx, choice:str=None, cb:str=None):
         )
         wemb.set_footer(
             text="Use /rps to play again!",
+            icon_url=ctx.author.display_avatar
         )
         return wemb
     elif arg == "l":
@@ -78,6 +80,7 @@ def get_rps_embed(arg:str, ctx, choice:str=None, cb:str=None):
         )
         lemb.set_footer(
             text="Use /rps to play again!",
+            icon_url=ctx.author.display_avatar
         )
         return lemb
     elif arg == "d":
@@ -88,5 +91,6 @@ def get_rps_embed(arg:str, ctx, choice:str=None, cb:str=None):
         )
         demb.set_footer(
             text="Use /rps to play again!",
+            icon_url=ctx.author.display_avatar
         )
         return demb
