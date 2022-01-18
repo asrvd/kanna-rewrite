@@ -503,7 +503,7 @@ class RP(commands.Cog):
         )
         got, given = return_ac_val(u.id, "pa")
         emb.set_footer(
-            text=f"✿ {u.display_name} patetd others {given} times and got pats {got} times.\n✿ Made by Kanna Chan",
+            text=f"✿ {u.display_name} patted others {given} times and got pats {got} times.\n✿ Made by Kanna Chan",
             icon_url=u.display_avatar
         )
         emb.set_image(url=get_gif("pat"))
