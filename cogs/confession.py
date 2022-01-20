@@ -81,8 +81,8 @@ class Confess(commands.Cog):
         guild = self.client.get_guild(864220272444571658)
         if guild.get_member(ctx.author.id) != None:
             if ctx.channel.type is discord.ChannelType.private:
-                cs = self.client.get_channel(933736058183618620)
-                ca = self.client.get_channel(933736099040358460)
+                cs = self.client.get_channel(879271125228593152)
+                ca = self.client.get_channel(879270880553865246)
                 await ctx.reply("Confession Sent. Please wait for Approval.")
                 view = ConfView(cs, self.client.user)
                 emb = discord.Embed(description=content, color=ec)
