@@ -112,7 +112,17 @@ class Confess(commands.Cog):
                 mg = await ctx.fetch_message(int(id))
                 if msg != None:
                     cs = self.client.get_channel(879271125228593152)
-                    await cs.send(msg)
+                    emb = discord.Embed(description=msg, color=ec)
+                    emb.set_author(
+                        name="WeebHub Confessions",
+                        icon_url=ctx.guild.icon
+                    )
+                    emb.set_footer(
+                        text="Send [k.confess your_confession] in my DM to confess.\nMade by Kanna Chan",
+                        icon_url=self.client.user.display_avatar
+                    )
+                    emb.timestamp=datetime.datetime.utcnow()
+                    await cs.send(embed=emb)
                     await ctx.reply("✅ Approved the Confession!")
                     await mg.edit(f"`Approved by {ctx.author}.`", view=None)
                 else:
