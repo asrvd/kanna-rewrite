@@ -78,7 +78,7 @@ class Confess(commands.Cog):
 
     @commands.command()
     async def confess(self, ctx, *, content):
-        guild = await self.client.get_guild(864220272444571658)
+        guild = self.client.get_guild(864220272444571658)
         if guild.get_member(ctx.author.id) != None:
             if ctx.channel.type is discord.ChannelType.private:
                 cs = self.client.get_channel(933736058183618620)
