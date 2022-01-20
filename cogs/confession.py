@@ -54,7 +54,7 @@ class ConfView(View):
             icon_url=interaction.guild.icon
         )
         emb.set_footer(
-            text="Send `k.confess your_confession` in my DM to confess.\nMade by Kanna Chan",
+            text="Send [k.confess your_confession] in my DM to confess.\nMade by Kanna Chan",
             icon_url=self.cl.display_avatar
         )
         emb.timestamp=datetime.datetime.utcnow()
@@ -91,7 +91,7 @@ class Confess(commands.Cog):
                 icon_url=guild.icon
             )
             emb.set_footer(
-                text="In case Interaction fails please approve manually using `kana aaprove message_id` command.",
+                text="In case Interaction fails please approve manually using [kana approve message_id]` command.",
                 icon_url=self.client.user.display_avatar
             )
             emb.timestamp = datetime.datetime.utcnow()
