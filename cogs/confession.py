@@ -79,28 +79,28 @@ class Confess(commands.Cog):
     @commands.command()
     async def confess(self, ctx, *, content):
         guild = self.client.get_guild(864220272444571658)
-        if guild.get_member(ctx.author.id) != None:
-            if ctx.channel.type is discord.ChannelType.private:
-                cs = self.client.get_channel(879271125228593152)
-                ca = self.client.get_channel(879270880553865246)
-                await ctx.reply("Confession Sent. Please wait for Approval.")
-                view = ConfView(cs, self.client.user)
-                emb = discord.Embed(description=content, color=ec)
-                emb.set_author(
-                    name="New Confession!",
-                    icon_url=guild.icon
-                )
-                emb.set_footer(
-                    text="In case Interaction fails please approve manually using `kana aaprove message_id` command.",
-                    icon_url=self.client.user.display_avatar
-                )
-                emb.timestamp = datetime.datetime.utcnow()
-                msg = await ca.send(embed=emb, view=view)
-                add_confession(msg.id, content)
-            else:
-                await ctx.reply("This command can only be used in DMs")
+        #if guild.get_member(ctx.author.id) != None:
+        if ctx.channel.type is discord.ChannelType.private:
+            cs = self.client.get_channel(879271125228593152)
+            ca = self.client.get_channel(879270880553865246)
+            await ctx.reply("Confession Sent. Please wait for Approval.")
+            view = ConfView(cs, self.client.user)
+            emb = discord.Embed(description=content, color=ec)
+            emb.set_author(
+                name="New Confession!",
+                icon_url=guild.icon
+            )
+            emb.set_footer(
+                text="In case Interaction fails please approve manually using `kana aaprove message_id` command.",
+                icon_url=self.client.user.display_avatar
+            )
+            emb.timestamp = datetime.datetime.utcnow()
+            msg = await ca.send(embed=emb, view=view)
+            add_confession(msg.id, content)
         else:
-            await ctx.reply("This command is not available for all the servers.")
+            await ctx.reply("This command can only be used in DMs")
+        #else:
+            #await ctx.reply("This command is not available for all the servers.")
 
     @commands.command()
     async def approve(self, ctx, id: int=None):
