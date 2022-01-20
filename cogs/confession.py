@@ -61,14 +61,14 @@ class ConfView(View):
         await self.cs.send(embed=emb)
         for btn in self.children:
             btn.disabled=True
-        await interaction.response.edit_message(content="`Approved.`", view=self)
+        await interaction.response.edit_message(content=f"`Approved by {interaction.user}.`", view=self)
         remove_confession(interaction.message.id)
 
     @discord.ui.button(label="Disapprove", style=discord.ButtonStyle.danger)
     async def d_callback(self, button, interaction):
         for btn in self.children:
             btn.disabled=True
-        await interaction.response.edit_message(content="`Disapproved.`", view=self)
+        await interaction.response.edit_message(content=f"`Disapproved by {interaction.user}.`", view=self)
         remove_confession(interaction.message.id)
 
 ## Commands
@@ -109,10 +109,12 @@ class Confess(commands.Cog):
         else:
             if ctx.author.id in mod_list:   
                 msg = get_confession(int(id))
+                mg = await ctx.fetch_message(int(id))
                 if msg != None:
-                    cs = self.client.get_channel(933736058183618620)
+                    cs = self.client.get_channel(879271125228593152)
                     await cs.send(msg)
-                    await ctx.reply("✅ Aprroved the Confession!")
+                    await ctx.reply("✅ Approved the Confession!")
+                    await mg.edit(f"`Approved by {ctx.author}.`", view=None)
                 else:
                     await ctx.reply("No confession found with this ID!")
             else:
