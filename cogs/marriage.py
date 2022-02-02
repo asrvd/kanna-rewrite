@@ -263,7 +263,7 @@ class Button(commands.Cog):
             dt = check_date(user.id)
             thatday = datetime.datetime.strptime(then ,'%Y-%m-%d')
             month = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}
-            emb = discord.Embed(description=f"· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n●˚◞♡  ⃗ ꒰**{ctx.author}**꒱ is married to ꒰**{partner_name}**꒱ uwu\n{cont2} ✿ Married since **{thatday.day} {month[thatday.month]}, {thatday.year}**\n{cont2} ✿ Dates Together: **{d}**\n{cont2} ✿ Hearts: **{h}**\n{cont} ✿ Dated Today? **{'Yes!' if dt is True else 'No!'}**\n· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·", color=ec)
+            emb = discord.Embed(description=f"· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n●˚◞♡  ⃗ ꒰**{user}**꒱ is married to ꒰**{partner_name}**꒱ uwu\n{cont2} ✿ Married since **{thatday.day} {month[thatday.month]}, {thatday.year}**\n{cont2} ✿ Dates Together: **{d}**\n{cont2} ✿ Hearts: **{h}**\n{cont} ✿ Dated Today? **{'Yes!' if dt is True else 'No!'}**\n· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·", color=ec)
             emb.set_author(
                 name=f"˚₊· ͟͟͞͞➳❥ {ctx.author.name.lower()}'s Marriage Card",
                 icon_url=ctx.author.display_avatar
@@ -426,7 +426,7 @@ class NMarriage(commands.Cog):
             dt = check_date(user.id)
             thatday = datetime.datetime.strptime(then ,'%Y-%m-%d')
             month = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}
-            emb = discord.Embed(description=f"· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n●˚◞♡  ⃗ ꒰**{ctx.author}**꒱ is married to ꒰**{partner_name}**꒱ uwu\n{cont2} ✿ Married since **{thatday.day} {month[thatday.month]}, {thatday.year}**\n{cont2} ✿ Dates Together: **{d}**\n{cont2} ✿ Hearts: **{h}**\n{cont} ✿ Dated Today? **{'Yes!' if dt is True else 'No!'}**\n· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·", color=ec)
+            emb = discord.Embed(description=f"· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·\n●˚◞♡  ⃗ ꒰**{user}**꒱ is married to ꒰**{partner_name}**꒱ uwu\n{cont2} ✿ Married since **{thatday.day} {month[thatday.month]}, {thatday.year}**\n{cont2} ✿ Dates Together: **{d}**\n{cont2} ✿ Hearts: **{h}**\n{cont} ✿ Dated Today? **{'Yes!' if dt is True else 'No!'}**\n· · - ┈┈━━ ˚ . ✿ . ˚ ━━┈┈ - · ·", color=ec)
             emb.set_author(
                 name=f"˚₊· ͟͟͞͞➳❥ {ctx.author.name.lower()}'s Marriage Card",
                 icon_url=ctx.author.display_avatar
