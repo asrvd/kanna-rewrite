@@ -342,13 +342,27 @@ class NGames(commands.Cog):
         view.on_timeout = timeout
 
     @commands.command()
-    async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):
-        if user1 is None and user2 is None:
-            user1, user2 = ctx.author
-        elif user1 is None and user2 is not None:
-            user1 = ctx.author
-        elif user1 is not None and user2 is None:
-            user2 = ctx.author
+    async def ship(self, ctx, user1:Union[discord.User, str]=None, user2:Union[discord.User, str]=None):
+        if isinstance(user1, discord.User) and isinstance(user2, discord.User):
+            if user1 is None and user2 is None:
+                user1, user2 = ctx.author
+            elif user1 is None and user2 is not None:
+                user1 = ctx.author
+            elif user1 is not None and user2 is None:
+                user2 = ctx.author
+        elif isinstance(user1, str) or isinstance(user2, str):
+            if user1 == "random" and user2 =="random":
+                user1= random.choice(ctx.guild.members)
+                user2 = random.choice(ctx.guild.members)
+            elif user1 == "random" and user2 is None:
+                user1 = ctx.author
+                user2 = random.choice(ctx.guild.members)
+            elif user1 == "random" and isinstance(user2, discord.User):
+                user1 = random.choice(ctx.guild.members)
+                user2 = user2
+            elif isinstance(user1, discord.User) and user2 == "random":
+                user1 = user1
+                user2 = random.choice(ctx.guild.members)
         a1 = user1.display_avatar.with_size(512)
         a2 = user2.display_avatar.with_size(512)
         await a1.save(f"images/generated/{user1.id}.png")
