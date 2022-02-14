@@ -79,7 +79,7 @@ class ChatBot(commands.Cog):
     async def chat_setup_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("You do not have the permission to do that. Required Perm: `Manage Server`")
-        elif isinstance(error, discord.HTTPException):
+        elif isinstance(error, discord.Forbidden):
             await ctx.send("Kanna doesn't have perms to do that. Please make sure kanna has the permission to manage channels.")
     
     @chat_disable.error
