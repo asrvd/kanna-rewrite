@@ -29,6 +29,7 @@ class ChatBot(commands.Cog):
         self.client = client
 
     @commands.command()
+    @commands.has_permissions(manage_guild=True)
     async def chat_setup(self, ctx):
         msg = await ctx.send('Setting up new channel..')
         ch = await ctx.guild.create_text_channel(name="❤-chat-with-kanna")
@@ -36,6 +37,7 @@ class ChatBot(commands.Cog):
         await msg.edit(content=f"Setup Complete, You can chat with kanna now in {ch.mention}.\nPlease make sure kanna has the permission to read messages in this channel.")
 
     @commands.command()
+    @commands.has_permissions(manage_guild=True)
     async def chat_disable(self, ctx):
         if check(ctx.guild.id):
             await ctx.send("Disabling chat..")
@@ -62,6 +64,18 @@ class ChatBot(commands.Cog):
                     return
         else:
             return
+
+    @chat_setup.error
+    async def chat_setup_error(self, ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send("You do not have the permission to do that. Required Perm: `Manage Server`")
+        elif isinstance(error, discord.HTTPException):
+            await ctx.send("Kanna doesn't have perms to do that. Please make sure kanna has the permission to manage channels.")
+    
+    @chat_disable.error
+    async def chat_disable_error(self, ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send("You do not have the permission to do that. Required Perm: `Manage Server`")
 
 def setup(client):
     client.add_cog(ChatBot(client))
