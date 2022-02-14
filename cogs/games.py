@@ -48,7 +48,7 @@ def get_ship(user_list:list):
         quote = "Should already be in this relationship!!"
     elif love > 90 and love <= 101:
         quote = "Fated partners uwu"
-    ship = f"> {user_list[0].mention} + {user_list[1].mention} = **{love}%** of LOVE <:kannawee:877036162122924072>\n> *{quote}*"
+    ship = f"> {user_list[0]} + {user_list[1]} = **{love}%** of LOVE <:kannawee:877036162122924072>\n> *{quote}*"
     return ship
 
 class GTEView(View):
