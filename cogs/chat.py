@@ -42,9 +42,19 @@ class ChatBot(commands.Cog):
         if check(ctx.guild.id):
             await ctx.send("Disabling chat..")
             db.child("CHATBOT").child(ctx.guild.id).child("SETUP").child("set").set(False)
-            await ctx.send("`Chat-With-Kanna` disabled for this guild.")
+            await ctx.send("`Chat-With-Kanna` disabled for this guild.\nSend `kana chat_enable` to enable it again.")
         else:
             await ctx.send("`Chat-With-Kanna` is not setup in this guild.")
+
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def chat_enable(self, ctx):
+        if check(ctx.guild.id):
+            await ctx.send("`Chat-With-Kanna` is already setup in this guild.")
+        else:
+            await ctx.send("Enabling chat..")
+            db.child("CHATBOT").child(ctx.guild.id).child("SETUP").child("set").set(True)
+            await ctx.send("`Chat-With-Kanna` is now enabled for this guild.")
     
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -74,6 +84,11 @@ class ChatBot(commands.Cog):
     
     @chat_disable.error
     async def chat_disable_error(self, ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send("You do not have the permission to do that. Required Perm: `Manage Server`")
+
+    @chat_enable.error
+    async def chat_enable_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("You do not have the permission to do that. Required Perm: `Manage Server`")
 
