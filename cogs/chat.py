@@ -1,0 +1,67 @@
+import discord
+from discord.ext import commands
+import aiohttp
+from decouple import config
+import json
+import pyrebase
+
+firebaseconfig=json.loads(config("FIREBASE_CONFIG"))
+bid = str(config("CA_BID"))
+key = str(config("CA_KEY"))
+
+firebase = pyrebase.initialize_app(firebaseconfig)
+db = firebase.database()
+
+def create(gid, cid):
+    db.child("CHATBOT").child(gid).child("SETUP").set({"ID":cid, "set":True})
+
+def check(gid):
+    if db.child("CHATBOT").child(gid).child("SETUP").child("set").get().val() == False or db.child("CHATBOT").child(gid).child("SETUP").child("set").get().val() == None:
+        return False
+    else:
+        return True
+
+def return_id(gid):
+    return db.child("CHATBOT").child(gid).child("SETUP").child("ID").get().val()
+
+class ChatBot(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+    @commands.command()
+    async def chat_setup(self, ctx):
+        msg = await ctx.send('Setting up new channel..')
+        ch = await ctx.guild.create_text_channel(name="❤-chat-with-kanna")
+        create(ctx.guild.id, ch.id)
+        await msg.edit(content=f"Setup Complete, You can chat with kanna now in {ch.mention}.\nPlease make sure kanna has the permission to read messages in this channel.")
+
+    @commands.command()
+    async def chat_disable(self, ctx):
+        if check(ctx.guild.id):
+            await ctx.send("Disabling chat..")
+            db.child("CHATBOT").child(ctx.guild.id).child("SETUP").child("set").set(False)
+            await ctx.send("`Chat-With-Kanna` disabled for this guild.")
+        else:
+            await ctx.send("`Chat-With-Kanna` is not setup in this guild.")
+    
+    @command.Cog.listener()
+    async def on_message(self, message):
+        if check(message.guild.id):
+            chid = int(return_id(message.guild.id))
+            if message.author.bot:
+                return
+            else:
+                if message.channel.id == chid:
+                    async with message.channel.typing():
+                        async with aiohttp.ClientSession() as session:
+                            async with session.get(f"http://api.brainshop.ai/get?bid={bid}&key={key}&uid={message.author.id}&msg={message.content}") as resp:
+                                if resp.status == 200:
+                                    cont = await resp.json()
+                                    await message.channel.send(cont["cnt"])
+                else:
+                    return
+        else:
+            return
+
+def setup(client):
+    client.add_cog(ChatBot(client))
