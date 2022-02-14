@@ -44,7 +44,7 @@ class ChatBot(commands.Cog):
         else:
             await ctx.send("`Chat-With-Kanna` is not setup in this guild.")
     
-    @command.Cog.listener()
+    @commands.Cog.listener()
     async def on_message(self, message):
         if check(message.guild.id):
             chid = int(return_id(message.guild.id))
