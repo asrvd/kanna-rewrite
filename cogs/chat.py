@@ -32,9 +32,12 @@ class ChatBot(commands.Cog):
     @commands.has_permissions(manage_guild=True)
     async def chat_setup(self, ctx):
         msg = await ctx.send('Setting up new channel..')
-        ch = await ctx.guild.create_text_channel(name="❤-chat-with-kanna")
-        create(ctx.guild.id, ch.id)
-        await msg.edit(content=f"Setup Complete, You can chat with kanna now in {ch.mention}.\nPlease make sure kanna has the permission to read messages in this channel.")
+        try:
+            ch = await ctx.guild.create_text_channel(name="❤-chat-with-kanna")
+            create(ctx.guild.id, ch.id)
+            await msg.edit(content=f"Setup Complete, You can chat with kanna now in {ch.mention}.\nPlease make sure kanna has the permission to read messages in this channel.")
+        except discord.Forbidden:
+            await ctx.send("I don't have permissions to create a channel!")
 
     @commands.command()
     @commands.has_permissions(manage_guild=True)
