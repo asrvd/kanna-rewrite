@@ -1,6 +1,13 @@
 import discord
 from discord.ext import commands
-from ._embed import get_logger_embed 
+from ._embed import get_logger_embed
+import datetime
+import calendar
+from ._config import ec
+
+def get_unix(date: datetime.datetime):
+    u = calendar.timegm(date.utctimetuple())
+    return f"<t:{u}:R>"
 
 class Logger(commands.Cog):
     def __init__(self, client):
@@ -8,9 +15,9 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        print(guild.owner.name)
-        emb = get_logger_embed("j", guild)
-        
+        emb = discord.Embed(description=f"● Guild Name: {guild.name}\n● Member Count: {len(guild.members)}\n● Owner: {guild.owner.name}\n● Region: {guild.region}\n● Created At: {get_unix(guild.created_at)}", color=ec)
+        emb.timestamp = datetime.datetime.utcnow()
+        emb.set_thumbnail(url=guild.icon.url)
         emb.set_author(
             name=f"Kanna joined a new Guild",
             icon_url=guild.icon_url
@@ -24,7 +31,9 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        emb = get_logger_embed("r", guild)
+        emb = discord.Embed(description=f"● Guild Name: {guild.name}\n● Member Count: {len(guild.members)}\n● Owner: {guild.owner.name}\n● Region: {guild.region}\n● Created At: {get_unix(guild.created_at)}", color=ec)
+        emb.timestamp = datetime.datetime.utcnow()
+        emb.set_thumbnail(url=guild.icon.url)
         emb.set_author(
             name=f"Kanna was removed from a Guild",
             icon_url=guild.icon.url
