@@ -6,6 +6,7 @@ from decouple import config
 
 intents = discord.Intents.default()
 intents.members = True
+intents.guilds = True
 intents.messages = True
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or('kanna ', 'kana ', 'k.', 'K.', 'Kanna ', 'Kana '), case_insensitive=True, intents=intents)
