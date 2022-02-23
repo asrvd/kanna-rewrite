@@ -103,7 +103,7 @@ def get_rps_embed(arg:str, ctx, choice:str=None, cb:str=None):
         return demb
 
 def get_logger_embed(arg, guild: discord.Guild):
-    emb = discord.Embed(description=f"● Guild Name: {guild.name}\n● Member Count: {guild.member_count}\n● Owner: {guild.owner.name}\n● Region: {guild.region}\n● Created At: {get_unix(guild.created_at)}", color=ec)
+    emb = discord.Embed(description=f"● Guild Name: {guild.name}\n● Member Count: {len(guild.members)}\n● Owner: {guild.owner.name}\n● Region: {guild.region}\n● Created At: {get_unix(guild.created_at)}", color=ec)
     emb.timestamp = datetime.datetime.utcnow()
     emb.set_thumbnail(url=guild.icon_url)
     return emb
