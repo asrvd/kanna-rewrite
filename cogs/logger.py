@@ -25,7 +25,7 @@ class Logger(commands.Cog):
         emb = get_logger_embed("r", guild)
         emb.set_author(
             name=f"Kanna was removed from a Guild",
-            icon_url=guild.icon_url
+            icon_url=guild.icon.url
         )
         emb.set_footer(
             text=f"Auto Logger | {guild.id}",
