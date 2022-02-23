@@ -17,10 +17,10 @@ class Logger(commands.Cog):
     async def on_guild_join(self, guild):
         emb = discord.Embed(description=f"● Guild Name: {guild.name}\n● Member Count: {len(guild.members)}\n● Owner: {guild.owner.name}\n● Region: {guild.region}\n● Created At: {get_unix(guild.created_at)}", color=ec)
         emb.timestamp = datetime.datetime.utcnow()
-        #emb.set_thumbnail(url=guild.icon.url if guild.icon else None)
+        emb.set_thumbnail(url=guild.icon.url if guild.icon else None)
         emb.set_author(
             name=f"Kanna joined a new Guild",
-            icon_url=guild.icon_url
+            icon_url=guild.icon.url if guild.icon else self.client.user.display_avatar
         )
         emb.set_footer(
             text=f"Auto Logger | {guild.id}",
@@ -33,10 +33,10 @@ class Logger(commands.Cog):
     async def on_guild_remove(self, guild):
         emb = discord.Embed(description=f"● Guild Name: {guild.name}\n● Member Count: {len(guild.members)}\n● Owner: {guild.owner.name}\n● Region: {guild.region}\n● Created At: {get_unix(guild.created_at)}", color=ec)
         emb.timestamp = datetime.datetime.utcnow()
-        #emb.set_thumbnail(url=guild.icon.url if guild.icon else None)
+        emb.set_thumbnail(url=guild.icon.url if guild.icon else None)
         emb.set_author(
             name=f"Kanna was removed from a Guild",
-            icon_url=guild.icon.url
+            icon_url=guild.icon.url if guild.icon else self.client.user.display_avatar
         )
         emb.set_footer(
             text=f"Auto Logger | {guild.id}",
