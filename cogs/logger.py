@@ -8,8 +8,9 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        emb = get_logger_embed("j", guild)
         print(guild.owner.name)
+        emb = get_logger_embed("j", guild)
+        
         emb.set_author(
             name=f"Kanna joined a new Guild",
             icon_url=guild.icon_url
