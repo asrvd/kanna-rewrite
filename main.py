@@ -8,6 +8,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.guilds = True
 intents.messages = True
+intents.message_content = True
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or('kanna ', 'kana ', 'k.', 'K.', 'Kanna ', 'Kana '), case_insensitive=True, intents=intents)
 client.remove_command("help")
