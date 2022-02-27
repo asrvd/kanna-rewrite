@@ -253,7 +253,8 @@ class RP(commands.Cog):
 
     @commands.command()
     async def poke(self, ctx, u:discord.User=None):
-        if u is None:
+        # sourcery skip: none-compare, remove-redundant-fstring
+        if u == None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -262,9 +263,9 @@ class RP(commands.Cog):
         )
         emb.set_image(url=get_gif("poke"))
         emb.set_footer(
-            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
+            text=f"✿ Made by Kanna Chan",
+            icon_url=self.client.user.display_avatar
         )
-
         await ctx.send(embed=emb)
 
     @commands.command()

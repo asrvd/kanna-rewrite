@@ -1,11 +1,13 @@
-import discord
-from discord.ext import commands
-from discord.commands import slash_command, user_command, SlashCommandGroup
-import weeby
-from ._config import gi, ec
-import pyrebase
-from decouple import config
 import json
+
+import discord
+import pyrebase
+import weeby
+from decouple import config
+from discord.commands import SlashCommandGroup, slash_command, user_command
+from discord.ext import commands
+
+from ._config import ec, gi
 
 gif = weeby.Weeby(str(config("WTOKEN")))
 firebaseconfig=json.loads(config("FIREBASE_CONFIG"))
