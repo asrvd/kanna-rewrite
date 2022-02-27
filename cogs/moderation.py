@@ -36,7 +36,9 @@ class Mod(commands.Cog):
         tempmute= int(time[:-1]) * time_convert[time[-1]]
         until = discord.utils.utcnow() + datetime.timedelta(seconds=tempmute)
         await user.timeout(until)
-        await ctx.reply(f"> `⏲`**{user}** was timed out for **{time[:-1] + ' ' + time_unit[time[-1]]}**.\n> Reason: **{reason}**")
+        await ctx.reply(
+            f'> `⏲`**{user}** was timed out for **{f"{time[:-1]} {time_unit[time[-1]]}"}**.\n> Reason: **{reason}**'
+        )
 
     @commands.command()
     @commands.has_permissions(moderate_members=True)
@@ -50,7 +52,7 @@ class Mod(commands.Cog):
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, user_id):
-        if self.client.get_user(int(user_id)) == None:
+        if self.client.get_user(int(user_id)) is None:
             await ctx.reply("Couldn't find any user with this id!")
         else:
             user = self.client.get_user(int(user_id))

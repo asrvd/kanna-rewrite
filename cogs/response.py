@@ -36,9 +36,8 @@ class SimpView(View):
     async def interaction_check(self, interaction):
         if interaction.user == self.obso:
             return True
-        else:
-            await interaction.response.send_message("This Pickup Line is not for you!", ephemeral=True)
-            return False
+        await interaction.response.send_message("This Pickup Line is not for you!", ephemeral=True)
+        return False
 
     async def on_timeout(self):
         for button in self.children:

@@ -24,13 +24,9 @@ def mcheck(user1, user2 = None):
     if all_users.each() != None:
         for user in all_users.each():
             partner = db.child("MARRIAGE_TEST").child(user.key()).child("PARTNER").get().val()
-            if partner == user1 or partner == user2:
+            if partner in [user1, user2]:
                 return True
-                break
-    if auth1 != None or auth2 != None:
-        return True
-    else:
-        return False
+    return auth1 != None or auth2 != None
 
 def scheck(user):   #checks if user is married or not
     auth1 = db.child("MARRIAGE_TEST").child(user).get().val()
@@ -48,7 +44,7 @@ def scheck(user):   #checks if user is married or not
 
 def return_partner(user):  #returns ID of partner
     auth = db.child("MARRIAGE_TEST").child(user).get().val()
-    if auth == None:
+    if auth is None:
         all_users = db.child("MARRIAGE_TEST").get()
         if all_users.each() != None:
             for users in all_users.each():
@@ -63,14 +59,11 @@ def return_partner(user):  #returns ID of partner
 def check_partner(user1, user2):   #checks if person is his/her partner
     auth1 = db.child("MARRIAGE_TEST").child(user1).child("PARTNER").get().val()
     auth2 = db.child("MARRIAGE_TEST").child(user2).child("PARTNER").get().val()
-    if user1 == auth2 or user2 == auth1:
-        return True
-    else:
-        return False
+    return user1 == auth2 or user2 == auth1
 
 def return_time(user):   #returns date of marriage
     auth = db.child("MARRIAGE_TEST").child(user).get().val()
-    if auth == None:
+    if auth is None:
         all_users = db.child("MARRIAGE_TEST").get()
         if all_users.each() != None:
             for users in all_users.each():

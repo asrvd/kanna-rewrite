@@ -31,24 +31,20 @@ def remove(guild):
 
 def return_channel(guild):     #returns channel ID
     channel = db.child("WELCOME").child(guild).child("CHANNEL").get().val()
-    if channel == None:
-        return None
-    else:
-        return channel
+    return None if channel is None else channel
 
 def afcreate(id, guild,  message):
     db.child("AFKUTIL").child(id).child(guild).set({"AFK": True, "MESSAGE": message})
 
 def checkafk(id, guild):
     check = db.child("AFKUTIL").child(id).child(guild).child("AFK").get().val()
-    if check == None or check == False:
+    if check is None or check == False:
         return False
     elif check == True:
         return True
 
 def get_afk_message(id, guild):
-    message = db.child("AFKUTIL").child(id).child(guild).child("MESSAGE").get().val()
-    return message
+    return db.child("AFKUTIL").child(id).child(guild).child("MESSAGE").get().val()
 
 def remove_afk(id, guild):
     db.child("AFKUTIL").child(id).child(guild).remove()
@@ -62,7 +58,7 @@ class Util(commands.Cog):
         description="Define any word using Urban Dictionary."
     )
     async def define(self, ctx, query: str):
-        if query == None:
+        if query is None:
             await ctx.respond("You need to provide a Query to get the defintion!", ephemeral=True)
         else:
             async with aiohttp.ClientSession() as cs:
@@ -131,7 +127,7 @@ class NUtility(commands.Cog):
 
     @commands.command(aliases=['df', 'def'])
     async def define(self, ctx, *, query: str):
-        if query == None:
+        if query is None:
             await ctx.reply("You need to provide a Query to get the defintion!")
         else:
             async with aiohttp.ClientSession() as cs:
@@ -224,10 +220,10 @@ class NUtility(commands.Cog):
 
     @commands.command()
     async def afk(self, ctx, *, message:str=None):
-        if message == None:
+        if message is None:
             message = "AFK"
         nick = ctx.author.display_name
-        new_nick = "[AFK] " + nick
+        new_nick = f"[AFK] {nick}"
         try:
             await ctx.author.edit(nick = new_nick)
             afcreate(ctx.author.id, ctx.guild.id, message)
@@ -240,17 +236,16 @@ class NUtility(commands.Cog):
     async def on_message(self, message):
         if checkafk(message.author.id, message.guild.id):
             remove_afk(message.author.id, message.guild.id)
-            await message.reply(f"Welcome back! your AFK has been removed", delete_after=10)
+            await message.reply("Welcome back! your AFK has been removed", delete_after=10)
             new_nick = message.author.display_name.strip("[AFK]")
             await message.author.edit(nick=new_nick)
         for mention in message.mentions:
             if checkafk(mention.id, message.guild.id):
                 if message.author.bot:
                     return
-                else:
-                    note = get_afk_message(mention.id, message.guild.id)
-                    await message.reply(
-                    f"`{mention}` is AFK: `{note}`", delete_after=10)
+                note = get_afk_message(mention.id, message.guild.id)
+                await message.reply(
+                f"`{mention}` is AFK: `{note}`", delete_after=10)
 
 
 def setup(client):

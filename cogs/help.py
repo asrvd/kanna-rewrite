@@ -41,10 +41,7 @@ class HelpView(View):
     async def callback(self, select, interaction):
         emb = get_help_embed(select.values[0], interaction.user)
         for sel in options:
-            if sel.label == select.values[0]:
-                sel.default = True
-            else:
-                sel.default=False
+            sel.default = sel.label == select.values[0]
         await interaction.response.edit_message(
             embed=emb, view=self
         )

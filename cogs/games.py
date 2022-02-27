@@ -81,18 +81,15 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
+            for btn in self.children:
+                btn.disabled = True
             if self.choice1 == self.choice2:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
             else:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+
+            self.choice2=None
+            self.choice1=None
 
     @discord.ui.button(emoji=None, style=2, custom_id="2")
     async def b2_callback(self, button, interaction):
@@ -104,18 +101,15 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
+            for btn in self.children:
+                btn.disabled = True
             if self.choice1 == self.choice2:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
             else:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+
+            self.choice2=None
+            self.choice1=None
 
     @discord.ui.button(emoji=None, style=2, custom_id="3")
     async def b3_callback(self, button, interaction):
@@ -127,28 +121,24 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
+            for btn in self.children:
+                btn.disabled = True
             if self.choice1 == self.choice2:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
             else:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+
+            self.choice2=None
+            self.choice1=None
 
     async def interaction_check(self, interaction):
         if interaction.user in self.user_list:
             return True
+        if interaction.user == self.user:
+            await interaction.response.send_message("This is not your turn!", ephemeral = True)
         else:
-            if interaction.user == self.user:
-                await interaction.response.send_message("This is not your turn!", ephemeral = True)
-            else:
-                await interaction.response.send_message("This game is not for you!", ephemeral=True)
-            return False
+            await interaction.response.send_message("This game is not for you!", ephemeral=True)
+        return False
     
     async def on_timeout(self):
         self.choice1 = None
@@ -171,9 +161,8 @@ class ShipView(View):
     async def interaction_check(self, interaction):
         if interaction.user in self.user_list:
             return True
-        else:
-            await interaction.response.send_message("This UI is not for you!", ephemeral=True)
-            return False
+        await interaction.response.send_message("This UI is not for you!", ephemeral=True)
+        return False
     
     async def on_timeout(self):
         for button in self.children:
@@ -211,11 +200,10 @@ class RPSView(View):
             button.disabled = True
         await interaction.response.edit_message(embed=emb, view=self)
     async def interaction_check(self, interaction) -> bool:
-        if interaction.user != self.ctx.author:
-            await interaction.response.send_message("This game is not for you!", ephemeral=True)
-            return False
-        else:
+        if interaction.user == self.ctx.author:
             return True
+        await interaction.response.send_message("This game is not for you!", ephemeral=True)
+        return False
     async def on_timeout(self):
         for button in self.children:
             button.disabled = True
@@ -321,7 +309,7 @@ class Games(commands.Cog):
     async def gte(self, ctx, user:discord.User):
         if user == ctx.author:
             await ctx.respond("You can't play with yourself baka!")
-        elif user != ctx.author:
+        else:
             view = GTEView(ctx, [ctx.author], ctx.author, user)
             await ctx.respond(f"{user.mention}, you have been challenged by {ctx.author.mention} for a game of `Guess The Emote`\n**{ctx.author.display_name}** goes first, choose any emoji!", view=view)
 

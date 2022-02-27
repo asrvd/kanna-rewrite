@@ -81,7 +81,7 @@ class AV(commands.Cog):
 
     @commands.command(aliases=['pfp', "avatar"])
     async def av(self, ctx, *user:discord.User):
-        if len(user) == 0:
+        if not user:
             emb=discord.Embed(color=ec)
             emb.set_author(
                 name=f"{ctx.author.display_name}'s Avatar",
@@ -106,10 +106,7 @@ class AV(commands.Cog):
             )
             await ctx.send(embed=emb)
         elif len(user) >= 2:
-            animated = []
-            for m in user:
-                animated.append(m.display_avatar.is_animated())
-
+            animated = [m.display_avatar.is_animated() for m in user]
             imgs = []
             for mem in user:
                 url = requests.get(mem.display_avatar.url)
@@ -120,11 +117,11 @@ class AV(commands.Cog):
             # print(animated)
             all_animated = all(animated)
             all_not_animated = not any(animated)
+            s = len(imgs)
             # print(all_animated, all_not_animated)
             if all_animated:  # ANIMATED ############
                 frames = []
 
-                s = len(imgs)
                 print("S", s)
                 d = 250
                 bg = Image.new(mode="RGBA", size=(d * s, d))
@@ -146,7 +143,7 @@ class AV(commands.Cog):
                     i = 0
                     brk = False
                     bg = Image.new(mode="RGBA", size=(d * s, d))
-                    for x in range(0, s):
+                    for x in range(s):
                         try:
                             bg.paste(frames[i][f_no], (d * x, 0))
                             i += 1
@@ -158,7 +155,7 @@ class AV(commands.Cog):
                     if brk:
                         break
                 # print(frames_imgs)
-                if frames_imgs == []:
+                if not frames_imgs:
                     frames_imgs = imgs
 
                 # print(frames_imgs)
@@ -185,16 +182,14 @@ class AV(commands.Cog):
                 await ctx.send(embed=emb, file=file)
                 os.system(f"rm -rf images/generated/{ctx.author.id}.gif")
             else:
-                s = len(imgs)
                 bg = Image.new(mode="RGBA", size=(500 * s, 500))
                 i = 0
-                for x in range(0, s):
+                for x in range(s):
                     try:
                         bg.paste(imgs[i].resize((500, 500)), (500 * x, 0))
                         i += 1
                     except Exception as e:
                         print(e, i)
-                        pass
                 bg.save(f"./images/generated/{ctx.author.id}.png", quality=10)
                 file = discord.File(
                     f"./images/generated/{ctx.author.id}.png", filename="pic.jpg"
@@ -231,15 +226,6 @@ class AV(commands.Cog):
 
     @commands.command(aliases=['avc', 'pfpc'])
     async def pfpcol(self, ctx, *, size):
-        ref = {
-            "5x5":500,
-            "6x6":600,
-            "7x7":700,
-            "8x8":800,
-            "9x9":900,
-            "10x10":1000,
-            "12x12":1200
-        }
         size_ref = {
             "5x5":25,
             "6x6":36,
@@ -254,11 +240,20 @@ class AV(commands.Cog):
         else:
             pfp_list = []
             msg = await ctx.send("Making the collage..(can take upto 1 minute)")
-            for i in range(0, size_ref[size]):
+            for _ in range(size_ref[size]):
                 mem = random.choice(ctx.guild.members)
                 url = requests.get(mem.display_avatar.url)
                 im = Image.open(BytesIO(url.content)).resize((100, 100))
                 pfp_list.append(im)
+            ref = {
+                "5x5":500,
+                "6x6":600,
+                "7x7":700,
+                "8x8":800,
+                "9x9":900,
+                "10x10":1000,
+                "12x12":1200
+            }
             bg = Image.new(mode="RGBA", size=(ref[size], ref[size]))
             for j in range(0, ref[size], 100):
                 for k in range(0, ref[size], 100):
@@ -275,7 +270,7 @@ class AV(commands.Cog):
                 text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
                 icon_url=self.client.user.display_avatar
             )
-            emb.set_image(url=f"attachment://pfpcollage.png")
+            emb.set_image(url="attachment://pfpcollage.png")
             await ctx.send(embed=emb, file=file)
             await msg.delete()
             os.system(f"rm -rf images/generated/pfpcollage{ctx.author.id}.png")

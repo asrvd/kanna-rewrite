@@ -43,7 +43,7 @@ class Misc(commands.Cog):
         view.add_item(btn2)
         ch = 0
         for guild in self.client.guilds:
-            for channel in guild.channels:
+            for _ in guild.channels:
                 ch += 1
         desc = f"**-꒰ About Kanna ꒱-**\n> ❀ Version: `2.0.0a`\n> ❀ ID: `{self.client.user.id}`\n> ❀ Commands: `100+`\n> ❀ Tags: `Fun`, `Games`, `Moderation`, `Utility`, `Memes`\n> ❀ Developer: `asheeshh#7727`\n> ❀ Server Count: `{len(self.client.guilds)}`\n> ❀ User Count: `{len(self.client.users)}`\n> ❀ Channel Count: `{ch}`\n> ❀ Library: `Pycord`"
         emb = discord.Embed(description=desc, color=ec)

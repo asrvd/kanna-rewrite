@@ -1,11 +1,13 @@
-import discord
-from discord.ext import commands
-from discord.commands import slash_command, user_command, SlashCommandGroup
-import weeby
-from ._config import gi, ec
-import pyrebase
-from decouple import config
 import json
+
+import discord
+import pyrebase
+import weeby
+from decouple import config
+from discord.commands import SlashCommandGroup, slash_command, user_command
+from discord.ext import commands
+
+from ._config import ec, gi
 
 gif = weeby.Weeby(str(config("WTOKEN")))
 firebaseconfig=json.loads(config("FIREBASE_CONFIG"))
@@ -63,7 +65,7 @@ class Action(commands.Cog):
     
     @action.command()
     async def baka(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -73,15 +75,15 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="baka"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
         
 
     @action.command()
     async def boop(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -91,14 +93,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="boop"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def bite(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -108,9 +110,9 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="bite"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
@@ -335,7 +337,7 @@ class Action(commands.Cog):
 
     @action.command()
     async def nom(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -345,14 +347,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="nom"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def feed(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -362,14 +364,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="feed"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def love(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -379,9 +381,9 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="love"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
