@@ -30,10 +30,7 @@ def add_confession(id, message):
 
 def get_confession(id):
     msg = db.child("CONFESSIONS").child(id).child("MESSAGE").get().val()
-    if msg is not None:
-        return msg
-    elif msg is None:
-        return None
+    return msg if msg is not None else None
 
 def remove_confession(id):
     db.child("CONFESSIONS").child(id).remove()
@@ -106,29 +103,28 @@ class Confess(commands.Cog):
     async def approve(self, ctx, id: int=None):
         if id is None:
             await ctx.reply("Please provide the id of message to approve! `kana approve id`")
-        else:
-            if ctx.author.id in mod_list:   
-                msg = get_confession(int(id))
-                mg = await ctx.fetch_message(int(id))
-                if msg != None:
-                    cs = self.client.get_channel(879271125228593152)
-                    emb = discord.Embed(description=msg, color=ec)
-                    emb.set_author(
-                        name="WeebHub Confessions",
-                        icon_url=ctx.guild.icon
-                    )
-                    emb.set_footer(
-                        text="Send [k.confess your_confession] in my DM to confess.\nMade by Kanna Chan",
-                        icon_url=self.client.user.display_avatar
-                    )
-                    emb.timestamp=datetime.datetime.utcnow()
-                    await cs.send(embed=emb)
-                    await ctx.reply("✅ Approved the Confession!")
-                    await mg.edit(f"`Approved by {ctx.author}.`", view=None)
-                else:
-                    await ctx.reply("No confession found with this ID!")
+        elif ctx.author.id in mod_list:   
+            msg = get_confession(int(id))
+            mg = await ctx.fetch_message(int(id))
+            if msg is None:
+                await ctx.reply("No confession found with this ID!")
             else:
-                await ctx.reply("You are not allowed to use this command.")
+                cs = self.client.get_channel(879271125228593152)
+                emb = discord.Embed(description=msg, color=ec)
+                emb.set_author(
+                    name="WeebHub Confessions",
+                    icon_url=ctx.guild.icon
+                )
+                emb.set_footer(
+                    text="Send [k.confess your_confession] in my DM to confess.\nMade by Kanna Chan",
+                    icon_url=self.client.user.display_avatar
+                )
+                emb.timestamp=datetime.datetime.utcnow()
+                await cs.send(embed=emb)
+                await ctx.reply("✅ Approved the Confession!")
+                await mg.edit(f"`Approved by {ctx.author}.`", view=None)
+        else:
+            await ctx.reply("You are not allowed to use this command.")
 
 
 def setup(client):

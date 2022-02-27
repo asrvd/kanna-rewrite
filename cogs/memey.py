@@ -31,11 +31,10 @@ class MemeView(View):
             button.disabled = True
         await interaction.response.edit_message(view=self)
     async def interaction_check(self, interaction) -> bool:
-        if interaction.user != self.ctx.author:
-            await interaction.response.send_message("This message is not for you!", ephemeral=True)
-            return False
-        else:
+        if interaction.user == self.ctx.author:
             return True
+        await interaction.response.send_message("This message is not for you!", ephemeral=True)
+        return False
 
 class Memey(commands.Cog):
     def __init__(self, client):

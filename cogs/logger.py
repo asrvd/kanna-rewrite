@@ -20,9 +20,12 @@ class Logger(commands.Cog):
         if guild.icon:
             emb.set_thumbnail(url=guild.icon.url)
         emb.set_author(
-            name=f"Kanna joined a new Guild",
-            icon_url=guild.icon.url if guild.icon else self.client.user.display_avatar
+            name="Kanna joined a new Guild",
+            icon_url=guild.icon.url
+            if guild.icon
+            else self.client.user.display_avatar,
         )
+
         emb.set_footer(
             text=f"Auto Logger | {guild.id}",
             icon_url=self.client.user.display_avatar
@@ -37,9 +40,12 @@ class Logger(commands.Cog):
         if guild.icon:
             emb.set_thumbnail(url=guild.icon.url)
         emb.set_author(
-            name=f"Kanna was removed from a Guild",
-            icon_url=guild.icon.url if guild.icon else self.client.user.display_avatar
+            name="Kanna was removed from a Guild",
+            icon_url=guild.icon.url
+            if guild.icon
+            else self.client.user.display_avatar,
         )
+
         emb.set_footer(
             text=f"Auto Logger | {guild.id}",
             icon_url=self.client.user.display_avatar

@@ -18,10 +18,10 @@ class Owner(commands.Cog):
 
         msg = ""
         for server in self.client.guilds:
-            msg += "Name:    " + server.name + "\n"
-            msg += "ID:      " + str(server.id) + "\n"
-            msg += "Owner:   " + str(server.owner) + "\n"
-            msg += "Members: " + str(len(server.members)) + "\n"
+            msg += f"Name:    {server.name}" + "\n"
+            msg += f"ID:      {str(server.id)}" + "\n"
+            msg += f"Owner:   {str(server.owner)}" + "\n"
+            msg += f"Members: {len(server.members)}" + "\n"
             msg += "\n\n"
 
         data = io.BytesIO(msg.encode("utf-8"))
@@ -43,10 +43,7 @@ class Owner(commands.Cog):
             content=f"Saving commands to **{cmd_file}**...",
         )
 
-        msg = ""
-        for cmd in self.client.all_commands:
-            msg += cmd + "\n"
-
+        msg = "".join(cmd + "\n" for cmd in self.client.all_commands)
         msg += f"Total Commands: {len(self.client.all_commands)}"
         data = io.BytesIO(msg.encode("utf-8"))
 

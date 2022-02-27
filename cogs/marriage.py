@@ -31,27 +31,20 @@ def mcheck(user1, user2 = None):
     if all_users.each() != None:
         for user in all_users.each():
             partner = db.child("MARRIAGE").child(user.key()).child("PARTNER").get().val()
-            if partner == user1 or partner == user2:
+            if partner in [user1, user2]:
                 return True
-                break
-    if auth1 != None or auth2 != None:
-        return True
-    else:
-        return False
+    return auth1 != None or auth2 != None
 
 def add_date_hearts(user1, user2, heart: int):
     auth = db.child("MARRIAGE").child(user1).get().val()
-    if auth is None:
-        pri = user2
-    else:
-        pri = user1
+    pri = user2 if auth is None else user1
     d = int(db.child("MARRIAGE").child(pri).child("DATES").get().val())
     h = int(db.child("MARRIAGE").child(pri).child("HEARTS").get().val())
     db.child("MARRIAGE").child(pri).update({"DATES":d+1, "HEARTS":h+heart, "DATE_TODAY": "True"})
 
 def get_date_heart(user):
     auth = db.child("MARRIAGE").child(user).get().val()
-    if auth == None:
+    if auth is None:
         all_users = db.child("MARRIAGE").get()
         if all_users.each() != None:
             for users in all_users.each():
@@ -67,7 +60,7 @@ def get_date_heart(user):
 
 def check_date(user):
     auth = db.child("MARRIAGE").child(user).get().val()
-    if auth == None:
+    if auth is None:
         all_users = db.child("MARRIAGE").get()
         if all_users.each() != None:
             for users in all_users.each():
@@ -77,7 +70,7 @@ def check_date(user):
             d = db.child("MARRIAGE").child(user).child("DATE_TODAY").get().val()
     else:
         d = db.child("MARRIAGE").child(user).child("DATE_TODAY").get().val()
-    return True if d == "True" else False
+    return d == "True"
     
 
 def scheck(user):   #checks if user is married or not
@@ -88,15 +81,11 @@ def scheck(user):   #checks if user is married or not
             partner = db.child("MARRIAGE").child(users.key()).child("PARTNER").get().val()
             if partner == user:
                 return True
-                break
-    if auth1 != None:
-        return True
-    else:
-        return False
+    return auth1 != None
 
 def return_partner(user):  #returns ID of partner
     auth = db.child("MARRIAGE").child(user).get().val()
-    if auth == None:
+    if auth is None:
         all_users = db.child("MARRIAGE").get()
         if all_users.each() != None:
             for users in all_users.each():
@@ -111,14 +100,11 @@ def return_partner(user):  #returns ID of partner
 def check_partner(user1, user2):   #checks if person is his/her partner
     auth1 = db.child("MARRIAGE").child(user1).child("PARTNER").get().val()
     auth2 = db.child("MARRIAGE").child(user2).child("PARTNER").get().val()
-    if user1 == auth2 or user2 == auth1:
-        return True
-    else:
-        return False
+    return user1 == auth2 or user2 == auth1
 
 def return_time(user):   #returns date of marriage
     auth = db.child("MARRIAGE").child(user).get().val()
-    if auth == None:
+    if auth is None:
         all_users = db.child("MARRIAGE").get()
         if all_users.each() != None:
             for users in all_users.each():
@@ -168,9 +154,8 @@ class MarryView(View):
         if interaction.user == self.joke:
             #await interaction.response.send_message("NO", ephemeral=True)
             return True
-        else:
-            await interaction.response.send_message("This is not for you!", ephemeral=True)
-            return False
+        await interaction.response.send_message("This is not for you!", ephemeral=True)
+        return False
 
     async def on_timeout(self):
         for btn in self.children:
@@ -207,9 +192,8 @@ class DivView(View):
         if interaction.user == self.ctx.author:
             #await interaction.response.send_message("NO", ephemeral=True)
             return True
-        else:
-            await interaction.response.send_message("This message is not for you!", ephemeral=True)
-            return False
+        await interaction.response.send_message("This message is not for you!", ephemeral=True)
+        return False
 
     async def on_timeout(self):
         for btn in self.children:
@@ -471,26 +455,25 @@ class NMarriage(commands.Cog):
     async def date(self, ctx, partner: discord.User=None):
         if partner is None:
             await ctx.reply("Please use this command like `kana date @partner`.")
-        else:
-            if check_partner(ctx.author.id, partner.id):
-                if check_date(ctx.author.id) is False:
-                    heart = random.randint(30, 101)
-                    add_date_hearts(ctx.author.id, partner.id, heart)
-                    emb = discord.Embed(description=f"●˚◞♡  ⃗ ꒰{ctx.author.display_name}꒱ and ꒰{partner.display_name}꒱ go on a date together uwu\n{cont} ✿ **{heart}** hearts collected!", color=ec)
-                    emb.set_author(
-                        name="Date",
-                        icon_url=ctx.author.display_avatar
-                    )
-                    emb.set_image(url="https://i.pinimg.com/originals/c2/49/9c/c2499c5b2e996102e50ec939603999d3.gif")
-                    emb.set_footer(
-                        text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
-                        icon_url=self.client.user.display_avatar
-                    )
-                    await ctx.send(embed=emb)
-                else:
-                    await ctx.reply("You already dated once today, You can date gain tomorrow.")
+        elif check_partner(ctx.author.id, partner.id):
+            if check_date(ctx.author.id) is False:
+                heart = random.randint(30, 101)
+                add_date_hearts(ctx.author.id, partner.id, heart)
+                emb = discord.Embed(description=f"●˚◞♡  ⃗ ꒰{ctx.author.display_name}꒱ and ꒰{partner.display_name}꒱ go on a date together uwu\n{cont} ✿ **{heart}** hearts collected!", color=ec)
+                emb.set_author(
+                    name="Date",
+                    icon_url=ctx.author.display_avatar
+                )
+                emb.set_image(url="https://i.pinimg.com/originals/c2/49/9c/c2499c5b2e996102e50ec939603999d3.gif")
+                emb.set_footer(
+                    text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
+                    icon_url=self.client.user.display_avatar
+                )
+                await ctx.send(embed=emb)
             else:
-                await ctx.reply("Either you have forgot who your partner is or it seems you are not married yet, poor guy. Check your marital staus by sending `kana marriage`.")
+                await ctx.reply("You already dated once today, You can date gain tomorrow.")
+        else:
+            await ctx.reply("Either you have forgot who your partner is or it seems you are not married yet, poor guy. Check your marital staus by sending `kana marriage`.")
 
 
     @commands.command()
@@ -505,13 +488,11 @@ class NMarriage(commands.Cog):
 
     @commands.command()
     async def mlb(self, ctx, *, arg: str = None):
-        if arg == None:
-            await ctx.send(embed = await self.get_guild_lb(ctx.guild, ctx.author))
-        elif arg.lower() == "guild":
+        if arg is None or arg.lower() == "guild":
             await ctx.send(embed = await self.get_guild_lb(ctx.guild, ctx.author))
         elif arg.lower() == "global":
             await ctx.send(embed = await self.get_lb(ctx.author))
-        
+
         else:
             emb = discord.Embed(description="Commands Available:\n> `mlb guild` for server marriage leaderboard.\n> `mlb global` for global marriage leaderboard.", color=ec)
             emb.set_author(

@@ -30,7 +30,7 @@ def game_logic(choice_user, choice_bot, ctx):
     elif logic_dict[choice_user] == choice_bot:
         #print("win")
         return get_rps_embed("w", ctx, choice_user, choice_bot)
-    elif logic_dict[choice_user] != choice_bot and choice_user != choice_bot:
+    else:
         #print("lose")
         return get_rps_embed("l", ctx, choice_user, choice_bot)
 
@@ -48,8 +48,7 @@ def get_ship(user_list:list):
         quote = "Should already be in this relationship!!"
     elif love > 90 and love <= 101:
         quote = "Fated partners uwu"
-    ship = f"> {user_list[0]} + {user_list[1]} = **{love}%** of LOVE <:kannawee:877036162122924072>\n> *{quote}*"
-    return ship
+    return f"> {user_list[0]} + {user_list[1]} = **{love}%** of LOVE <:kannawee:877036162122924072>\n> *{quote}*"
 
 class GTEView(View):
     def __init__(self, ctx, user_list: list, user:discord.User, partner:discord.User):
@@ -81,18 +80,15 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
+            for btn in self.children:
+                btn.disabled = True
             if self.choice1 == self.choice2:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
             else:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+
+            self.choice2=None
+            self.choice1=None
 
     @discord.ui.button(emoji=None, style=2, custom_id="2")
     async def b2_callback(self, button, interaction):
@@ -104,18 +100,15 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
+            for btn in self.children:
+                btn.disabled = True
             if self.choice1 == self.choice2:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
             else:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+
+            self.choice2=None
+            self.choice1=None
 
     @discord.ui.button(emoji=None, style=2, custom_id="3")
     async def b3_callback(self, button, interaction):
@@ -127,28 +120,24 @@ class GTEView(View):
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
+            for btn in self.children:
+                btn.disabled = True
             if self.choice1 == self.choice2:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
             else:
-                for btn in self.children:
-                    btn.disabled = True
                 await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+
+            self.choice2=None
+            self.choice1=None
 
     async def interaction_check(self, interaction):
         if interaction.user in self.user_list:
             return True
+        if interaction.user == self.user:
+            await interaction.response.send_message("This is not your turn!", ephemeral = True)
         else:
-            if interaction.user == self.user:
-                await interaction.response.send_message("This is not your turn!", ephemeral = True)
-            else:
-                await interaction.response.send_message("This game is not for you!", ephemeral=True)
-            return False
+            await interaction.response.send_message("This game is not for you!", ephemeral=True)
+        return False
     
     async def on_timeout(self):
         self.choice1 = None
@@ -171,9 +160,8 @@ class ShipView(View):
     async def interaction_check(self, interaction):
         if interaction.user in self.user_list:
             return True
-        else:
-            await interaction.response.send_message("This UI is not for you!", ephemeral=True)
-            return False
+        await interaction.response.send_message("This UI is not for you!", ephemeral=True)
+        return False
     
     async def on_timeout(self):
         for button in self.children:
@@ -211,11 +199,10 @@ class RPSView(View):
             button.disabled = True
         await interaction.response.edit_message(embed=emb, view=self)
     async def interaction_check(self, interaction) -> bool:
-        if interaction.user != self.ctx.author:
-            await interaction.response.send_message("This game is not for you!", ephemeral=True)
-            return False
-        else:
+        if interaction.user == self.ctx.author:
             return True
+        await interaction.response.send_message("This game is not for you!", ephemeral=True)
+        return False
     async def on_timeout(self):
         for button in self.children:
             button.disabled = True
@@ -267,9 +254,9 @@ class Games(commands.Cog):
     async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):
         if user1 is None and user2 is None:
             user1, user2 = ctx.author
-        elif user1 is None and user2 is not None:
+        elif user1 is None:
             user1 = ctx.author
-        elif user1 is not None and user2 is None:
+        elif user2 is None:
             user2 = ctx.author
         a1 = user1.display_avatar.with_size(512)
         a2 = user2.display_avatar.with_size(512)
@@ -277,7 +264,7 @@ class Games(commands.Cog):
         await a2.save(f"images/generated/{user2.id}.png")
         pfp1=Image.open(f"images/generated/{user1.id}.png").resize((400, 400))
         pfp2=Image.open(f"images/generated/{user2.id}.png").resize((400, 400))
-        mask=Image.open(f"images/assets/mask.jpg")
+        mask = Image.open("images/assets/mask.jpg")
         bg=Image.new('RGBA', (1200, 500), (255, 0, 0, 0))
         bg.paste(pfp1, (37, 28), mask)
         bg.paste(pfp2, (752, 27), mask)
@@ -307,9 +294,9 @@ class Games(commands.Cog):
     ):
         if user is not None and other is not None:
             await ctx.respond("Please chosse any one out of `User` or `Other`!", ephemeral=True)
-        elif user is not None and other is None:
+        elif user is not None:
             q = user
-        elif user is None and other is not None:
+        elif other is not None:
             q = other
         view = FView(ctx, q)
         await ctx.respond(f"> It's time to Pay Respect to **{q}**\nPress **F** to pay your respects!", view=view)
@@ -321,7 +308,7 @@ class Games(commands.Cog):
     async def gte(self, ctx, user:discord.User):
         if user == ctx.author:
             await ctx.respond("You can't play with yourself baka!")
-        elif user != ctx.author:
+        else:
             view = GTEView(ctx, [ctx.author], ctx.author, user)
             await ctx.respond(f"{user.mention}, you have been challenged by {ctx.author.mention} for a game of `Guess The Emote`\n**{ctx.author.display_name}** goes first, choose any emoji!", view=view)
 

@@ -16,10 +16,17 @@ def create(gid, cid):
     db.child("CHATBOT").child(gid).child("SETUP").set({"ID":cid, "set":True})
 
 def check(gid):
-    if db.child("CHATBOT").child(gid).child("SETUP").child("set").get().val() == False or db.child("CHATBOT").child(gid).child("SETUP").child("set").get().val() == None:
-        return False
-    else:
-        return True
+    return (
+        db.child("CHATBOT").child(gid).child("SETUP").child("set").get().val()
+        != False
+        and db.child("CHATBOT")
+        .child(gid)
+        .child("SETUP")
+        .child("set")
+        .get()
+        .val()
+        is not None
+    )
 
 def return_id(gid):
     return db.child("CHATBOT").child(gid).child("SETUP").child("ID").get().val()
@@ -61,22 +68,17 @@ class ChatBot(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message(self, message):
-        if check(message.guild.id):
-            chid = int(return_id(message.guild.id))
-            if message.author.bot:
-                return
-            else:
-                if message.channel.id == chid:
-                    async with message.channel.typing():
-                        async with aiohttp.ClientSession() as session:
-                            async with session.get(f"http://api.brainshop.ai/get?bid={bid}&key={key}&uid={message.author.id}&msg={message.content}") as resp:
-                                if resp.status == 200:
-                                    cont = await resp.json()
-                                    await message.channel.send(cont["cnt"])
-                else:
-                    return
-        else:
+        if not check(message.guild.id):
             return
+        chid = int(return_id(message.guild.id))
+        if message.author.bot or message.channel.id != chid:
+            return
+        async with message.channel.typing():
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f"http://api.brainshop.ai/get?bid={bid}&key={key}&uid={message.author.id}&msg={message.content}") as resp:
+                    if resp.status == 200:
+                        cont = await resp.json()
+                        await message.channel.send(cont["cnt"])
 
     @chat_setup.error
     async def chat_setup_error(self, ctx, error):
