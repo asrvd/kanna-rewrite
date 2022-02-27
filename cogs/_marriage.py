@@ -36,11 +36,7 @@ def scheck(user):   #checks if user is married or not
             partner = db.child("MARRIAGE_TEST").child(users.key()).child("PARTNER").get().val()
             if partner == user:
                 return True
-                break
-    if auth1 != None:
-        return True
-    else:
-        return False
+    return auth1 != None
 
 def return_partner(user):  #returns ID of partner
     auth = db.child("MARRIAGE_TEST").child(user).get().val()

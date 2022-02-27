@@ -16,10 +16,17 @@ def create(gid, cid):
     db.child("CHATBOT").child(gid).child("SETUP").set({"ID":cid, "set":True})
 
 def check(gid):
-    if db.child("CHATBOT").child(gid).child("SETUP").child("set").get().val() == False or db.child("CHATBOT").child(gid).child("SETUP").child("set").get().val() == None:
-        return False
-    else:
-        return True
+    return (
+        db.child("CHATBOT").child(gid).child("SETUP").child("set").get().val()
+        != False
+        and db.child("CHATBOT")
+        .child(gid)
+        .child("SETUP")
+        .child("set")
+        .get()
+        .val()
+        is not None
+    )
 
 def return_id(gid):
     return db.child("CHATBOT").child(gid).child("SETUP").child("ID").get().val()

@@ -36,9 +36,7 @@ class Card(commands.Cog):
         file = discord.File(f"./images/generated/simp{ctx.author.id}.png")
         embed = discord.Embed(description=f"{ctx.author.mention} Here is your verified Simp Card.", color=0x2e69f2)
         embed.set_image(url=f"attachment://simp{ctx.author.id}.png")
-        embed.set_footer(
-            text=f"Kanna Chan",
-        )
+        embed.set_footer(text="Kanna Chan")
         await ctx.respond(embed=embed, file=file)
         os.system(f"rm -rf images/generated/simp{ctx.author.id}.png")
 

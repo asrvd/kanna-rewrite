@@ -30,7 +30,7 @@ def game_logic(choice_user, choice_bot, ctx):
     elif logic_dict[choice_user] == choice_bot:
         #print("win")
         return get_rps_embed("w", ctx, choice_user, choice_bot)
-    elif logic_dict[choice_user] != choice_bot and choice_user != choice_bot:
+    else:
         #print("lose")
         return get_rps_embed("l", ctx, choice_user, choice_bot)
 
@@ -48,8 +48,7 @@ def get_ship(user_list:list):
         quote = "Should already be in this relationship!!"
     elif love > 90 and love <= 101:
         quote = "Fated partners uwu"
-    ship = f"> {user_list[0]} + {user_list[1]} = **{love}%** of LOVE <:kannawee:877036162122924072>\n> *{quote}*"
-    return ship
+    return f"> {user_list[0]} + {user_list[1]} = **{love}%** of LOVE <:kannawee:877036162122924072>\n> *{quote}*"
 
 class GTEView(View):
     def __init__(self, ctx, user_list: list, user:discord.User, partner:discord.User):
@@ -255,9 +254,9 @@ class Games(commands.Cog):
     async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):
         if user1 is None and user2 is None:
             user1, user2 = ctx.author
-        elif user1 is None and user2 is not None:
+        elif user1 is None:
             user1 = ctx.author
-        elif user1 is not None and user2 is None:
+        elif user2 is None:
             user2 = ctx.author
         a1 = user1.display_avatar.with_size(512)
         a2 = user2.display_avatar.with_size(512)
@@ -265,7 +264,7 @@ class Games(commands.Cog):
         await a2.save(f"images/generated/{user2.id}.png")
         pfp1=Image.open(f"images/generated/{user1.id}.png").resize((400, 400))
         pfp2=Image.open(f"images/generated/{user2.id}.png").resize((400, 400))
-        mask=Image.open(f"images/assets/mask.jpg")
+        mask = Image.open("images/assets/mask.jpg")
         bg=Image.new('RGBA', (1200, 500), (255, 0, 0, 0))
         bg.paste(pfp1, (37, 28), mask)
         bg.paste(pfp2, (752, 27), mask)
@@ -295,9 +294,9 @@ class Games(commands.Cog):
     ):
         if user is not None and other is not None:
             await ctx.respond("Please chosse any one out of `User` or `Other`!", ephemeral=True)
-        elif user is not None and other is None:
+        elif user is not None:
             q = user
-        elif user is None and other is not None:
+        elif other is not None:
             q = other
         view = FView(ctx, q)
         await ctx.respond(f"> It's time to Pay Respect to **{q}**\nPress **F** to pay your respects!", view=view)

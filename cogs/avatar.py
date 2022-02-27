@@ -45,7 +45,7 @@ class Avatar(commands.Cog):
                 icon_url=self.client.user.display_avatar
             )
             await ctx.respond(embed=emb)
-        elif user1 is None and user2 is not None:
+        elif user1 is None:
             u = user2
             emb=discord.Embed(color=ec)
             emb.set_author(
@@ -58,7 +58,7 @@ class Avatar(commands.Cog):
                 icon_url=self.client.user.display_avatar
             )
             await ctx.respond(embed=emb)
-        elif user1 is not None and user2 is not None:
+        else:
             bg = Image.new(mode="RGBA", size=(1000, 500))
             a1 = user1.display_avatar.replace(size=512)
             a2 = user2.display_avatar.replace(size=512)

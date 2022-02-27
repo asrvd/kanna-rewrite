@@ -81,11 +81,7 @@ def scheck(user):   #checks if user is married or not
             partner = db.child("MARRIAGE").child(users.key()).child("PARTNER").get().val()
             if partner == user:
                 return True
-                break
-    if auth1 != None:
-        return True
-    else:
-        return False
+    return auth1 != None
 
 def return_partner(user):  #returns ID of partner
     auth = db.child("MARRIAGE").child(user).get().val()
@@ -492,13 +488,11 @@ class NMarriage(commands.Cog):
 
     @commands.command()
     async def mlb(self, ctx, *, arg: str = None):
-        if arg == None:
-            await ctx.send(embed = await self.get_guild_lb(ctx.guild, ctx.author))
-        elif arg.lower() == "guild":
+        if arg is None or arg.lower() == "guild":
             await ctx.send(embed = await self.get_guild_lb(ctx.guild, ctx.author))
         elif arg.lower() == "global":
             await ctx.send(embed = await self.get_lb(ctx.author))
-        
+
         else:
             emb = discord.Embed(description="Commands Available:\n> `mlb guild` for server marriage leaderboard.\n> `mlb global` for global marriage leaderboard.", color=ec)
             emb.set_author(

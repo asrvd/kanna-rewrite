@@ -117,7 +117,7 @@ class Action(commands.Cog):
 
     @action.command()
     async def bonk(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -138,7 +138,7 @@ class Action(commands.Cog):
     
     @action.command()
     async def cuddle(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -159,7 +159,7 @@ class Action(commands.Cog):
 
     @action.command()
     async def tickle(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -169,14 +169,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="tickle"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def throw(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -186,14 +186,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="throw"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def tease(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed()
         emb.set_author(
@@ -203,14 +203,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="tease"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def stare(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -220,14 +220,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="stare"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def punch(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -248,7 +248,7 @@ class Action(commands.Cog):
 
     @action.command()
     async def rawr(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -258,14 +258,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="rawr"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def slap(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -286,7 +286,7 @@ class Action(commands.Cog):
 
     @action.command()
     async def pout(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -296,14 +296,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="pout"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def poke(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -313,14 +313,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="poke"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def handhold(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -330,9 +330,9 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="handhold"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
@@ -388,7 +388,7 @@ class Action(commands.Cog):
 
     @action.command()
     async def lurk(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -398,14 +398,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="lurk"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def highfive(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -415,14 +415,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="highfive"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def hug(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -443,7 +443,7 @@ class Action(commands.Cog):
 
     @action.command()
     async def lick(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -453,14 +453,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="lick"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def wink(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -470,14 +470,14 @@ class Action(commands.Cog):
         await ctx.defer()
         emb.set_image(url=gif.get_gif().gif(type="wink"))
         emb.set_footer(
-            text=f"✿ Made by Kanna Chan",
-            icon_url=self.client.user.display_avatar
+            text="✿ Made by Kanna Chan", icon_url=self.client.user.display_avatar
         )
+
         await ctx.respond(embed=emb)
 
     @action.command()
     async def kiss(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
@@ -498,7 +498,7 @@ class Action(commands.Cog):
 
     @action.command(guild_ids=gi)
     async def kick(self, ctx, u:discord.User=None):
-        if u == None:
+        if u is None:
             u = ctx.author
         emb = discord.Embed(color=ec)
         emb.set_author(
