@@ -23,22 +23,22 @@ class Misc(commands.Cog):
     @commands.command()
     async def invite(self, ctx):
         view = View()
-        btn = Button(label="Invite Me", style=discord.ButtonStyle.url, url="discord://https://discord.com/api/oauth2/authorize?client_id=857835279259664403&permissions=1538369383927&scope=bot%20applications.commands")
+        btn = Button(label="Invite Me", style=discord.ButtonStyle.url, url="https://discord.com/api/oauth2/authorize?client_id=857835279259664403&permissions=1538369383927&scope=bot%20applications.commands")
         view.add_item(btn)
         await ctx.reply("Here is my Invite Link (╯▽╰ )", view=view)
 
     @commands.command()
     async def support(self, ctx):
         view = View()
-        btn = Button(label="Invite Me", style=discord.ButtonStyle.url, url="discord://https://discord.gg/7CYP8pKzDB")
+        btn = Button(label="Invite Me", style=discord.ButtonStyle.url, url="https://discord.gg/7CYP8pKzDB")
         view.add_item(btn)
         await ctx.reply("Join this server for support (╯▽╰ )", view=view)
 
     @commands.command()
     async def about(self, ctx):
         view = View()
-        btn1 = Button(label="Invite Me", style=discord.ButtonStyle.url, url="discord://https://discord.com/api/oauth2/authorize?client_id=857835279259664403&permissions=1538369383927&scope=bot%20applications.commands")
-        btn2 = Button(label="Invite Me", style=discord.ButtonStyle.url, url="discord://https://discord.gg/7CYP8pKzDB")
+        btn1 = Button(label="Invite Me", style=discord.ButtonStyle.url, url="https://discord.com/api/oauth2/authorize?client_id=857835279259664403&permissions=1538369383927&scope=bot%20applications.commands")
+        btn2 = Button(label="Invite Me", style=discord.ButtonStyle.url, url="https://discord.gg/7CYP8pKzDB")
         view.add_item(btn1)
         view.add_item(btn2)
         ch = 0
