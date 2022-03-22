@@ -84,11 +84,11 @@ class Util(commands.Cog):
                         example = res["list"][0]["example"]
                         emb = discord.Embed(description=f"{jtext}\n\n*`{example}`*\n", color=0x2e69f2)
                         emb.set_author(name=f"Definition Of {query.capitalize()}", icon_url=ctx.author.display_avatar)
-                        view = View()
-                        btn = Button(label="More Results", url=f"http://{urllib.parse.quote(query.lower())}.urbanup.com")
-                        view.add_item(btn)
+#                         view = View()
+#                         btn = Button(label="More Results", url=f"http://{urllib.parse.quote(query.lower())}.urbanup.com")
+#                         view.add_item(btn)
                         emb.set_footer(text="Kanna Chan")
-                        await ctx.respond(embed=emb, view=view)
+                        await ctx.respond(embed=emb)
     
     @slash_command(
         name="lyrics",
@@ -153,16 +153,16 @@ class NUtility(commands.Cog):
                         example = res["list"][0]["example"]
                         emb = discord.Embed(description=f"{jtext}\n\n*`{example}`*\n", color=ec)
                         emb.set_author(name=f"Definition Of {query.capitalize()}", icon_url=ctx.author.display_avatar)
-                        view = View()
-                        print(query)
-                        print(urllib.parse.quote(query.lower()))
-                        btn = Button(label="More Results", url=f"http://{urllib.parse.quote(query.lower())}.urbanup.com")
-                        view.add_item(btn)
+#                         view = View()
+#                         print(query)
+#                         print(urllib.parse.quote(query.lower()))
+#                         btn = Button(label="More Results", url=f"http://{urllib.parse.quote(query.lower())}.urbanup.com")
+#                         view.add_item(btn)
                         emb.set_footer(
                             text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
                             icon_url=self.client.user.display_avatar
                         )
-                        await ctx.send(embed=emb, view=view)
+                        await ctx.send(embed=emb)
 
     @commands.command()
     async def anime(self, ctx, *, name:str):
