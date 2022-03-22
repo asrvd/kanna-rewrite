@@ -5,6 +5,7 @@ from discord.enums import ButtonStyle
 from discord.ext import commands
 from discord.ui import Button, View
 from discord.commands import slash_command
+import urllib.parse
 import aiohttp
 import json
 from discord.ui.button import button
@@ -84,7 +85,7 @@ class Util(commands.Cog):
                         emb = discord.Embed(description=f"{jtext}\n\n*`{example}`*\n", color=0x2e69f2)
                         emb.set_author(name=f"Definition Of {query.capitalize()}", icon_url=ctx.author.display_avatar)
                         view = View()
-                        btn = Button(label="More Results", url=f"http://{query.lower().replace(" ", "%20")}.urbanup.com")
+                        btn = Button(label="More Results", url=f"http://{urllib.parse.quote(query.lower())}.urbanup.com")
                         view.add_item(btn)
                         emb.set_footer(text="Kanna Chan")
                         await ctx.respond(embed=emb, view=view)
@@ -153,7 +154,7 @@ class NUtility(commands.Cog):
                         emb = discord.Embed(description=f"{jtext}\n\n*`{example}`*\n", color=ec)
                         emb.set_author(name=f"Definition Of {query.capitalize()}", icon_url=ctx.author.display_avatar)
                         view = View()
-                        btn = Button(label="More Results", url=f"http://{query.lower()}.urbanup.com")
+                        btn = Button(label="More Results", url=f"http://{urllib.parse.quote(query.lower())}.urbanup.com")
                         view.add_item(btn)
                         emb.set_footer(
                             text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
