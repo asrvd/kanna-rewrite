@@ -246,7 +246,7 @@ class Button(commands.Cog):
                 view = MarryView(ctx, u)
                 await ctx.respond(u.mention, embed=e, view=view)
             else:
-                await ctx.respond("Wait.. You're already married, control your emotions!")
+                await ctx.respond("One of you is already married.")
     
     @slash_command(
         name="marriage",
