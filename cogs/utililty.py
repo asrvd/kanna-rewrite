@@ -154,6 +154,8 @@ class NUtility(commands.Cog):
                         emb = discord.Embed(description=f"{jtext}\n\n*`{example}`*\n", color=ec)
                         emb.set_author(name=f"Definition Of {query.capitalize()}", icon_url=ctx.author.display_avatar)
                         view = View()
+                        print(query)
+                        print(urllib.parse.quote(query.lower()))
                         btn = Button(label="More Results", url=f"http://{urllib.parse.quote(query.lower())}.urbanup.com")
                         view.add_item(btn)
                         emb.set_footer(
