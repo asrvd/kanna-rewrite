@@ -62,7 +62,7 @@ class Util(commands.Cog):
         name="define",
         description="Define any word using Urban Dictionary."
     )
-    async def define(self, ctx, *query: str):
+    async def define(self, ctx, *, query: str):
         if query == None:
             await ctx.respond("You need to provide a Query to get the defintion!", ephemeral=True)
         else:
