@@ -23,7 +23,7 @@ class Kazuki(commands.Cog):
                 if not mem.bot:
                     pinged_users += mem + " "
                     mention_str += mem.mention + " "
-            if not pinged_users == ""
+            if len(pinged_users) > 0
                 emb = discord.Embed( 
                     description=f"",
                     color=ec
