@@ -83,5 +83,5 @@ class Kazuki(commands.Cog):
             await channel.send(embed=emb)
 
 def setup(client):
-    clinet.add_cog(Kazuki(client))
+    client.add_cog(Kazuki(client))
     print(">> Kazuki Loaded.")
