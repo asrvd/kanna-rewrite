@@ -16,7 +16,7 @@ class Kazuki(commands.Cog):
         self.kazuki = 785024897863647282
 
     async def handle_ghost_ping(self, message, channel):
-        if message.mentions.length() > 0:
+        if len(message.mentions) > 0:
             pinged_users = ""
             mention_str = ""
             for mem in message.mentions:
