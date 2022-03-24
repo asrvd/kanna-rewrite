@@ -23,31 +23,32 @@ class Kazuki(commands.Cog):
                 if not mem.bot:
                     pinged_users += mem + " "
                     mention_str += mem.mention + " "
-            emb = discord.Embed( 
-                description=f"",
-                color=ec
-            )
-            emb.add_field(
-                name="User",
-                value=message.author,
-                inline=True
-            )
-            emb.add_field(
-                name="Users Pinged",
-                value=pinged_users.strip(),
-                inline=True
-            )
-            emb.add_field(
-                name="Message",
-                value=message.content,
-                inline=False
-            )
-            emb.set_author(
-                name="Ghost Ping Found!!",
-                icon_url = self.client.user.display_avatar
-            )
-            emb.timestamp = datetime.datetime.utcnow()
-            await channel.send(mention_str, embed=emb)
+            if not pinged_users == ""
+                emb = discord.Embed( 
+                    description=f"",
+                    color=ec
+                )
+                emb.add_field(
+                    name="User",
+                    value=message.author,
+                    inline=True
+                )
+                emb.add_field(
+                    name="Users Pinged",
+                    value=pinged_users.strip(),
+                    inline=True
+                )
+                emb.add_field(
+                    name="Message",
+                    value=message.content,
+                    inline=False
+                )
+                emb.set_author(
+                    name="Ghost Ping Found!!",
+                    icon_url = self.client.user.display_avatar
+                )
+                emb.timestamp = datetime.datetime.utcnow()
+                await channel.send(mention_str, embed=emb)
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
