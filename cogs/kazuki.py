@@ -14,11 +14,13 @@ class Kazuki(commands.Cog):
         self.client = client
         self.log_channel = 956421521050583100
         self.kazuki = 785024897863647282
+        self.gp = 956451233500110868
 
-    async def handle_ghost_ping(self, message, channel):
+    async def handle_ghost_ping(self, message):
         if len(message.mentions) > 0:
+            channel = self.client.get_channel(self.gp)
             pinged_users = ""
-            mention_str = ""
+#             mention_str = ""
             for mem in message.mentions:
                 if not mem.bot:
                     pinged_users += mem.name + ", "
@@ -48,13 +50,13 @@ class Kazuki(commands.Cog):
                     icon_url = self.client.user.display_avatar
                 )
                 emb.timestamp = datetime.datetime.utcnow()
-                await channel.send(mention_str, embed=emb)
+                await channel.send(embed=emb)
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
         if message.guild.id == self.kazuki and not message.author.bot:
             channel = self.client.get_channel(self.log_channel)
-            await self.handle_ghost_ping(message, message.channel)
+            await self.handle_ghost_ping(message)
             emb = discord.Embed(description=message.content, color=ec)
             emb.set_author(
                 name="Message Deleted!",
