@@ -21,7 +21,7 @@ class Kazuki(commands.Cog):
             mention_str = ""
             for mem in message.mentions:
                 if not mem.bot:
-                    pinged_users += mem + " "
+                    pinged_users += mem.name + ", "
                     mention_str += mem.mention + " "
             if len(pinged_users) > 0:
                 emb = discord.Embed( 
@@ -30,12 +30,12 @@ class Kazuki(commands.Cog):
                 )
                 emb.add_field(
                     name="User",
-                    value=message.author,
+                    value=message.author.name,
                     inline=True
                 )
                 emb.add_field(
                     name="Users Pinged",
-                    value=pinged_users.strip(),
+                    value=pinged_users.rstrip(", "),
                     inline=True
                 )
                 emb.add_field(
