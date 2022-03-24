@@ -24,7 +24,7 @@ class Kazuki(commands.Cog):
             for mem in message.mentions:
                 if not mem.bot:
                     pinged_users += mem.name + ", "
-                    mention_str += mem.mention + " "
+#                     mention_str += mem.mention + " "
             if len(pinged_users) > 0:
                 emb = discord.Embed( 
                     description=f"",
