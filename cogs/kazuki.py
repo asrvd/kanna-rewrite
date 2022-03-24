@@ -64,7 +64,7 @@ class Kazuki(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
-        if message.guild.id == self.kazuki:
+        if before.guild.id == self.kazuki:
             channel = self.client.get_channel(self.log_channel)
             emb = discord.Embed(color=ec)
             emb.add_field(
