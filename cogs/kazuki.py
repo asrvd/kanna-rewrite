@@ -52,7 +52,7 @@ class Kazuki(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
-        if message.guild.id == self.kazuki:
+        if message.guild.id == self.kazuki and not message.author.bot:
             channel = self.client.get_channel(self.log_channel)
             await self.handle_ghost_ping(message, message.channel)
             emb = discord.Embed(description=message.content, color=ec)
@@ -65,7 +65,7 @@ class Kazuki(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
-        if before.guild.id == self.kazuki:
+        if before.guild.id == self.kazuki and not before.author.bot:
             channel = self.client.get_channel(self.log_channel)
             emb = discord.Embed(color=ec)
             emb.add_field(
