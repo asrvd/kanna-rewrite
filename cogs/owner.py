@@ -8,6 +8,7 @@ class Owner(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['ds'])
+    @commands.is_owner()
     async def dumpservers(self, ctx):
         timestamp = discord.utils.utcnow().strftime("%Y-%m-%d %H.%M")
         server_file = "Servers-{}.txt".format(timestamp)
@@ -31,6 +32,22 @@ class Owner(commands.Cog):
         await mess.edit(
             content=f"✅ Uploaded `{server_file}`."
         )
+
+    @commands.command(aliases=['cl'])
+    @commands.is_owner()
+    async def channellist(self, ctx):
+        timestamp = discord.utils.utcnow().strftime("%Y-%m-%d %H.%M")
+        ch_file = f"{ctx.guild.name}-cl-{timestamp}.txt"
+
+        msg = ""
+        for channel in ctx.guild.channels:
+            msg += "Name:    " + channel.name + "\n"
+            msg += "Created: " + channel.created_at.strftime("%m/%d/%Y, %H:%M:%S") + "\n"
+            msg += "\n\n"
+
+        data = io.BytesIO(msg.encode("utf-8"))
+        await ctx.author.send(file=discord.File(data, filename=ch_file))
+        await ctx.message.add_reaction("✅")
 
     @commands.command()
     @commands.is_owner()
