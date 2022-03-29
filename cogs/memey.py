@@ -213,7 +213,7 @@ class Memey(commands.Cog):
             "normal":ml,
             "indian":iml,
             "in":iml,
-            "an":aml
+            "an":aml,
             "anime":aml
         }
         if arg.lower() in ref:
