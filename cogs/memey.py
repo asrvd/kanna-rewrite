@@ -14,18 +14,17 @@ ml=["memes", "meme", "MemeEconomy", "dankmemes"]
 aml = ["animemes", "animememes", "AnimemesHQ"]
 
 class MemeView(View):
-    def __init__(self, ctx, sub):
+    def __init__(self, ctx):
         super().__init__(timeout=10)
         self.ctx = ctx
-        self.sub = sub
     @discord.ui.button(label="Next", style=1)
     async def n_callback(self, button, interaction):
         embed=discord.Embed(title="Meme", color=ec)
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://www.reddit.com/r/{random.choice(self.sub)}/new.json?sort=hot') as r:
+            async with cs.get(f'https://www.reddit.com/r/{random.choice(ml)}/new.json?sort=hot') as r:
                 res = await r.json()
                 print(res['data'])
-                embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['url_overridden_by_dest'])
+                embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['url'])
                 await interaction.response.edit_message(embed=embed)
     @discord.ui.button(label="Exit", style=2)
     async def e_callback(self, button, interaction):
@@ -206,29 +205,26 @@ class Memey(commands.Cog):
         await ctx.send(file=file)
 
     @commands.command()
-    async def meme(self, ctx, *, arg=None):
-        arg = "normal" if arg is None else arg
-        ref = {
-            "normal":ml,
-            "an":aml,
-            "anime":aml
-        }
-        if arg.lower() in ref:
-            embed=discord.Embed(title="Meme", color=ec)
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(f'https://www.reddit.com/r/{random.choice(ref[arg.lower()])}/new.json?sort=hot') as r:
-                    res = await r.json()
-                    print(res['data']['children'][random.randint(0, 10)]['data'])
-                    embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['url_overridden_by_dest'])
-                    view=MemeView(ctx, ref[arg.lower()])
-                    msg = await ctx.send(embed=embed, view=view)
-                    async def timeout():
-                        for btn in view.children:
-                            btn.disabled=True
-                        await msg.edit(view=view)
-                    view.on_timeout=timeout
-        else:
-            await ctx.send("Invalid option, avaialble options: `normal` & `anime.`")
+    async def meme(self, ctx):
+        # arg = "normal" if arg is None else arg
+        # ref = {
+        #     "normal":ml,
+        #     "an":aml,
+        #     "anime":aml
+        # }
+        embed=discord.Embed(title="Meme", color=ec)
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f'https://www.reddit.com/r/{random.choice(ml)}/new.json?sort=hot') as r:
+                res = await r.json()
+                # print(res['data']['children'][random.randint(0, 10)]['data'])
+                embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['url'])
+                view=MemeView(ctx)
+                msg = await ctx.send(embed=embed, view=view)
+                async def timeout():
+                    for btn in view.children:
+                        btn.disabled=True
+                    await msg.edit(view=view)
+                view.on_timeout=timeout
 
     @commands.command()
     async def headpat(self, ctx, user: discord.User = None):
