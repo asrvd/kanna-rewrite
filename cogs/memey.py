@@ -230,7 +230,7 @@ class Memey(commands.Cog):
                             btn.disabled=True
                         await msg.edit(view=view)
                     view.on_timeout=timeout
-         else:
+        else:
             await ctx.send("Invalid option, avaialble options: `normal`, `indian` & `anime.`")
 
     @commands.command()
