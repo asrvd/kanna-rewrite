@@ -12,7 +12,6 @@ from decouple import config
 w = weeby.Weeby(str(config("WTOKEN")))
 ml=["memes", "meme", "MemeEconomy", "dankmemes"]
 aml = ["animemes", "animememes", "AnimemesHQ"]
-iml = ["IndianDankMemes", "IndianMeyMeys" "dankinindia"]
 
 class MemeView(View):
     def __init__(self, ctx, sub):
@@ -211,8 +210,6 @@ class Memey(commands.Cog):
         arg = "normal" if arg is None else arg
         ref = {
             "normal":ml,
-            "indian":iml,
-            "in":iml,
             "an":aml,
             "anime":aml
         }
@@ -231,7 +228,7 @@ class Memey(commands.Cog):
                         await msg.edit(view=view)
                     view.on_timeout=timeout
         else:
-            await ctx.send("Invalid option, avaialble options: `normal`, `indian` & `anime.`")
+            await ctx.send("Invalid option, avaialble options: `normal` & `anime.`")
 
     @commands.command()
     async def headpat(self, ctx, user: discord.User = None):
