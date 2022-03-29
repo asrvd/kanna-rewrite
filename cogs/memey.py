@@ -23,7 +23,7 @@ class MemeView(View):
     async def n_callback(self, button, interaction):
         embed=discord.Embed(title="Meme", color=ec)
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://www.reddit.com/r/{random.choice(sub)}/new.json?sort=hot') as r:
+            async with cs.get(f'https://www.reddit.com/r/{random.choice(self.sub)}/new.json?sort=hot') as r:
                 res = await r.json()
                 print(res['data'])
                 embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['url'])
@@ -221,7 +221,7 @@ class Memey(commands.Cog):
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(f'https://www.reddit.com/r/{random.choice(ref[arg.lower()])}/new.json?sort=hot') as r:
                     res = await r.json()
-                    #print(res['data']['children'][random.randint(0, 25)]['data'])
+                    print(res['data']['children'][random.randint(0, 10)]['data'])
                     embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['url'])
                     view=MemeView(ctx, ref[arg.lower()])
                     msg = await ctx.send(embed=embed, view=view)
