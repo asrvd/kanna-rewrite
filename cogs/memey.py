@@ -25,7 +25,7 @@ class MemeView(View):
             async with cs.get(f'https://www.reddit.com/r/{random.choice(self.sub)}/new.json?sort=hot') as r:
                 res = await r.json()
                 print(res['data'])
-                embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['url'])
+                embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['preview']['images'][0]['source']['url'])
                 await interaction.response.edit_message(embed=embed)
     @discord.ui.button(label="Exit", style=2)
     async def e_callback(self, button, interaction):
@@ -219,7 +219,7 @@ class Memey(commands.Cog):
                 async with cs.get(f'https://www.reddit.com/r/{random.choice(ref[arg.lower()])}/new.json?sort=hot') as r:
                     res = await r.json()
                     print(res['data']['children'][random.randint(0, 10)]['data'])
-                    embed.set_image(url=res['data']['children'][random.randint(0, 10)]['data']['url'])
+                    embed.set_image(url=res['data']['children'][random.randint(0, 10)]['preview']['images'][0]['source']['data']['url'])
                     view=MemeView(ctx, ref[arg.lower()])
                     msg = await ctx.send(embed=embed, view=view)
                     async def timeout():
