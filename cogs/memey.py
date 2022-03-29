@@ -11,16 +11,19 @@ from decouple import config
 
 w = weeby.Weeby(str(config("WTOKEN")))
 ml=["memes", "meme", "MemeEconomy", "dankmemes"]
+aml = ["animemes", "animememes", "AnimemesHQ"]
+iml = ["IndianDankMemes", "IndianMeyMeys" "dankinindia"]
 
 class MemeView(View):
-    def __init__(self, ctx):
+    def __init__(self, ctx, sub):
         super().__init__(timeout=10)
         self.ctx = ctx
+        self.sub = sub
     @discord.ui.button(label="Next", style=1)
     async def n_callback(self, button, interaction):
         embed=discord.Embed(title="Meme", color=ec)
         async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://www.reddit.com/r/{random.choice(ml)}/new.json?sort=hot') as r:
+            async with cs.get(f'https://www.reddit.com/r/{random.choice(sub)}/new.json?sort=hot') as r:
                 res = await r.json()
                 print(res['data'])
                 embed.set_image(url=res['data']['children'][random.randint(0, 25)]['data']['url'])
@@ -204,20 +207,31 @@ class Memey(commands.Cog):
         await ctx.send(file=file)
 
     @commands.command()
-    async def meme(self, ctx):
-        embed=discord.Embed(title="Meme", color=ec)
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f'https://www.reddit.com/r/{random.choice(ml)}/new.json?sort=hot') as r:
-                res = await r.json()
-                print(res['data']['children'][random.randint(0, 25)]['data'])
-                embed.set_image(url=res['data']['children'][random.randint(0, 25)]['data']['url'])
-                view=MemeView(ctx)
-                msg = await ctx.send(embed=embed, view=view)
-                async def timeout():
-                    for btn in view.children:
-                        btn.disabled=True
-                    await msg.edit(view=view)
-                view.on_timeout=timeout
+    async def meme(self, ctx, *, arg=None):
+        arg = "normal" if arg is None else arg
+        ref = {
+            "normal":ml,
+            "indian":iml,
+            "in":iml,
+            "an":aml
+            "anime":aml
+        }
+        if arg.lower() in ref:
+            embed=discord.Embed(title="Meme", color=ec)
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(f'https://www.reddit.com/r/{random.choice(ref[arg.lower()])}/new.json?sort=hot') as r:
+                    res = await r.json()
+                    print(res['data']['children'][random.randint(0, 25)]['data'])
+                    embed.set_image(url=res['data']['children'][random.randint(0, 25)]['data']['url'])
+                    view=MemeView(ctx, ref[arg.lower()])
+                    msg = await ctx.send(embed=embed, view=view)
+                    async def timeout():
+                        for btn in view.children:
+                            btn.disabled=True
+                        await msg.edit(view=view)
+                    view.on_timeout=timeout
+         else:
+            await ctx.send("Invalid option, avaialble options: `normal`, `indian` & `anime.`")
 
     @commands.command()
     async def headpat(self, ctx, user: discord.User = None):
