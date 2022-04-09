@@ -3,7 +3,7 @@ import discord
 from ._config import ec
 
 cont = "<:reply:928274405358993418>"
-cont2 = "<:reply_cont:928276632232398869>"
+cont2 = "<:reply_cont:962182412467572787>"
 
 #Embed Descriptions
 
