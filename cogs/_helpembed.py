@@ -2,6 +2,7 @@ from os import name
 import discord
 from ._config import ec
 
+#emotes
 cont = "<:reply:928274405358993418>"
 cont2 = "<:reply_cont:962182412467572787>"
 
