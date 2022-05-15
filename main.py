@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-#from discord_slash import SlashCommand
 import os
 from decouple import config
 
@@ -12,8 +11,6 @@ intents.message_content = True
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or('kanna ', 'kana ', 'k.', 'K.', 'Kanna ', 'Kana '), case_insensitive=True, intents=intents)
 client.remove_command("help")
-#slash = SlashCommand(client, sync_commands=True)
-
 
 def load_cogs():
   for file in os.listdir("./cogs"):
@@ -41,4 +38,3 @@ async def reload(ctx):
 
 client.load_extension('jishaku')
 client.run(str(config("BOT_TOKEN")))
-
