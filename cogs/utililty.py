@@ -193,7 +193,7 @@ class NUtility(commands.Cog):
             await ctx.reply("No anime with this name found!")
 
     @commands.command()
-    async def anime(self, ctx, *, name:str):
+    async def manga(self, ctx, *, name:str):
         emb = await get_manga_info(arg=name, user=ctx.author)
         if isinstance(emb, discord.Embed):
             emb.set_footer(
