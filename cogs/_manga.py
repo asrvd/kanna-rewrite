@@ -30,7 +30,7 @@ async def get_manga_info(arg: str, user):
         except TypeError:
             se = "None"
         emb = discord.Embed(
-        description=f"**-꒰ About ꒱-**\n*{data.synopsis}*\n\n**-꒰ Overview ꒱-**\n> ❀ Title: `{data.canonical_title}`\n> ❀ Type: `{data.show_type}`\n> ❀ Status: `{data.status.capitalize()}`\n> ❀ Popularity: `#{data.popularity_rank}`\n> ❀ Rating Rank: `#{data.rating_rank}`\n> ❀ Average rating: `{data.average_rating}%`\n> ❀ NSFW: `{'Yes' if data.nsfw==True else 'No'}`\n> ❀ Age Rating: `{data.age_rating_guide}`\n> ❀ Chapters: `{cco}`\n> ❀ Volumes: `{vco}`\n> ❀ Serialization: `{se}`\n> ❀ Published: `{start} to {end}`",
+        description=f"**-꒰ About ꒱-**\n*{data.synopsis}*\n\n**-꒰ Overview ꒱-**\n> ❀ Title: `{data.canonical_title}`\n> ❀ Status: `{data.status.capitalize()}`\n> ❀ Popularity: `#{data.popularity_rank}`\n> ❀ Rating Rank: `#{data.rating_rank}`\n> ❀ Average rating: `{data.average_rating}%`\n> ❀ NSFW: `{'Yes' if data.nsfw==True else 'No'}`\n> ❀ Age Rating: `{data.age_rating_guide}`\n> ❀ Chapters: `{cco}`\n> ❀ Volumes: `{vco}`\n> ❀ Serialization: `{se}`\n> ❀ Published: `{start} to {end}`",
         color=ec
         )
         emb.set_author(
