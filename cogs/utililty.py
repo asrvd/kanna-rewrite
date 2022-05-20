@@ -12,6 +12,7 @@ from discord.ui.button import button
 from weeby import Weeby
 from ._config import gi, ec
 from ._anime import get_anime_info
+from ._manga import get_manga_info
 import asyncio
 import pyrebase
 from decouple import config
@@ -125,6 +126,21 @@ class Util(commands.Cog):
         else:
             await ctx.respond("No anime with this name found!")
 
+    @slash_command(
+        name="manga",
+        description="Get info about any manga."
+    )
+    async def anime(self, ctx, *, name:str):
+        emb = await get_manga_info(arg=name, user=ctx.author)
+        if isinstance(emb, discord.Embed):
+            emb.set_footer(
+                text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
+                icon_url=self.client.user.display_avatar
+            )
+            await ctx.respond(embed=emb)
+        else:
+            await ctx.respond("No manga with this name found!")
+
 
 class NUtility(commands.Cog):
     def __init__(self, client):
@@ -175,6 +191,18 @@ class NUtility(commands.Cog):
             await ctx.reply(embed=emb)
         else:
             await ctx.reply("No anime with this name found!")
+
+    @commands.command()
+    async def anime(self, ctx, *, name:str):
+        emb = await get_manga_info(arg=name, user=ctx.author)
+        if isinstance(emb, discord.Embed):
+            emb.set_footer(
+                text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
+                icon_url=self.client.user.display_avatar
+            )
+            await ctx.reply(embed=emb)
+        else:
+            await ctx.reply("No manga with this name found!")
 
     @commands.command()
     async def lyrics(self, ctx, *, song:str):
