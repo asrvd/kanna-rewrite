@@ -38,6 +38,6 @@ async def get_anime_info(arg: str, user):
         except AttributeError:
             return
         return emb
-    except Exception as e:
+    except kitsu.errors.NotFound as e:
         return "Not found"
         
