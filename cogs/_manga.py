@@ -42,5 +42,5 @@ async def get_manga_info(arg: str, user):
         except AttributeError:
             return
         return emb
-    except kitsu.errors.KitsuError as e:
+    except Exception as e:
         return "Not found"
