@@ -14,11 +14,11 @@ class BookMark(commands.Cog):
         self.client = client
 
     @commands.group(name="bookmark", aliases=["bm"], invoke_without_command=True)
-    async def bookmark(ctx):
+    async def bookmark(self, ctx):
         pass
 
     @bookmark.command(usage="prefix bm add <message_id> <bookmark_name>", aliases=["a"])
-    async def add(ctx, message: discord.Message, *, name: str):
+    async def add(self, ctx, message: discord.Message, *, name: str):
         if message is None or name is None:
             await ctx.reply("Invalid Arguments, Example `kana bm add <message_id> <bookmark_name>`")
         else:
@@ -44,7 +44,7 @@ class BookMark(commands.Cog):
                 await ctx.reply(f"Bookmark with name `{name}` already exists!")
             
     @bookmark.command(aliases=["view"])
-    async def show(ctx, *, name: str):
+    async def show(self, ctx, *, name: str):
         if check_bookmark(ctx.author.id, name):
             b = dict(get_bookmark(ctx.author.id, name))
             emb = discord.Embed(color=ec)
@@ -60,7 +60,7 @@ class BookMark(commands.Cog):
             await ctx.reply(f"Bookmark with name **{name}** does not exist!")
 
     @bookmark.command(aliases=["bms"])
-    async def all(ctx, *, user: discord.User = None):
+    async def all(self, ctx, *, user: discord.User = None):
         user = ctx.author if user is None else user
         msg = await ctx.send('Getting bookmarks...')
         bms = list(dict(get_bookmarks(user.id)).keys()) if get_bookmarks(user.id) is not None else []
@@ -84,7 +84,7 @@ class BookMark(commands.Cog):
             await msg.delete()
 
     @bookmark.command(aliases=["rm", "del"])
-    async def remove(ctx, *, name):
+    async def remove(self, ctx, *, name):
         if check_bookmark(ctx.author.id, name):
             remove_bookmark(ctx.author.id, name)
             await ctx.reply(f"Bookmark **{name}** deleted!")
@@ -96,7 +96,7 @@ class BookMarkApp(commands.Cog):
         self.client = client
 
     @message_command(name="Bookmark Message")
-    async def bookmark_message(ctx, message: discord.Message):
+    async def bookmark_message(self, ctx, message: discord.Message):
         if not check_bookmark(ctx.author.id, msg.content):
             media = message.attachments
             emb = discord.Embed(color=ec)
@@ -118,7 +118,7 @@ class BookMarkApp(commands.Cog):
             def check(m):
                 return m.channel == message.channel and m.author == message.author
             try:
-                msg = await client.wait_for('message', check=check, timeout=60)
+                msg = await self.client.wait_for('message', check=check, timeout=60)
             except:
                 await ctx.send("Timed out")
                 return 
