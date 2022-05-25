@@ -128,3 +128,8 @@ class BookMarkApp(commands.Cog):
         else:
             await ctx.respond(f"Bookmark with name {msg.content} already exists!")
             await prompt.delete()
+
+def setup(client):
+    client.add_cog(BookMark(client))
+    client.add_cog(BookMarkApp(client))
+    print(">> BookMark Loaded.")
