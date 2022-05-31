@@ -75,7 +75,7 @@ class BookMark(commands.Cog):
             emb = discord.Embed(description=desc, color=ec)
             emb.set_author(
                 name=f"{user.name}#{user.discriminator}'s Bookmarks",
-                icon_url=user.default_avatar
+                icon_url=user.display_avatar
             )
             await ctx.reply(embed=emb)
             await msg.delete()

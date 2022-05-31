@@ -81,6 +81,13 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=emb)
 
+    @commands.command(aliases=["rg"])
+    async def rgay(self, ctx):
+        msg_id = ctx.message.reference.message_id
+        msg = self.client.get_message(int(msg_id))
+        await msg.add_reaction("🇬")
+        await msg.add_reaction("🇦")
+        await msg.add_reaction("🇾")
 
 def setup(client):
     client.add_cog(Misc(client))
