@@ -110,7 +110,7 @@ class Misc(commands.Cog):
             async with session.get("https://animechan.vercel.app/api/random") as r:
                 data = await r.json()
                 await ctx.send(
-                    f"*“{data['quote']}„*\n-- {data['charactor']} | {data['anime']}"
+                    f"*“{data['quote']}„*\n-- {data['character']} | {data['anime']}"
                 )
 
 
