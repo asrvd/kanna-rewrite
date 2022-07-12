@@ -17,24 +17,22 @@ el1 = ["😀", "😶", "😄", "😑", "🙄", "🤣", "🥰", "😁"]
 el2 = ["😅", "😆", "😉", "😋", "😎", "😘", "😊", "😍", "😗"]
 el3 = ["😙", "😚", "🙂", "🤗", "🤨", "😐", "🤔", "😃", "😂"]
 
+
 def game_logic(choice_user, choice_bot, ctx):
-    logic_dict ={
-        "r":"s",
-        "s":"p",
-        "p":"r"
-    }
-    #print(choice_bot, choice_user)
+    logic_dict = {"r": "s", "s": "p", "p": "r"}
+    # print(choice_bot, choice_user)
     if choice_bot == choice_user:
-        #print("tie")
+        # print("tie")
         return get_rps_embed("d", ctx, choice_user, choice_bot)
     elif logic_dict[choice_user] == choice_bot:
-        #print("win")
+        # print("win")
         return get_rps_embed("w", ctx, choice_user, choice_bot)
     elif logic_dict[choice_user] != choice_bot and choice_user != choice_bot:
-        #print("lose")
+        # print("lose")
         return get_rps_embed("l", ctx, choice_user, choice_bot)
 
-def get_ship(user_list:list):
+
+def get_ship(user_list: list):
     love = random.randint(0, 101)
     if love >= 0 and love <= 15:
         quote = "Not in this life.."
@@ -51,8 +49,9 @@ def get_ship(user_list:list):
     ship = f"> {user_list[0]} + {user_list[1]} = **{love}%** of LOVE <:kannawee:877036162122924072>\n> *{quote}*"
     return ship
 
+
 class GTEView(View):
-    def __init__(self, ctx, user_list: list, user:discord.User, partner:discord.User):
+    def __init__(self, ctx, user_list: list, user: discord.User, partner: discord.User):
         super().__init__(timeout=20)
         self.user_list = user_list
         self.user = user
@@ -61,14 +60,12 @@ class GTEView(View):
         self.choice1 = None
         self.choice2 = None
         self.turn = 0
+
         def shuffle():
-            ref ={
-                "1":el1,
-                "2":el2,
-                "3":el3
-            }
+            ref = {"1": el1, "2": el2, "3": el3}
             for button in self.children:
                 button.emoji = random.choice(ref[button.custom_id])
+
         shuffle()
 
     @discord.ui.button(emoji=None, style=2, custom_id="1")
@@ -77,22 +74,31 @@ class GTEView(View):
             self.choice1 = button.emoji
             self.user_list.pop(0)
             self.user_list.append(self.partner)
-            await interaction.response.edit_message(content=f"Time to guess the emoji! {self.user_list[0].mention}", view=self)
+            await interaction.response.edit_message(
+                content=f"Time to guess the emoji! {self.user_list[0].mention}",
+                view=self,
+            )
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
             if self.choice1 == self.choice2:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+                await interaction.response.edit_message(
+                    content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!",
+                    view=self,
+                )
+                self.choice1 = None
+                self.choice2 = None
             else:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+                await interaction.response.edit_message(
+                    content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!",
+                    view=self,
+                )
+                self.choice1 = None
+                self.choice2 = None
 
     @discord.ui.button(emoji=None, style=2, custom_id="2")
     async def b2_callback(self, button, interaction):
@@ -100,22 +106,31 @@ class GTEView(View):
             self.choice1 = button.emoji
             self.user_list.pop(0)
             self.user_list.append(self.partner)
-            await interaction.response.edit_message(content=f"Time to guess the emoji! {self.user_list[0].mention}", view=self)
+            await interaction.response.edit_message(
+                content=f"Time to guess the emoji! {self.user_list[0].mention}",
+                view=self,
+            )
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
             if self.choice1 == self.choice2:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+                await interaction.response.edit_message(
+                    content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!",
+                    view=self,
+                )
+                self.choice1 = None
+                self.choice2 = None
             else:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+                await interaction.response.edit_message(
+                    content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!",
+                    view=self,
+                )
+                self.choice1 = None
+                self.choice2 = None
 
     @discord.ui.button(emoji=None, style=2, custom_id="3")
     async def b3_callback(self, button, interaction):
@@ -123,39 +138,53 @@ class GTEView(View):
             self.choice1 = button.emoji
             self.user_list.pop(0)
             self.user_list.append(self.partner)
-            await interaction.response.edit_message(content=f"Time to guess the emoji! {self.user_list[0].mention}", view=self)
+            await interaction.response.edit_message(
+                content=f"Time to guess the emoji! {self.user_list[0].mention}",
+                view=self,
+            )
             self.turn += 1
         elif self.turn == 1:
             self.choice2 = button.emoji
             if self.choice1 == self.choice2:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+                await interaction.response.edit_message(
+                    content=f"Congratulations! {self.user_list[0].mention}, You guessed the emoji correctly, it was {self.choice1}!",
+                    view=self,
+                )
+                self.choice1 = None
+                self.choice2 = None
             else:
                 for btn in self.children:
                     btn.disabled = True
-                await interaction.response.edit_message(content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!", view=self)
-                self.choice1=None
-                self.choice2=None
+                await interaction.response.edit_message(
+                    content=f"Oh shet! {self.user_list[0].mention}, You couldn't guess the emoji correctly, it was {self.choice1}!",
+                    view=self,
+                )
+                self.choice1 = None
+                self.choice2 = None
 
     async def interaction_check(self, interaction):
         if interaction.user in self.user_list:
             return True
         else:
             if interaction.user == self.user:
-                await interaction.response.send_message("This is not your turn!", ephemeral = True)
+                await interaction.response.send_message(
+                    "This is not your turn!", ephemeral=True
+                )
             else:
-                await interaction.response.send_message("This game is not for you!", ephemeral=True)
+                await interaction.response.send_message(
+                    "This game is not for you!", ephemeral=True
+                )
             return False
-    
+
     async def on_timeout(self):
         self.choice1 = None
         self.choice2 = None
         for btn in self.children:
-            btn.disabled=True
+            btn.disabled = True
         await self.ctx.edit(view=self)
+
 
 class ShipView(View):
     def __init__(self, user_list, ctx):
@@ -163,18 +192,26 @@ class ShipView(View):
         self.user_list = user_list
         self.ctx = ctx
 
-    @discord.ui.button(label="Ship Again", style=2, emoji=discord.PartialEmoji(name="explosion_heart", animated = True, id = 877426228775227392))
+    @discord.ui.button(
+        label="Ship Again",
+        style=2,
+        emoji=discord.PartialEmoji(
+            name="explosion_heart", animated=True, id=877426228775227392
+        ),
+    )
     async def callback(self, button, interaction):
         desc = get_ship(self.user_list)
         await interaction.response.edit_message(content=desc)
-    
+
     async def interaction_check(self, interaction):
         if interaction.user in self.user_list:
             return True
         else:
-            await interaction.response.send_message("This UI is not for you!", ephemeral=True)
+            await interaction.response.send_message(
+                "This UI is not for you!", ephemeral=True
+            )
             return False
-    
+
     async def on_timeout(self):
         for button in self.children:
             button.disabled = True
@@ -183,10 +220,10 @@ class ShipView(View):
 
 class RPSView(View):
     def __init__(self, ctx, cb):
-        self.ctx=ctx
+        self.ctx = ctx
         self.cb = cb
         super().__init__(timeout=20)
-    
+
     @discord.ui.button(label="Rock", style=2, emoji="✊")
     async def rock_callback(self, button, interaction):
         emb = game_logic("r", self.cb, self.ctx)
@@ -210,50 +247,62 @@ class RPSView(View):
         for button in self.children:
             button.disabled = True
         await interaction.response.edit_message(embed=emb, view=self)
+
     async def interaction_check(self, interaction) -> bool:
         if interaction.user != self.ctx.author:
-            await interaction.response.send_message("This game is not for you!", ephemeral=True)
+            await interaction.response.send_message(
+                "This game is not for you!", ephemeral=True
+            )
             return False
         else:
             return True
-    async def on_timeout(self):
-        for button in self.children:
-            button.disabled = True
-        await self.ctx.edit(view=self) 
-
-class FView(View):
-    def __init__(self, ctx, query):
-        super().__init__(timeout=10)
-        self.user_list=[]
-        self.ctx = ctx
-        self.query = query
-    
-    @discord.ui.button(label="Pay Respect", style=2, emoji=discord.PartialEmoji(name="pressf", id=926119493896392785))
-    async def callback(self, button, interaction):
-        self.user_list.append(interaction.user.id)
-        await interaction.response.send_message(f"**{interaction.user.name} has paid their respect!**")
-
-    async def interaction_check(self, interaction):
-        if interaction.user.id not in self.user_list:
-            return True
-        else:
-            await interaction.response.send_message("You have already paid your respect!", ephemeral=True)
 
     async def on_timeout(self):
         for button in self.children:
             button.disabled = True
         await self.ctx.edit(view=self)
-        await self.ctx.send(f"**{len(self.user_list)}** {'users' if len(self.user_list) > 1 else 'user'} paid their RESPECT to **{self.query}**.")
+
+
+class FView(View):
+    def __init__(self, ctx, query):
+        super().__init__(timeout=10)
+        self.user_list = []
+        self.ctx = ctx
+        self.query = query
+
+    @discord.ui.button(
+        label="Pay Respect",
+        style=2,
+        emoji=discord.PartialEmoji(name="pressf", id=926119493896392785),
+    )
+    async def callback(self, button, interaction):
+        self.user_list.append(interaction.user.id)
+        await interaction.response.send_message(
+            f"**{interaction.user.name} has paid their respect!**"
+        )
+
+    async def interaction_check(self, interaction):
+        if interaction.user.id not in self.user_list:
+            return True
+        else:
+            await interaction.response.send_message(
+                "You have already paid your respect!", ephemeral=True
+            )
+
+    async def on_timeout(self):
+        for button in self.children:
+            button.disabled = True
+        await self.ctx.edit(view=self)
+        await self.ctx.send(
+            f"**{len(self.user_list)}** {'users' if len(self.user_list) > 1 else 'user'} paid their RESPECT to **{self.query}**."
+        )
 
 
 class Games(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @slash_command(
-        name="rps",
-        description="Classic RPS game using Buttons."
-    )
+    @slash_command(name="rps", description="Classic RPS game using Buttons.")
     async def rps(self, ctx):
         choice_bot = random.choice(["r", "s", "p"])
         emb = get_rps_embed("g", ctx)
@@ -261,10 +310,9 @@ class Games(commands.Cog):
         await ctx.respond(embed=emb, view=view)
 
     @slash_command(
-        name="ship",
-        description="Ship yourself with other users and get cancelled UwU"
+        name="ship", description="Ship yourself with other users and get cancelled UwU"
     )
-    async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):
+    async def ship(self, ctx, user1: discord.User = None, user2: discord.User = None):
         if user1 is None and user2 is None:
             user1, user2 = ctx.author
         elif user1 is None and user2 is not None:
@@ -275,19 +323,19 @@ class Games(commands.Cog):
         a2 = user2.display_avatar.with_size(512)
         await a1.save(f"images/generated/{user1.id}.png")
         await a2.save(f"images/generated/{user2.id}.png")
-        pfp1=Image.open(f"images/generated/{user1.id}.png").resize((400, 400))
-        pfp2=Image.open(f"images/generated/{user2.id}.png").resize((400, 400))
-        mask=Image.open(f"images/assets/mask.jpg")
-        bg=Image.new('RGBA', (1200, 500), (255, 0, 0, 0))
+        pfp1 = Image.open(f"images/generated/{user1.id}.png").resize((400, 400))
+        pfp2 = Image.open(f"images/generated/{user2.id}.png").resize((400, 400))
+        mask = Image.open(f"images/assets/mask.jpg")
+        bg = Image.new("RGBA", (1200, 500), (255, 0, 0, 0))
         bg.paste(pfp1, (37, 28), mask)
         bg.paste(pfp2, (752, 27), mask)
-        bg.save(f'images/generated/back{user1.id}.png')
-        overlay = Image.open('./images/assets/overlay.png')
-        base = Image.open(f'images/generated/back{user1.id}.png').convert('RGBA')
-        final=Image.alpha_composite(base, overlay)
-        final.save(f'images/generated/final{user1.id}.png')
+        bg.save(f"images/generated/back{user1.id}.png")
+        overlay = Image.open("./images/assets/overlay.png")
+        base = Image.open(f"images/generated/back{user1.id}.png").convert("RGBA")
+        final = Image.alpha_composite(base, overlay)
+        final.save(f"images/generated/final{user1.id}.png")
         des = get_ship([user1, user2])
-        file = discord.File(f'images/generated/final{user1.id}.png')
+        file = discord.File(f"images/generated/final{user1.id}.png")
         view = ShipView([user1, user2], ctx)
         await ctx.respond(des, file=file, view=view)
         os.system(f"rm -rf images/generated/{user1.id}.png")
@@ -295,35 +343,40 @@ class Games(commands.Cog):
         os.system(f"rm -rf images/generated/final{user1.id}.png")
         os.system(f"rm -rf images/generated/back{user1.id}.png")
 
-
-    @slash_command(
-        name="f",
-        description="Pay respect to a User or Anything!"
-    )
+    @slash_command(name="f", description="Pay respect to a User or Anything!")
     async def f(
-        self, ctx,
+        self,
+        ctx,
         user: Option(discord.User, "Pay respect to a User.", required=False),
-        other: Option(str, "Pay respect to any other thing.", required=False)
+        other: Option(str, "Pay respect to any other thing.", required=False),
     ):
         if user is not None and other is not None:
-            await ctx.respond("Please chosse any one out of `User` or `Other`!", ephemeral=True)
+            await ctx.respond(
+                "Please chosse any one out of `User` or `Other`!", ephemeral=True
+            )
         elif user is not None and other is None:
             q = user
         elif user is None and other is not None:
             q = other
         view = FView(ctx, q)
-        await ctx.respond(f"> It's time to Pay Respect to **{q}**\nPress **F** to pay your respects!", view=view)
-        
+        await ctx.respond(
+            f"> It's time to Pay Respect to **{q}**\nPress **F** to pay your respects!",
+            view=view,
+        )
+
     @slash_command(
-        name="gte",
-        description="Play a game of Guess the Emote with a friend."
+        name="gte", description="Play a game of Guess the Emote with a friend."
     )
-    async def gte(self, ctx, user:discord.User):
+    async def gte(self, ctx, user: discord.User):
         if user == ctx.author:
             await ctx.respond("You can't play with yourself baka!")
         elif user != ctx.author:
             view = GTEView(ctx, [ctx.author], ctx.author, user)
-            await ctx.respond(f"{user.mention}, you have been challenged by {ctx.author.mention} for a game of `Guess The Emote`\n**{ctx.author.display_name}** goes first, choose any emoji!", view=view)
+            await ctx.respond(
+                f"{user.mention}, you have been challenged by {ctx.author.mention} for a game of `Guess The Emote`\n**{ctx.author.display_name}** goes first, choose any emoji!",
+                view=view,
+            )
+
 
 class NGames(commands.Cog):
     def __init__(self, client):
@@ -335,14 +388,21 @@ class NGames(commands.Cog):
         choice_bot = random.choice(["r", "s", "p"])
         view = RPSView(ctx, choice_bot)
         msg = await ctx.send(embed=emb, view=view)
+
         async def timeout():
             for btn in view.children:
-                btn.disabled=True
+                btn.disabled = True
             await msg.edit(view=view)
+
         view.on_timeout = timeout
 
     @commands.command()
-    async def ship(self, ctx, user1:Union[discord.User, str]=None, user2:Union[discord.User, str]=None):
+    async def ship(
+        self,
+        ctx,
+        user1: Union[discord.User, str] = None,
+        user2: Union[discord.User, str] = None,
+    ):
         if isinstance(user1, discord.User) and isinstance(user2, discord.User):
             if user1 is None and user2 is None:
                 user1, user2 = ctx.author
@@ -351,8 +411,8 @@ class NGames(commands.Cog):
             elif user1 is not None and user2 is None:
                 user2 = ctx.author
         elif isinstance(user1, str) or isinstance(user2, str):
-            if user1 == "random" and user2 =="random":
-                user1= random.choice(ctx.guild.members)
+            if user1 == "random" and user2 == "random":
+                user1 = random.choice(ctx.guild.members)
                 user2 = random.choice(ctx.guild.members)
             elif user1 == "random" and user2 is None:
                 user1 = ctx.author
@@ -367,63 +427,69 @@ class NGames(commands.Cog):
         a2 = user2.display_avatar.with_size(512)
         await a1.save(f"images/generated/{user1.id}.png")
         await a2.save(f"images/generated/{user2.id}.png")
-        pfp1=Image.open(f"images/generated/{user1.id}.png").resize((400, 400))
-        pfp2=Image.open(f"images/generated/{user2.id}.png").resize((400, 400))
-        mask=Image.open(f"images/assets/mask.jpg")
-        bg=Image.new('RGBA', (1200, 500), (255, 0, 0, 0))
+        pfp1 = Image.open(f"images/generated/{user1.id}.png").resize((400, 400))
+        pfp2 = Image.open(f"images/generated/{user2.id}.png").resize((400, 400))
+        mask = Image.open(f"images/assets/mask.jpg")
+        bg = Image.new("RGBA", (1200, 500), (255, 0, 0, 0))
         bg.paste(pfp1, (37, 28), mask)
         bg.paste(pfp2, (752, 27), mask)
-        bg.save(f'images/generated/back{user1.id}.png')
-        overlay = Image.open('./images/assets/overlay.png')
-        base = Image.open(f'images/generated/back{user1.id}.png').convert('RGBA')
-        final=Image.alpha_composite(base, overlay)
-        final.save(f'images/generated/final{user1.id}.png')
+        bg.save(f"images/generated/back{user1.id}.png")
+        overlay = Image.open("./images/assets/overlay.png")
+        base = Image.open(f"images/generated/back{user1.id}.png").convert("RGBA")
+        final = Image.alpha_composite(base, overlay)
+        final.save(f"images/generated/final{user1.id}.png")
         des = get_ship([user1, user2])
-        file = discord.File(f'images/generated/final{user1.id}.png')
+        file = discord.File(f"images/generated/final{user1.id}.png")
         view = ShipView([user1, user2], ctx)
         msg = await ctx.send(des, file=file, view=view)
+
         async def timeout():
             for btn in view.children:
-                btn.disabled=True
+                btn.disabled = True
             await msg.edit(view=view)
             os.system(f"rm -rf images/generated/{user1.id}.png")
             os.system(f"rm -rf images/generated/{user2.id}.png")
             os.system(f"rm -rf images/generated/final{user1.id}.png")
             os.system(f"rm -rf images/generated/back{user1.id}.png")
-        view.on_timeout = timeout
-        
 
+        view.on_timeout = timeout
 
     @commands.command()
-    async def f(
-        self, ctx,
-        u: Union[discord.User, str]=None
-    ):
+    async def f(self, ctx, u: Union[discord.User, str] = None):
         if u is None:
             u = ctx.author
         view = FView(ctx, str(u))
-        msg = await ctx.send(f"> It's time to Pay Respect to `{str(u)}`\nPress **F** to pay your respects!", view=view)
+        msg = await ctx.send(
+            f"> It's time to Pay Respect to `{str(u)}`\nPress **F** to pay your respects!",
+            view=view,
+        )
+
         async def timeout():
             for btn in view.children:
-                btn.disabled=True
+                btn.disabled = True
             await msg.edit(view=view)
+
         view.on_timeout = timeout
-        
+
     @commands.command()
-    async def gte(self, ctx, user:discord.User):
+    async def gte(self, ctx, user: discord.User):
         if user == ctx.author:
             await ctx.reply("You can't play with yourself baka!")
         elif user != ctx.author:
             view = GTEView(ctx, [ctx.author], ctx.author, user)
-            msg = await ctx.send(f"{user.mention}, you have been challenged by {ctx.author.mention} for a game of `Guess The Emote`\n**{ctx.author.display_name}** goes first, choose any emoji!", view=view)
+            msg = await ctx.send(
+                f"{user.mention}, you have been challenged by {ctx.author.mention} for a game of `Guess The Emote`\n**{ctx.author.display_name}** goes first, choose any emoji!",
+                view=view,
+            )
+
             async def timeout():
                 for btn in view.children:
-                    btn.disabled=True
+                    btn.disabled = True
                 await msg.edit(view=view)
+
             view.on_timeout = timeout
 
-    
-        
+
 def setup(client):
     client.add_cog(Games(client))
     client.add_cog(NGames(client))

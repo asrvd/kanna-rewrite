@@ -10,11 +10,9 @@ from ._config import gi
 class UserSpotify(commands.Cog):
     def __init__(self, client):
         self.client = client
-    @slash_command(
-        name="spotify",
-        description="get a user's Spotify Playing Info"
-    )
-    async def spotify(self, ctx, user:discord.User=None):
+
+    @slash_command(name="spotify", description="get a user's Spotify Playing Info")
+    async def spotify(self, ctx, user: discord.User = None):
         await ctx.respond("`This Command is not released yet.`")
         # user = ctx.author if user is None else user
         # if user.activities:
@@ -40,6 +38,7 @@ class UserSpotify(commands.Cog):
         #             button = Button(label="Listen on Spotify", style=ButtonStyle.url, url=activity.track_url, emoji=discord.PartialEmoji(name="spotify", id=923937275522473984))
         #             view.add_item(button)
         #             await ctx.respond(embed=embed, view=view)
+
 
 def setup(client):
     client.add_cog(UserSpotify(client))

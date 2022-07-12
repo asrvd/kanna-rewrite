@@ -3,11 +3,12 @@ from discord.ext import commands
 import io
 import asyncio
 
+
 class Owner(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['ds'])
+    @commands.command(aliases=["ds"])
     @commands.is_owner()
     async def dumpservers(self, ctx):
         timestamp = discord.utils.utcnow().strftime("%Y-%m-%d %H.%M")
@@ -29,11 +30,9 @@ class Owner(commands.Cog):
 
         await mess.edit(content="Uploading `{}`...".format(server_file))
         await ctx.send(file=discord.File(data, filename=server_file))
-        await mess.edit(
-            content=f"✅ Uploaded `{server_file}`."
-        )
+        await mess.edit(content=f"✅ Uploaded `{server_file}`.")
 
-    @commands.command(aliases=['cl'])
+    @commands.command(aliases=["cl"])
     @commands.is_owner()
     async def channellist(self, ctx):
         timestamp = discord.utils.utcnow().strftime("%Y-%m-%d %H.%M")
@@ -42,7 +41,9 @@ class Owner(commands.Cog):
         msg = ""
         for channel in ctx.guild.channels:
             msg += "Name:    " + channel.name + "\n"
-            msg += "Created: " + channel.created_at.strftime("%m/%d/%Y, %H:%M:%S") + "\n"
+            msg += (
+                "Created: " + channel.created_at.strftime("%m/%d/%Y, %H:%M:%S") + "\n"
+            )
             msg += "\n\n"
 
         data = io.BytesIO(msg.encode("utf-8"))
@@ -69,9 +70,7 @@ class Owner(commands.Cog):
 
         await mess.edit(content="Uploading `{}`...".format(cmd_file))
         await ctx.send(file=discord.File(data, filename=cmd_file))
-        await mess.edit(
-            content=f"✅ Uploaded `{cmd_file}`."
-        )
+        await mess.edit(content=f"✅ Uploaded `{cmd_file}`.")
 
     @commands.command()
     @commands.is_owner()
@@ -91,6 +90,7 @@ class Owner(commands.Cog):
                     except commands.CommandInvokeError:
                         return
         await ctx.send("`Announced in all the Servers.`")
+
 
 def setup(client):
     client.add_cog(Owner(client))

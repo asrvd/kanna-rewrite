@@ -2,11 +2,11 @@ from os import name
 import discord
 from ._config import ec
 
-#emotes
+# emotes
 cont = "<:reply:928274405358993418>"
 cont2 = "<:reply_cont:962182412467572787>"
 
-#Embed Descriptions
+# Embed Descriptions
 
 utildesc = f"**-꒰ Instructions ꒱-**\n> ❀ `[ ]`: Optional.\n> ❀ `< >`: Required.\n\n**-꒰ Commands ꒱-**\n> ❀ `afk [message]`\n> {cont} sets your AFK status.\n> ❀ `define <text>`\n> {cont2} get the defintion of any word/line.\n> {cont} slash command available!\n> ❀ `spotify <user>`\n> {cont2} display the user's spotify activity.\n> {cont} slash command available!\n> ❀ `ui [user]`\n> {cont} displays info about any user.\n> ❀ `enlarge <emote>`\n> {cont} enlarge emotes.\n> ❀ `lyrics <song name>`\n> {cont2} get lyrics for any song.\n> {cont} slash command available.\n> ❀ Welcome Message `BETA`\n> {cont2} `wsetup <#channel>` set up welcome message for your server.\n> {cont} `wdisable` disable welcome messages for your server.\n> ❀ BookMark Message\n> {cont2} `bm add <message_id> <name>` add new bookark\n> {cont2} `bm show <name>` view your added bookmark.\n> {cont2} `bm all [user]` list all bookmarks for user.\n> {cont} `bm rm <name>` remove a bookmark.\n> ❀ Chat with Kanna \n> {cont2} `chat_setup` Creates a new channel to chat with kanna.\n> {cont2} `chat_disable` Disables chat setup for server.\n> {cont} `chat_enable` Enables chat setup again.\n\n**-꒰ Avatar Commands ꒱-**\n> ❀ `av [user1/id] [user2/id]..`\n> {cont2} displays avatars aligned in one image.\n> {cont2} useful for shared avatars.\n> {cont2} pass one user/userID for 1 avatar.\n> {cont} only 2 avatars can be seen at a time for `slash command`\n> ❀ `avc <size>`\n> {cont2} creates a collage using random avatars from server.\n> {cont2} sizes: `5x5 | 6x6 | 7x7 | 8x8 | 9x9 | 10x10`\n> ❀ `avg <member>`\n> {cont} shows `Guild Avatar` of member if present.\n> ❀ `banner [user]`\n> {cont} sends banner of the user."
 
@@ -18,26 +18,24 @@ fundesc = f"**-꒰ Instructions ꒱-**\n> ❀ `[ ]`: Optional.\n> ❀ `< >`: Req
 
 memedesc = f"**-꒰ Instructions ꒱-**\n> ❀ `[ ]`: Optional.\n> ❀ `< >`: Required.\n\n**-꒰ Normal Commands ꒱-**\n> `meme`, `headpat <user>`, `triggered <user>`, `gay <user>`, `eject <user>`, `rip <user>`, `hug <user>`, `bed <user>`, `batslap <user>`, `nani <user>`, `cuddle <user>`, `buttons <text1> <text2>`, `spiderman <text1> <text2>`, `tweet <text> [user]`, `tis <user>`, `gayrate`, `simprate`, `kawaiirate`\n\n**-꒰ Slash Commands ꒱-**\n> `/meme`, `/headpat <user>`, `/triggered`, `/gay`, `/meme eject <user>`, `/meme rip <user>`, `/meme hug <user>`, `/meme bed <user>`, `/meme batslap <user>`, `/meme nani <user>`, `/meme cuddle <user>`, `/meme buttons <text1> <text2>`, `/meme spiderman <text1> <text2>`, `/meme tweet <text> [user]`, `/meme tis <text1> <text2>`, `/gayrate`, `/simprate`, `/kawaiirate`"
 
-ref = { #This dictionary sends the respective descriptions.
-    "utility":utildesc,
-    "games":gamedesc,
-    "fun":fundesc,
-    "moderation":moddesc,
-    "memes":memedesc
+ref = {  # This dictionary sends the respective descriptions.
+    "utility": utildesc,
+    "games": gamedesc,
+    "fun": fundesc,
+    "moderation": moddesc,
+    "memes": memedesc,
 }
 
-cmd_ref={
-    "utility":"Utility Commands",
-    "fun":"Fun Related Commands",
-    "games":"List of Games available",
-    "moderation":"Moderation Commands",
-    "memes":"Meme related Commands"
+cmd_ref = {
+    "utility": "Utility Commands",
+    "fun": "Fun Related Commands",
+    "games": "List of Games available",
+    "moderation": "Moderation Commands",
+    "memes": "Meme related Commands",
 }
 
-def get_help_embed(arg:str, user):
+
+def get_help_embed(arg: str, user):
     emb = discord.Embed(description=ref[arg.lower()], color=ec)
-    emb.set_author(
-        name=cmd_ref[arg.lower()],
-        icon_url=user.display_avatar
-    )
+    emb.set_author(name=cmd_ref[arg.lower()], icon_url=user.display_avatar)
     return emb

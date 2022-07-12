@@ -16,46 +16,37 @@ class Avatar(commands.Cog):
 
     @slash_command(
         name="av",
-        description="Get a user's Default Avatar or Shared Avatar of 2 users."
+        description="Get a user's Default Avatar or Shared Avatar of 2 users.",
     )
-    async def av(self, ctx, user1:discord.User=None, user2:discord.User=None):
+    async def av(self, ctx, user1: discord.User = None, user2: discord.User = None):
         if user1 is None and user2 is None:
             u = ctx.author
-            emb=discord.Embed(color=ec)
-            emb.set_author(
-                name=f"{u.display_name}'s Avatar",
-                icon_url=u.display_avatar
-            )
+            emb = discord.Embed(color=ec)
+            emb.set_author(name=f"{u.display_name}'s Avatar", icon_url=u.display_avatar)
             emb.set_image(url=u.display_avatar)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
-                icon_url=self.client.user.display_avatar
+                icon_url=self.client.user.display_avatar,
             )
             await ctx.respond(embed=emb)
         elif user1 is not None and user2 is None:
             u = user1
-            emb=discord.Embed(color=ec)
-            emb.set_author(
-                name=f"{u.display_name}'s Avatar",
-                icon_url=u.display_avatar
-            )
+            emb = discord.Embed(color=ec)
+            emb.set_author(name=f"{u.display_name}'s Avatar", icon_url=u.display_avatar)
             emb.set_image(url=u.display_avatar)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
-                icon_url=self.client.user.display_avatar
+                icon_url=self.client.user.display_avatar,
             )
             await ctx.respond(embed=emb)
         elif user1 is None and user2 is not None:
             u = user2
-            emb=discord.Embed(color=ec)
-            emb.set_author(
-                name=f"{u.display_name}'s Avatar",
-                icon_url=u.display_avatar
-            )
+            emb = discord.Embed(color=ec)
+            emb.set_author(name=f"{u.display_name}'s Avatar", icon_url=u.display_avatar)
             emb.set_image(url=u.display_avatar)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
-                icon_url=self.client.user.display_avatar
+                icon_url=self.client.user.display_avatar,
             )
             await ctx.respond(embed=emb)
         elif user1 is not None and user2 is not None:
@@ -64,45 +55,47 @@ class Avatar(commands.Cog):
             a2 = user2.display_avatar.replace(size=512)
             await a1.save(f"./images/generated/{user1.id}.png")
             await a2.save(f"./images/generated/{user2.id}.png")
-            pfp1=Image.open(f"./images/generated/{user1.id}.png").resize((500, 500))
-            pfp2=Image.open(f"./images/generated/{user2.id}.png").resize((500, 500))
+            pfp1 = Image.open(f"./images/generated/{user1.id}.png").resize((500, 500))
+            pfp2 = Image.open(f"./images/generated/{user2.id}.png").resize((500, 500))
             bg.paste(pfp1, (0, 0))
             bg.paste(pfp2, (500, 0))
             bg.save(f"./images/generated/shared{user1.id}.png")
-            file = discord.File(f"./images/generated/shared{user1.id}.png", filename="shared.png")
+            file = discord.File(
+                f"./images/generated/shared{user1.id}.png", filename="shared.png"
+            )
             await ctx.respond(file=file)
             os.system(f"rm -rf images/generated/shared{user1.id}.png")
             os.system(f"rm -rf images/generated/{user1.id}.png")
             os.system(f"rm -rf images/generated/{user2.id}.png")
 
+
 class AV(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['pfp', "avatar"])
-    async def av(self, ctx, *user:discord.User):
+    @commands.command(aliases=["pfp", "avatar"])
+    async def av(self, ctx, *user: discord.User):
         if len(user) == 0:
-            emb=discord.Embed(color=ec)
+            emb = discord.Embed(color=ec)
             emb.set_author(
                 name=f"{ctx.author.display_name}'s Avatar",
-                icon_url=ctx.author.display_avatar
+                icon_url=ctx.author.display_avatar,
             )
             emb.set_image(url=ctx.author.display_avatar)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
-                icon_url=self.client.user.display_avatar
+                icon_url=self.client.user.display_avatar,
             )
             await ctx.send(embed=emb)
         elif len(user) == 1:
-            emb=discord.Embed(color=ec)
+            emb = discord.Embed(color=ec)
             emb.set_author(
-                name=f"{user[0].display_name}'s Avatar",
-                icon_url=user[0].display_avatar
+                name=f"{user[0].display_name}'s Avatar", icon_url=user[0].display_avatar
             )
             emb.set_image(url=user[0].display_avatar)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
-                icon_url=self.client.user.display_avatar
+                icon_url=self.client.user.display_avatar,
             )
             await ctx.send(embed=emb)
         elif len(user) >= 2:
@@ -175,12 +168,11 @@ class AV(commands.Cog):
                 emb = discord.Embed(title="", description=f"", color=ec)
                 emb.set_image(url="attachment://pic.gif")
                 emb.set_author(
-                    name="Multiple Avatars",
-                    icon_url=ctx.author.display_avatar
+                    name="Multiple Avatars", icon_url=ctx.author.display_avatar
                 )
                 emb.set_footer(
                     text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
-                    icon_url=self.client.user.display_avatar
+                    icon_url=self.client.user.display_avatar,
                 )
                 await ctx.send(embed=emb, file=file)
                 os.system(f"rm -rf images/generated/{ctx.author.id}.gif")
@@ -201,56 +193,57 @@ class AV(commands.Cog):
                 )
                 emb = discord.Embed(title="", description=f"", color=ec)
                 emb.set_author(
-                    name="Multiple Avatars",
-                    icon_url=ctx.author.display_avatar
+                    name="Multiple Avatars", icon_url=ctx.author.display_avatar
                 )
                 emb.set_footer(
                     text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
-                    icon_url=self.client.user.display_avatar
+                    icon_url=self.client.user.display_avatar,
                 )
                 emb.set_image(url="attachment://pic.jpg")
                 await ctx.send(embed=emb, file=file)
                 os.system(f"rm -rf images/generated/{ctx.author.id}.png")
 
-    @commands.command(aliases=['avguild', 'avg', 'pfpg'])
-    async def pfpguild(self, ctx, mem: discord.Member=None):
+    @commands.command(aliases=["avguild", "avg", "pfpg"])
+    async def pfpguild(self, ctx, mem: discord.Member = None):
         if mem.guild_avatar is not None:
-            emb=discord.Embed(color=ec)
+            emb = discord.Embed(color=ec)
             emb.set_author(
                 name=f"{mem.display_name}'s Guild Avatar",
-                icon_url=ctx.author.display_avatar
+                icon_url=ctx.author.display_avatar,
             )
             emb.set_image(url=mem.guild_avatar.url)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
-                icon_url=self.client.user.display_avatar
+                icon_url=self.client.user.display_avatar,
             )
             await ctx.send(embed=emb)
         else:
             await ctx.reply("The user doesn't have a `Guild Avatar`!")
 
-    @commands.command(aliases=['avc', 'pfpc'])
+    @commands.command(aliases=["avc", "pfpc"])
     async def pfpcol(self, ctx, *, size):
         ref = {
-            "5x5":500,
-            "6x6":600,
-            "7x7":700,
-            "8x8":800,
-            "9x9":900,
-            "10x10":1000,
-            "12x12":1200
+            "5x5": 500,
+            "6x6": 600,
+            "7x7": 700,
+            "8x8": 800,
+            "9x9": 900,
+            "10x10": 1000,
+            "12x12": 1200,
         }
         size_ref = {
-            "5x5":25,
-            "6x6":36,
-            "7x7":49,
-            "8x8":64,
-            "9x9":81,
-            "10x10":100,
-            "12x12":144
+            "5x5": 25,
+            "6x6": 36,
+            "7x7": 49,
+            "8x8": 64,
+            "9x9": 81,
+            "10x10": 100,
+            "12x12": 144,
         }
         if size not in size_ref:
-            await ctx.send("Invalid Size Given!\nAvailable Collage Sizes are: `5x5 | 6x6 | 7x7 | 8x8 | 9x9 | 10x10 | 12x12`.")
+            await ctx.send(
+                "Invalid Size Given!\nAvailable Collage Sizes are: `5x5 | 6x6 | 7x7 | 8x8 | 9x9 | 10x10 | 12x12`."
+            )
         else:
             pfp_list = []
             msg = await ctx.send("Making the collage..(can take upto 1 minute)")
@@ -265,44 +258,43 @@ class AV(commands.Cog):
                     img = pfp_list.pop(0)
                     bg.paste(img, (k, j))
             bg.save(f"./images/generated/pfpcollage{ctx.author.id}.png")
-            file = discord.File(f"./images/generated/pfpcollage{ctx.author.id}.png", "pfpcollage.png")
+            file = discord.File(
+                f"./images/generated/pfpcollage{ctx.author.id}.png", "pfpcollage.png"
+            )
             emb = discord.Embed(title="", description=f"", color=ec)
             emb.set_author(
-                name=f"Avatar Collage {size}",
-                icon_url=ctx.author.display_avatar
+                name=f"Avatar Collage {size}", icon_url=ctx.author.display_avatar
             )
             emb.set_footer(
                 text=f"❀ Requested by {ctx.author.display_name}\n❀ Made by Kanna Chan",
-                icon_url=self.client.user.display_avatar
+                icon_url=self.client.user.display_avatar,
             )
             emb.set_image(url=f"attachment://pfpcollage.png")
             await ctx.send(embed=emb, file=file)
             await msg.delete()
             os.system(f"rm -rf images/generated/pfpcollage{ctx.author.id}.png")
 
-    @commands.command(aliases=['bnr'])
-    async def banner(self, ctx, u:discord.User=None):
+    @commands.command(aliases=["bnr"])
+    async def banner(self, ctx, u: discord.User = None):
         u = ctx.author if u is None else u
         try:
             s = await self.client.fetch_user(u.id)
-            emb=discord.Embed(color=ec)
+            emb = discord.Embed(color=ec)
             emb.set_author(
-                name=f"{u.display_name}'s Banner",
-                icon_url=ctx.author.display_avatar
+                name=f"{u.display_name}'s Banner", icon_url=ctx.author.display_avatar
             )
             emb.set_image(url=s.banner)
             emb.set_footer(
                 text=f"Requested by {ctx.author}",
-                icon_url=self.client.user.display_avatar
+                icon_url=self.client.user.display_avatar,
             )
             await ctx.send(embed=emb)
         except Exception as e:
             print(e)
-            await ctx.reply('No banner found.')
+            await ctx.reply("No banner found.")
+
 
 def setup(client):
     client.add_cog(Avatar(client))
     client.add_cog(AV(client))
     print("Avatar Loaded.")
-    
-    
