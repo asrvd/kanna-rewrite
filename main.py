@@ -45,7 +45,7 @@ async def on_ready():
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-        await ctx.reply("Command not found!")
+        return
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.reply(f"Missing required argument, `{error.param}`")
     elif isinstance(error, commands.BadArgument):
