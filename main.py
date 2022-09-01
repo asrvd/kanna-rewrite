@@ -63,5 +63,4 @@ async def reload(ctx):
     await ctx.send("Cogs Reloaded.")
 
 
-# client.load_extension('jishaku')
 client.run(str(config("BOT_TOKEN")))
