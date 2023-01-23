@@ -12,6 +12,7 @@ from discord.ui.button import button
 from weeby import Weeby
 from ._config import gi, ec
 from ._anime import get_anime_info
+import aiohttp
 from ._manga import get_manga_info
 import asyncio
 import pyrebase
@@ -108,24 +109,20 @@ class Util(commands.Cog):
     @slash_command(name="lyrics", description="Get the lyrics of any Song!")
     async def lyrics(self, ctx, song: str):
         await ctx.defer()
-        ly = w.get_json_response().lyrics(track=song)
-        # print(ly)
-        view = View()
-        button = Button(
-            label="Play on Spotify",
-            style=ButtonStyle.url,
-            url=ly["track"]["media"][0]["url"],
-            emoji=discord.PartialEmoji(name="spotify", id=923937275522473984),
-        )
-        view.add_item(button)
-        embed = discord.Embed(description=ly["lyrics"])
-        embed.set_author(
-            name=f"{ly['track']['name']} ~ {ly['artist']['name']}",
-            icon_url=ctx.author.display_avatar,
-        )
-        embed.set_thumbnail(url=ly["track"]["thumbnail"])
+        try:
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(f"https://lyrist.now.sh/api/{song}") as r:
+                    ly = await r.json()
+                    embed = discord.Embed(description=ly["lyrics"], color=ec)
+                    embed.set_author(
+                        name=f"{ly['title']} ~ {ly['artist']}",
+                        icon_url=ctx.author.display_avatar,
+                    )
 
-        await ctx.respond(embed=embed, view=view)
+                    await ctx.respond(embed=embed)
+        except Exception as e:
+            print(e)
+            await ctx.respond("No lyrics found!")
 
     @slash_command(name="anime", description="Get info about any anime.")
     async def anime(self, ctx, *, name: str):
@@ -219,28 +216,21 @@ class NUtility(commands.Cog):
         else:
             await ctx.reply("No manga with this name found!")
 
-    @commands.command()
+    @commands.command(aliases=["ly"])
     async def lyrics(self, ctx, *, song: str):
         try:
-            ly = w.get_json_response().lyrics(track=song)
-            # print(ly)
-            view = View()
-            button = Button(
-                label="Play on Spotify",
-                style=ButtonStyle.url,
-                url=ly["track"]["media"][0]["url"],
-                emoji=discord.PartialEmoji(name="spotify", id=923937275522473984),
-            )
-            view.add_item(button)
-            embed = discord.Embed(description=ly["lyrics"], color=ec)
-            embed.set_author(
-                name=f"{ly['track']['name']} ~ {ly['artist']['name']}",
-                icon_url=ctx.author.display_avatar,
-            )
-            embed.set_thumbnail(url=ly["track"]["thumbnail"])
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(f"https://lyrist.now.sh/api/{song}") as r:
+                    ly = await r.json()
+                    embed = discord.Embed(description=ly["lyrics"], color=ec)
+                    embed.set_author(
+                        name=f"{ly['title']} ~ {ly['artist']}",
+                        icon_url=ctx.author.display_avatar,
+                    )
 
-            await ctx.send(embed=embed, view=view)
-        except KeyError:
+                    await ctx.send(embed=embed)
+        except Exception as e:
+            print(e)
             await ctx.send("No lyrics found for this Song!")
 
     @commands.command()

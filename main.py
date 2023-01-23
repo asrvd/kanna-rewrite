@@ -35,15 +35,13 @@ async def on_ready():
     print(f">> Total Servers : {len(client.guilds)}")
     await client.change_presence(
         status=discord.Status.online,
-        activity=discord.Activity(
-            type=discord.ActivityType.watching, name="DanMachi S4"
-        ),
+        activity=discord.Activity(type=discord.ActivityType.watching, name="BLUELOCK"),
     )
     print(">> Kanna is Online.")
 
 
 @client.event
-async def on_command_error(ctx, error):
+async def on_command_error(ctx: commands.Context, error):
     if isinstance(error, commands.CommandNotFound):
         return
     elif isinstance(error, commands.MissingRequiredArgument):
@@ -56,11 +54,15 @@ async def on_command_error(ctx, error):
 
 
 @client.command()
-async def reload(ctx):
-    for file in os.listdir("./cogs"):
-        if file.endswith(".py") and not file.startswith("_"):
-            client.reload_extension(f"cogs.{file[:-3]}")
-    await ctx.send("Cogs Reloaded.")
+async def reload(ctx: commands.Context, file_name: str = None):
+    if not file_name:
+        for file in os.listdir("./cogs"):
+            if file.endswith(".py") and not file.startswith("_"):
+                client.reload_extension(f"cogs.{file[:-3]}")
+        await ctx.send("Cogs Reloaded.")
+    else:
+        client.reload_extension(f"cogs.{file_name}")
+        await ctx.send(f"{file_name.capitalize()} Reloaded.")
 
 
 client.run(str(config("BOT_TOKEN")))

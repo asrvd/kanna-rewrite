@@ -1,16 +1,30 @@
 import discord
 from discord.ext import commands
+from imgurpython import ImgurClient
+from decouple import config
 import io
 import asyncio
+from supabase import create_client, Client
+
+supabase: Client = create_client(config("DB_URL"), config("DB_KEY"))
+
+imgur_client = ImgurClient(config("IMGUR_CID"), config("IMGUR_CS"))
+
+
+def add_avatar(av: str):
+    try:
+        supabase.table("avatars").insert({"url": av}).execute()
+    except Exception as e:
+        print(e)
 
 
 class Owner(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: commands.Bot):
         self.client = client
 
     @commands.command(aliases=["ds"])
     @commands.is_owner()
-    async def dumpservers(self, ctx):
+    async def dumpservers(self, ctx: commands.Context):
         timestamp = discord.utils.utcnow().strftime("%Y-%m-%d %H.%M")
         server_file = "Servers-{}.txt".format(timestamp)
 
@@ -34,7 +48,7 @@ class Owner(commands.Cog):
 
     @commands.command(aliases=["cl"])
     @commands.is_owner()
-    async def channellist(self, ctx):
+    async def channellist(self, ctx: commands.Context):
         timestamp = discord.utils.utcnow().strftime("%Y-%m-%d %H.%M")
         ch_file = f"{ctx.guild.name}-cl-{timestamp}.txt"
 
@@ -52,7 +66,7 @@ class Owner(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def gc(self, ctx):
+    async def gc(self, ctx: commands.Context):
         owner = self.client.get_user(self.client.owner_id)
         timestamp = discord.utils.utcnow().strftime("%Y-%m-%d %H.%M")
         cmd_file = "Commands-{}.txt".format(timestamp)
@@ -74,7 +88,7 @@ class Owner(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def announce(self, ctx, msgid):
+    async def announce(self, ctx: commands.Context, msgid):
         msg = await ctx.fetch_message(int(msgid))
         m = await ctx.send("Announcing Message.")
         i = 0
@@ -90,6 +104,24 @@ class Owner(commands.Cog):
                     except commands.CommandInvokeError:
                         return
         await ctx.send("`Announced in all the Servers.`")
+
+    @commands.command()
+    @commands.is_owner()
+    async def addav(self, ctx: commands.Context):
+        avatar = ctx.author.display_avatar
+        img = imgur_client.upload_from_url(avatar.url, anon=True)
+        add_avatar(img["link"])
+        await ctx.send(f"Added new avatar to database {img['link']}")
+
+    @commands.Cog.listener()
+    async def on_user_update(self, before: discord.User, after: discord.User):
+        if before.id == self.client.owner_id:
+            if before.display_avatar != after.display_avatar:
+                img = imgur_client.upload_from_url(after.display_avatar.url, anon=True)
+                add_avatar(img["link"])
+                await self.client.get_user(self.client.owner_id).send(
+                    f"Added new avatar to database {img['link']}"
+                )
 
 
 def setup(client):
